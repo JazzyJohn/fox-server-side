@@ -37,7 +37,6 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
     public void UpdatePlayerInfo(User user) {
         List<User> targets = extension.getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
-        res.putInt("owner", user.getId());
         Player player =(Player)user.getProperty("player");
         res.putClass("player", player);
         extension.send(PlayerHandlerManager.RequestName_UpdatePlayerInfo,res,targets);

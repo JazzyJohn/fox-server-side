@@ -75,13 +75,14 @@ public class MainExtension extends SFSExtension {
         
         addEventHandler(SFSEventType.USER_JOIN_ROOM, UserRoomJoinHandler.class);
 
-        addFilter("logFilter",new CustomLogFilter());
-
+    
         playerHandlerManager.Init();
 
         pawnHandlerManager.Init();
 
         weaponHandlerManager.Init();
+        
+        addFilter("logFilter",new CustomLogFilter());
         trace(ExtensionLogLevel.INFO,"MainExtension is Initializing Complete");
 
 	}

@@ -14,21 +14,26 @@ public class Player implements SerializableSFSType {
 
     public String name;
 	
-	public String kill;
+	public int kill;
 	
-	public String death;
+	public int death;
 	
-	public String assist;
+	public int assist;
 	
-	public String robotKill;
+	public int robotKill;
 	
 	public transient User owner;
+	
+	public int userId;
+	
+
 
     public int team;
 	
 	public Player(User owner){
 		this.owner = owner;
         owner.setProperty("player",this);
+        userId = owner.getId();
 	}
     public Player(){
 
