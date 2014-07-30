@@ -4,6 +4,7 @@ package nstuff.juggerfall.extension.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.view.ViewManager;
 
 import com.smartfoxserver.v2.entities.User;
@@ -11,22 +12,21 @@ import com.smartfoxserver.v2.entities.User;
 
 public class PlayerManager {
 
-	public ViewManager viewManager;
-	
 	public List<Player> allPlayer = new  ArrayList<Player> ();
 	
 	public  void AddPlayer(User user) {
-		
+
 			allPlayer.add(new Player(user));
 	}
 
-	public List<Integer> GetAllPalyerToSend() {
-		List<Integer> answer = new ArrayList<Integer>();
+	public SFSArray GetAllPalyerToSend() {
+        SFSArray sfsa = new SFSArray();
 		for(Player player : allPlayer){
-			answer.add(player.owner.getId());			
+            sfsa.addClass(player);
+
 		}
-		
-		return answer;
+		return  sfsa;
 	}
+
 
 }

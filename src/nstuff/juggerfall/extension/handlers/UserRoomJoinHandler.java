@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.naming.directory.InvalidSearchFilterException;
 
+import com.smartfoxserver.v2.entities.variables.UserVariable;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
 import nstuff.juggerfall.extension.player.PlayerManager;
 
 import com.smartfoxserver.v2.core.ISFSEvent;
@@ -19,18 +21,15 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 
 	@Override
 	public void handleServerEvent(ISFSEvent event) throws SFSException {
-		// TODO Auto-generated method stub
-		User user = (User)event.getParameter(SFSEventParam.USER);
-		PlayerManager playermanager =((MainExtension)getParentExtension()).playerManager;
-		playermanager.AddPlayer(user);		
-		List<User> targets = getParentExtension().getParentRoom().getUserList();
+	    User user = (User)event.getParameter(SFSEventParam.USER);
+    	PlayerManager playermanager =((MainExtension)getParentExtension()).playerManager;
+		playermanager.AddPlayer(user);
+
+        ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
 		ISFSObject res = new SFSObject();
-		res.putInt("owner", user.getId());
-		send(MainExtension.RequestName_InitPlayer,res,targets);
-		res = new SFSObject();
-		res.putIntArray("owners", playermanager.GetAllPalyerToSend());
-		send(MainExtension.RequestName_InitPlayers,res,targets);
-		
+		res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
+		send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
+        ((MainExtension)getParentExtension()).PlayerJoin(user);
 	}
 
 }

@@ -13,10 +13,9 @@ public class SerilizationHandler extends BaseClientRequestHandler {
 	@Override
 	public void handleClientRequest(User sender, ISFSObject data) {
 		// TODO Auto-generated method stub
-		List<User> targets = getParentExtension().getParentRoom().getUserList();
-        targets.remove(sender);
+
         data.putBool("read",true);
-        send(MainExtension.RequestName_Serilization,data,targets,true);
+        send(MainExtension.RequestName_Serilization,data,((MainExtension)getParentExtension()).GetOther(sender),true);
 	}
 
 }

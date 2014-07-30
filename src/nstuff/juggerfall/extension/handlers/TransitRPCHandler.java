@@ -11,13 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by Ivan.Ochincenko on 29.07.14.
- */
-enum RPCTransitTargetType {
-    OTHER,
-    MASTER
-}
 public class TransitRPCHandler extends BaseClientRequestHandler
 {
 

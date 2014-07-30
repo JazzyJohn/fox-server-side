@@ -2,25 +2,35 @@ package nstuff.juggerfall.extension.player;
 
 import com.smartfoxserver.v2.entities.User;
 
-import nstuff.juggerfall.extension.view.FoxView;
+import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
+import nstuff.juggerfall.extension.pawn.Pawn;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
+public class Player implements SerializableSFSType {
+	public String uid;
 
-public class Player {
-	public String Uid;
+    public String name;
 	
-	public String Kill;
+	public String kill;
 	
-	public String Death;
+	public String death;
 	
-	public String Assist;
+	public String assist;
 	
-	public String RobotKill;
+	public String robotKill;
 	
-	public User owner;
+	public transient User owner;
+
+    public int team;
 	
 	public Player(User owner){
 		this.owner = owner;
+        owner.setProperty("player",this);
 	}
-	
+    public Player(){
+
+    }
 }
