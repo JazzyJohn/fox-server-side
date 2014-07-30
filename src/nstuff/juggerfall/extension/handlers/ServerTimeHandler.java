@@ -1,4 +1,4 @@
-package nstuff.juggerfall.extension.utils;
+package nstuff.juggerfall.extension.handlers;
 
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;

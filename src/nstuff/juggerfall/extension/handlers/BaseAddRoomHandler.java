@@ -1,4 +1,4 @@
-package nstuff.juggerfall.extension.rooms;
+package nstuff.juggerfall.extension.handlers;
 
 import com.smartfoxserver.v2.core.ISFSEvent;
 import com.smartfoxserver.v2.core.SFSEventParam;
