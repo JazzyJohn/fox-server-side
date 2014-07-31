@@ -27,7 +27,21 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 
         ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
 		ISFSObject res = new SFSObject();
-		res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
+		try {
+			res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			getParentExtension().trace(e);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			getParentExtension().trace(e);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			getParentExtension().trace(e);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			getParentExtension().trace(e);
+		}
 		send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
         ((MainExtension)getParentExtension()).PlayerJoin(user);
 	}

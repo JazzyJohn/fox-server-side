@@ -2,6 +2,9 @@ package nstuff.juggerfall.extension.pawn;
 
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
+
+import nstuff.juggerfall.extension.models.NetViewModel;
+import nstuff.juggerfall.extension.models.PawnModel;
 import nstuff.juggerfall.extension.player.Player;
 import nstuff.juggerfall.extension.view.NetView;
 import nstuff.juggerfall.extension.weapon.Weapon;
@@ -33,9 +36,19 @@ public class Pawn extends NetView implements SerializableSFSType {
 
     }
 
-    @Override
-    public void Update(NetView view) {
-        Pawn pawn  =(Pawn)view;
+    public Pawn(PawnModel pawnModel) {
+    	 id =pawnModel.id;
+    	 type = pawnModel.type;
+    	 wallState = pawnModel.wallState;
+    	 team = pawnModel.team;
+    	 characterState = pawnModel.characterState;
+    	 isDead = pawnModel.isDead;
+
+	}
+
+	@Override
+    public void Update(NetViewModel incPawn) {
+        PawnModel pawn  =(PawnModel)incPawn;
         wallState = pawn.wallState;
         characterState = pawn.characterState;
     }

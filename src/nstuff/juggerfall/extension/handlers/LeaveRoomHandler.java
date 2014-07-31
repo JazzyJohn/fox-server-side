@@ -22,7 +22,7 @@ public class LeaveRoomHandler
             MainExtension extension = (MainExtension) getParentExtension();
 
             if (extension.masterInfo == user){
-                extension.ChoiceMaster();
+                extension.ChoiceMaster(user);
                 user.setVariable(new SFSUserVariable("Master",false ));
             }
 

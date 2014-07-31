@@ -38,7 +38,21 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
         List<User> targets = extension.getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         Player player =(Player)user.getProperty("player");
-        res.putClass("player", player);
+        try {
+			res.putClass("player", player.GetModel());
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			extension.trace(e);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			extension.trace(e);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			extension.trace(e);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			extension.trace(e);
+		}
         extension.send(PlayerHandlerManager.RequestName_UpdatePlayerInfo,res,targets);
     }
 }

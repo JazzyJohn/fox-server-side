@@ -92,6 +92,7 @@ public class MainExtension extends SFSExtension {
 	@Override
 	public void init() {
 
+		
 		trace(ExtensionLogLevel.INFO,"MainExtension is Initializing");
 			
 		BaseConfigurator();
