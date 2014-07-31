@@ -1,13 +1,21 @@
 package nstuff.juggerfall.extension;
 
 
+
 import com.smartfoxserver.v2.SmartFoxServer;
 import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
+
+import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
+import com.smartfoxserver.v2.exceptions.SFSVariableException;
+
 import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import com.smartfoxserver.v2.extensions.SFSExtension;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
+import java.util.List;
 
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.gamerule.GameRule;
@@ -27,6 +35,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class MainExtension extends SFSExtension {
+
 
     public static final String RequestName_GetTime ="getTime";
 
@@ -56,6 +65,28 @@ public class MainExtension extends SFSExtension {
 
     // Keeps a reference to the task execution
     ScheduledFuture<?> taskHandle;
+
+
+    public User masterInfo;
+
+    public void ChoiceMaster(User exMaster) throws SFSVariableException {
+
+        List<User> list = getParentRoom().getUserList();
+        if (list.size()!= 0){
+
+            for (int i=0; i<list.size(); i++){
+                User user = list.get(i);
+                if (user !=exMaster ){
+                    masterInfo = user;
+                    user.setVariable(new SFSUserVariable("Master",true ));
+                    return;
+                }
+
+
+            }
+
+        }
+    }
 
 
 	@Override
