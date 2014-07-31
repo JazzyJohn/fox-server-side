@@ -3,7 +3,6 @@ package nstuff.juggerfall.extension.handlermanagers;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
-import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlers.pawn.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
@@ -24,6 +23,10 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_PawnChangeShootAnimState = "pawnChangeShootAnimState";
 
     public static final String RequestName_PawnActiveState = "pawnActiveState";
+
+    public static final String RequestName_PawnTaunt = "pawnTaunt";
+
+    public static final String RequestName_PawnKnockOut = "pawnKnockOut";
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -35,6 +38,10 @@ public class PawnHandlerManager extends AbstractHandlerManager {
         extension.addClientHandler(RequestName_PawnChangeShootAnimState, PawnChangeShootAnimStateHandler.class);
 
         extension.addClientHandler(RequestName_PawnActiveState, PawnActiveStateHandler.class);
+
+        extension.addClientHandler(RequestName_PawnTaunt, PawnTauntHandler.class);
+
+        extension.addClientHandler(RequestName_PawnKnockOut, PawnKnockOutHandler.class);
 
     }
 

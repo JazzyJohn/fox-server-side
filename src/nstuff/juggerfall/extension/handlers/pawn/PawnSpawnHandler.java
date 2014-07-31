@@ -31,6 +31,7 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
         ISFSObject res = new SFSObject();
         res.putClass("pawn",pawn);
         res.putInt("ownerId",user.getId());
+        res.putIntArray("stims",data.getIntArray("stims"));
         send(PawnHandlerManager.RequestName_PawnSpawn,res,((MainExtension)getParentExtension()).GetOther(user));
     }
 }

@@ -11,7 +11,7 @@ public abstract class NetView {
 
     public abstract void Delete();
 
-    public ViewManager manager;
+    public transient  ViewManager manager;
 
     public abstract void ClearRef();
 }

@@ -10,7 +10,7 @@ import nstuff.juggerfall.extension.view.NetView;
 public class Weapon  extends NetView implements SerializableSFSType {
     public String type;
 
-    public Pawn owner;
+    public transient Pawn owner;
 
     public Weapon(){
 

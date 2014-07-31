@@ -63,7 +63,7 @@ public class Pawn extends NetView implements SerializableSFSType {
                 return false;
             }
         }else{
-            if(!user.containsVariable("master")||!user.getVariable("master").getBoolValue()){
+            if(!user.containsVariable("Master")||!user.getVariable("Master").getBoolValue()){
                 return false;
             }
         }
