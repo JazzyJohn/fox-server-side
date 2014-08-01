@@ -44,4 +44,12 @@ public class ViewManager {
         allView = new HashMap<Integer ,NetView>();
 
     }
+
+    public void DeleteViewLocal(int id) {
+        NetView view  = allView.get(id);
+        view.DeleteLocal();
+        allView.remove(id);
+    }
+
+
 }

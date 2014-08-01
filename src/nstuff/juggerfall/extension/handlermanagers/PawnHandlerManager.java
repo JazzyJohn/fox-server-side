@@ -27,6 +27,15 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_PawnTaunt = "pawnTaunt";
 
     public static final String RequestName_PawnKnockOut = "pawnKnockOut";
+
+    public static final String RequestName_PawnSkillCastEffect = "pawnSkillCastEffect";
+
+    public static final String RequestName_PawnSkillActivate = "pawnSkillActivate";
+
+    public static final String RequestName_PawnDetonate = "pawnDetonate";
+
+    public static final String RequestName_PawnSetAI = "pawnSetAI";
+
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -43,6 +52,13 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_PawnKnockOut, PawnKnockOutHandler.class);
 
+        extension.addClientHandler(RequestName_PawnSkillCastEffect, PawnSkillCastEffectHandler.class);
+
+        extension.addClientHandler(RequestName_PawnSkillActivate, PawnSkillActivateHandler.class);
+
+        extension.addClientHandler(RequestName_PawnDetonate, PawnDetonateHandler.class);
+
+        extension.addClientHandler(RequestName_PawnSetAI, PawnSetAI.class);
     }
 
     public void UpdatePawnInfo(User user, Pawn pawn,boolean UDP) {

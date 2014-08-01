@@ -19,6 +19,11 @@ public class PawnModel extends NetViewModel {
 
     public boolean isDead;
 
+    public Vector3Model position;
+
+    public Vector3Model aimRotation;
+
+    public QuaternionModel rotation;
     
 
 }

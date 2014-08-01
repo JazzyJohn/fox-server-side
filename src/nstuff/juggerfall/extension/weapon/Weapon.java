@@ -35,6 +35,12 @@ public class Weapon  extends NetView implements SerializableSFSType {
             owner.weapon = null;
         }
     }
+    @Override
+    public void DeleteLocal() {
+        if(owner.weapon==this){
+            owner.weapon = null;
+        }
+    }
 
     @Override
     public void ClearRef() {

@@ -58,8 +58,22 @@ public class Pawn extends NetView implements SerializableSFSType {
         if(weapon!=null){
              manager.DeleteView(weapon.id);
         }
+        AfterDeleteLogic();
     }
 
+    @Override
+    public void DeleteLocal() {
+        if(weapon!=null){
+            manager.DeleteViewLocal(weapon.id);
+        }
+        AfterDeleteLogic();
+    }
+
+    private void AfterDeleteLogic(){
+        if(team!=0){
+            manager.extension.gameRule.PlayerDeath(team-1);
+        }
+    }
     @Override
     public void ClearRef() {
         weapon = null;

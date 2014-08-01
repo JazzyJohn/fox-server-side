@@ -20,9 +20,7 @@ import java.util.List;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.gamerule.GameRule;
 import nstuff.juggerfall.extension.gamerule.PVPGameRule;
-import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
-import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
-import nstuff.juggerfall.extension.handlermanagers.WeaponHandlerManager;
+import nstuff.juggerfall.extension.handlermanagers.*;
 import nstuff.juggerfall.extension.handlers.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.PlayerManager;
@@ -107,7 +105,8 @@ public class MainExtension extends SFSExtension {
         
         addEventHandler(SFSEventType.USER_JOIN_ROOM, UserRoomJoinHandler.class);
 
-    
+        addEventHandler(SFSEventType.USER_JOIN_ROOM, JoinRoomHandler.class);
+
         playerHandlerManager.Init();
 
         pawnHandlerManager.Init();
