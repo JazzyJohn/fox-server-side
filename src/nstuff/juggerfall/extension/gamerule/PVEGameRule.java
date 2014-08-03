@@ -2,27 +2,31 @@ package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.PVEGameRuleModel;
 import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public class PVPGameRule extends  GameRule {
+public class PVEGameRule extends  GameRule {
 
     public int[] teamKill;
 
+    public int vipId;
+
+    public void SetVipId(int vipId){
+        this.vipId = vipId;
+
+    }
 
 
     @Override
     public void Kill(int team) {
         team =team-1;
-        teamKill[team]++;
+
         teamScore[team]++;
         CheckGameEnd();
     }
@@ -38,18 +42,21 @@ public class PVPGameRule extends  GameRule {
     }
 
     @Override
-    public void AIDeath(Pawn death) {
-
+    public void AIDeath(Pawn dead) {
+        if(dead.id==vipId){
+            teamScore[0] = 0;
+            teamScore[1]= 100;
+            isGameEnded = true;
+        }
     }
 
 
     @Override
     public void Init(Room room) {
         super.Init(room);
-        int teamCount = room.getVariable("teamCount").getIntValue();
-        teamKill = new int[teamCount];
+        int teamCount = 2;
         teamScore = new int[teamCount];
-        canUseRobot = true;
+        canUseRobot = false;
         extension.trace("ROOM START");
 
     }
@@ -63,16 +70,15 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public GameRuleModel GetModel(){
-        PVPGameRuleModel model = new PVPGameRuleModel();
+        PVEGameRuleModel model = new PVEGameRuleModel();
         model.isGameEnded = isGameEnded;
-        model.teamKill = new ArrayList<Integer>();
+        model.vipID = vipId;
         model.teamScore = new ArrayList<Integer>();
         for(int i =0; i <teamKill.length;i++){
-            model.teamKill.add(teamKill[i]);
+
             model.teamScore.add(teamScore[i]);
 
         }
-
         return model;
     }
 }

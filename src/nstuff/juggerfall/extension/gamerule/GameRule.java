@@ -6,6 +6,7 @@ import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.Date;
 
@@ -42,6 +43,8 @@ public abstract class GameRule implements TimeUpdateEntity {
     public abstract void Spawn(int team);
 
     public abstract void PlayerDeath(int team);
+
+    public abstract void AIDeath(Pawn dead);
 
     public transient MainExtension extension;
 
