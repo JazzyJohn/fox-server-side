@@ -18,7 +18,9 @@ public class CustomLogFilter extends SFSExtensionFilter {
 
     @Override
     public FilterAction handleClientRequest(String s, User user, ISFSObject isfsObject) throws SFSException {
-        trace("Command "+s+ " User "+ user.toString() +" ISFDObject "+ isfsObject.toString());
+        if(!s.equals("pawnUpdate")&&!s.equals("getTime")){
+            trace("Command "+s+ " User "+ user.toString() +" ISFDObject "+ isfsObject.toString());
+        }
         return FilterAction.CONTINUE;
     }
 

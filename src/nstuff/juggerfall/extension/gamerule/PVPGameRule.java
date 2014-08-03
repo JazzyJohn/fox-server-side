@@ -1,7 +1,12 @@
 package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
+import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -12,8 +17,10 @@ public class PVPGameRule extends  GameRule {
     public int[] teamKill;
 
 
+
     @Override
     public void Kill(int team) {
+        team =team-1;
         teamKill[team]++;
         teamScore[team]++;
         CheckGameEnd();
@@ -38,7 +45,29 @@ public class PVPGameRule extends  GameRule {
         teamKill = new int[teamCount];
         teamScore = new int[teamCount];
         canUseRobot = true;
-        Date date = new Date();
-        gameStart  = date.getTime();
+        extension.trace("ROOM START");
+
+    }
+
+    @Override
+    public void Reload() {
+        super.Reload();
+        teamKill = new int[teamKill.length];
+        teamScore = new int[teamKill.length];
+    }
+
+    @Override
+    public GameRuleModel GetModel(){
+        PVPGameRuleModel model = new PVPGameRuleModel();
+        model.isGameEnded = isGameEnded;
+        model.teamKill = new ArrayList<Integer>();
+        model.teamScore = new ArrayList<Integer>();
+        for(int i =0; i <teamKill.length;i++){
+            model.teamKill.add(teamKill[i]);
+            model.teamScore.add(teamScore[i]);
+
+        }
+
+        return model;
     }
 }

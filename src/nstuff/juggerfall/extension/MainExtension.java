@@ -47,11 +47,15 @@ public class MainExtension extends SFSExtension {
 
     public static final String RequestName_DeleteView = "deleteView";
 
+    public static final String RequestName_GameStart = "gameStart";
+    
     public PlayerHandlerManager playerHandlerManager;
 
     public PawnHandlerManager pawnHandlerManager;
 
     public WeaponHandlerManager weaponHandlerManager;
+
+    public OtherHandlerManager otherHandlerManager;
 
     public PlayerManager playerManager;
 
@@ -95,6 +99,15 @@ public class MainExtension extends SFSExtension {
 			
 		BaseConfigurator();
 
+
+        playerHandlerManager.Init();
+
+        pawnHandlerManager.Init();
+
+        weaponHandlerManager.Init();
+
+        otherHandlerManager.Init();
+
         addRequestHandler(RequestName_GetTime,ServerTimeHandler.class);
 
         addRequestHandler(RequestName_TransitRPC,TransitRPCHandler.class);
@@ -105,13 +118,9 @@ public class MainExtension extends SFSExtension {
         
         addEventHandler(SFSEventType.USER_JOIN_ROOM, UserRoomJoinHandler.class);
 
-        addEventHandler(SFSEventType.USER_JOIN_ROOM, JoinRoomHandler.class);
 
-        playerHandlerManager.Init();
 
-        pawnHandlerManager.Init();
 
-        weaponHandlerManager.Init();
         
         addFilter("logFilter",new CustomLogFilter());
         trace(ExtensionLogLevel.INFO,"MainExtension is Initializing Complete");
@@ -139,6 +148,8 @@ public class MainExtension extends SFSExtension {
 
         gameRule.extension =this;
 
+        gameRule.Init(getParentRoom());
+
         playerManager = new PlayerManager();
 
         viewManager   = new ViewManager();
@@ -156,6 +167,10 @@ public class MainExtension extends SFSExtension {
         pawnHandlerManager = new PawnHandlerManager();
 
         pawnHandlerManager.extension = this;
+
+        otherHandlerManager = new OtherHandlerManager();
+
+        otherHandlerManager.extension = this;
 
         SmartFoxServer sfs = SmartFoxServer.getInstance();
 
@@ -185,7 +200,7 @@ public class MainExtension extends SFSExtension {
     public void UpdateGame(){
         List<User> targets = getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
-        res.putClass("game", gameRule);
+        res.putClass("game", gameRule.GetModel());
         send(RequestName_GameUpdate, res, targets);
     }
 
@@ -234,4 +249,10 @@ public class MainExtension extends SFSExtension {
             lastTime = date.getTime();
         }
     }
+
+	public void StartGameEvent() {
+		  ISFSObject res = new SFSObject();
+		
+	      send(RequestName_GameStart, res, masterInfo);
+	}
 }

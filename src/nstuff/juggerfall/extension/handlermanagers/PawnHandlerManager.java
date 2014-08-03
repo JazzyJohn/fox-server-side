@@ -35,6 +35,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_PawnDetonate = "pawnDetonate";
 
     public static final String RequestName_PawnSetAI = "pawnSetAI";
+    
+    public static final String RequestName_PawnDiedByKill = "pawnDiedByKill";
 
     @Override
     public void Init() {
@@ -59,11 +61,13 @@ public class PawnHandlerManager extends AbstractHandlerManager {
         extension.addClientHandler(RequestName_PawnDetonate, PawnDetonateHandler.class);
 
         extension.addClientHandler(RequestName_PawnSetAI, PawnSetAI.class);
+        
+        extension.addClientHandler(RequestName_PawnDiedByKill, PawnDiedByKill.class);
     }
 
     public void UpdatePawnInfo(User user, Pawn pawn,boolean UDP) {
         ISFSObject res = new SFSObject();
-        res.putClass("pawn",pawn);
+        res.putClass("pawn",pawn.sirPawn);
         List<User> targets =extension.getParentRoom().getUserList();
         if(user!=null){
             targets.remove(user);

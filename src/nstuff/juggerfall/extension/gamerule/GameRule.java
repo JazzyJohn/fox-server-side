@@ -5,13 +5,14 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
+import nstuff.juggerfall.extension.models.GameRuleModel;
 
 import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
+public abstract class GameRule implements TimeUpdateEntity {
     private static final long afterMathTime = 10000;
 
     protected int maxScore;
@@ -59,17 +60,20 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
     public void Init(Room room){
         maxScore=room.getVariable("maxScore").getIntValue();
         gameTime =room.getVariable("maxTime").getIntValue()*1000;
+        Date date = new Date();
+        gameStart  = date.getTime();
     }
 
     public  void StartGame()
     {
         start = true;
+        extension.StartGameEvent();
     }
     protected void  CheckGameEnd(){
         for(int score: teamScore){
             if(score>maxScore){
                 isGameEnded= true;
-                return;
+                break;
             }
         }
         extension.UpdateGame();
@@ -86,7 +90,7 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
                 return;
             }
         }
-        if(ready){
+        if(ready&&!start){
             StartGame();
 
         }
@@ -94,9 +98,16 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
             Date date = new Date();
             if(date.getTime()>gameEnd+afterMathTime){
                 extension.ReloadMap();
+                Reload();
             }
         }
 
+    }
+
+    public void Reload(){
+        Date date = new Date();
+        gameStart  = date.getTime();
+        isGameEnded= false;
     }
 
     public void PlayerJoin(User user){
@@ -104,4 +115,6 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
             ready= true;
         }
     }
+
+    public abstract GameRuleModel GetModel();
 }

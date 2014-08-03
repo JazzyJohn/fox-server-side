@@ -9,6 +9,8 @@ import nstuff.juggerfall.extension.pawn.Pawn;
 public abstract class NetView {
 	public int id;
 
+    public transient  NetViewType viewType;
+
     public abstract void Update(NetViewModel view);
 
     public abstract void Delete();

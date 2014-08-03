@@ -1,13 +1,21 @@
 package nstuff.juggerfall.extension.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
 import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.smartfoxserver.v2.entities.data.SFSArray;
+import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.models.SimpleNetModel;
+import nstuff.juggerfall.extension.other.SimpleNetView;
 import nstuff.juggerfall.extension.pawn.Pawn;
+import nstuff.juggerfall.extension.player.Player;
+import nstuff.juggerfall.extension.weapon.Weapon;
 
 public class ViewManager {
 	private Map<Integer ,NetView> allView = new HashMap<Integer ,NetView>();
@@ -52,4 +60,34 @@ public class ViewManager {
     }
 
 
+    public ISFSArray GetAllViewForStart() {
+        SFSArray sfsa = new SFSArray();
+        for(NetView view : allView.values()){
+            ISFSObject res = new SFSObject();
+            switch(view.viewType){
+                case  NET_VIEW_TYPE_PAWN:
+                    Pawn pawn =(Pawn)view;
+                    res.putClass("pawn",pawn.sirPawn);
+                    res.putIntArray("stims", new ArrayList<Integer>());
+                    if(pawn.owner!=null){
+                        res.putInt("ownerId",pawn.owner.getId());
+                    }
+                    break;
+                case  NET_VIEW_TYPE_WEAPON:
+                    Weapon weapon =(Weapon)view;
+                    res.putClass("weapon",weapon.sirWeapon);
+                    res.putInt("pawnId", weapon.owner.id);
+                    break;
+                case  NET_VIEW_TYPE_SIMPLE:
+                    SimpleNetView simpelView =(SimpleNetView)view;
+                    res.putClass("model",simpelView.model);
+                    break;
+
+            }
+
+            sfsa.addSFSObject(res);
+
+        }
+        return sfsa;
+    }
 }

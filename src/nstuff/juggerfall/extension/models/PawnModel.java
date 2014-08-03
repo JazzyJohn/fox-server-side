@@ -18,6 +18,8 @@ public class PawnModel extends NetViewModel {
     public boolean active;
 
     public boolean isDead;
+    
+    public float health;
 
     public Vector3Model position;
 

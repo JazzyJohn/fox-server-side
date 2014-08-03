@@ -18,6 +18,7 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
         PawnModel incPawn  =(PawnModel)data.getClass("pawn");
         Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(incPawn.id);
         if(!pawn.IsOwner(user)){
+        	getParentExtension();
             return;
         }
 

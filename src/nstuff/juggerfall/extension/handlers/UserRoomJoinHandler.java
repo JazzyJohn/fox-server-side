@@ -1,9 +1,11 @@
 package nstuff.juggerfall.extension.handlers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.naming.directory.InvalidSearchFilterException;
 
+import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
 import com.smartfoxserver.v2.entities.variables.UserVariable;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
@@ -22,11 +24,20 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 	@Override
 	public void handleServerEvent(ISFSEvent event) throws SFSException {
 	    User user = (User)event.getParameter(SFSEventParam.USER);
-    	PlayerManager playermanager =((MainExtension)getParentExtension()).playerManager;
+	  
+        MainExtension extension = (MainExtension) getParentExtension();
+        ISFSObject res = new SFSObject();
+        if (extension.masterInfo == null){
+            extension.masterInfo = user;
+            UserVariable var = new SFSUserVariable("Master", true);
+            getApi().setUserVariables(user, Arrays.asList(var));
+            res.putBool("Master",true);
+        }
+    	PlayerManager playermanager =extension.playerManager;
 		playermanager.AddPlayer(user);
 
         ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
-		ISFSObject res = new SFSObject();
+
 		try {
 			res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
 		} catch (IllegalArgumentException e) {
@@ -42,6 +53,7 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 			// TODO Auto-generated catch block
 			getParentExtension().trace(e);
 		}
+        res.putSFSArray("views", extension.viewManager.GetAllViewForStart());
 		send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
         ((MainExtension)getParentExtension()).PlayerJoin(user);
 	}

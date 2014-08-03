@@ -29,10 +29,8 @@ public class Player implements SerializableSFSType {
 	public transient User owner;
 	
 	public int userId;
-	
 
-
-    public int team;
+	public int team;
 	
 	public Player(User owner){
 		this.owner = owner;

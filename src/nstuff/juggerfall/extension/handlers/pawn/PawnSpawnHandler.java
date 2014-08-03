@@ -23,17 +23,18 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
         Pawn pawn = new Pawn(pawnModel);
         ((MainExtension)getParentExtension()).viewManager.AddView(pawn);
+        ISFSObject res = new SFSObject();
         if(data.getBool("AI")){
             pawn.owner = null;
             pawn.player = null;
         }else{
+            res.putInt("ownerId",user.getId());
             pawn.owner = user;
             pawn.SetPlayer((Player) user.getProperty("player"));
 
         }
-        ISFSObject res = new SFSObject();
+
         res.putClass("pawn",pawnModel);
-        res.putInt("ownerId",user.getId());
         res.putIntArray("stims",data.getIntArray("stims"));
         send(PawnHandlerManager.RequestName_PawnSpawn,res,((MainExtension)getParentExtension()).GetOther(user));
     }
