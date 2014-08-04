@@ -2,7 +2,6 @@ package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
-import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
@@ -111,6 +110,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         Date date = new Date();
         gameStart  = date.getTime();
         isGameEnded= false;
+        teamScore = new int[teamScore.length];
     }
 
     public void PlayerJoin(User user){

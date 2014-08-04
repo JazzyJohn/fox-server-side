@@ -1,7 +1,5 @@
 package nstuff.juggerfall.extension.weapon;
 
-import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
-
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.WeaponModel;
 import nstuff.juggerfall.extension.pawn.Pawn;

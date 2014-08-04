@@ -1,8 +1,6 @@
 package nstuff.juggerfall.extension.pawn;
 
 import com.smartfoxserver.v2.entities.User;
-import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
-
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.PawnModel;
 import nstuff.juggerfall.extension.player.Player;

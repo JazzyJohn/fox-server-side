@@ -5,10 +5,7 @@ import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
@@ -58,7 +55,7 @@ public class PVPGameRule extends  GameRule {
     public void Reload() {
         super.Reload();
         teamKill = new int[teamKill.length];
-        teamScore = new int[teamKill.length];
+
     }
 
     @Override

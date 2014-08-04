@@ -1,7 +1,5 @@
 package nstuff.juggerfall.extension.handlermanagers;
 
-import nstuff.juggerfall.extension.handlers.pawn.PawnSpawnHandler;
-import nstuff.juggerfall.extension.handlers.pawn.PawnUpdateHandler;
 import nstuff.juggerfall.extension.handlers.weapon.WeaponShootHandler;
 import nstuff.juggerfall.extension.handlers.weapon.WeaponSpawnHandler;
 

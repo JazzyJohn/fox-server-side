@@ -1,16 +1,11 @@
 package nstuff.juggerfall.extension.player;
 
 import com.smartfoxserver.v2.entities.User;
-
 import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
-
 import nstuff.juggerfall.extension.models.PlayerModel;
-import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Player implements SerializableSFSType {

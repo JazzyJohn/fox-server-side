@@ -1,23 +1,19 @@
 package nstuff.juggerfall.extension.handlers;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.naming.directory.InvalidSearchFilterException;
-
-import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
-import com.smartfoxserver.v2.entities.variables.UserVariable;
-import nstuff.juggerfall.extension.MainExtension;
-import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
-import nstuff.juggerfall.extension.player.PlayerManager;
-
 import com.smartfoxserver.v2.core.ISFSEvent;
 import com.smartfoxserver.v2.core.SFSEventParam;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
+import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
+import com.smartfoxserver.v2.entities.variables.UserVariable;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
+import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
+import nstuff.juggerfall.extension.player.PlayerManager;
+
+import java.util.Arrays;
 
 public class UserRoomJoinHandler extends BaseServerEventHandler {
 

@@ -3,7 +3,6 @@ package nstuff.juggerfall.extension.handlermanagers;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
-import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlers.player.PlayerInitHandler;
 import nstuff.juggerfall.extension.handlers.player.PlayerSetNameUIDHandler;
 import nstuff.juggerfall.extension.handlers.player.PlayerSetTeamHandler;

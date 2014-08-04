@@ -3,7 +3,6 @@ package nstuff.juggerfall.extension;
 import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import com.smartfoxserver.v2.extensions.SFSExtension;
-
 import nstuff.juggerfall.extension.handlers.BaseAddRoomHandler;
 
 /**

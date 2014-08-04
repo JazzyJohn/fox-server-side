@@ -1,26 +1,22 @@
 package nstuff.juggerfall.extension;
 
 
-
 import com.smartfoxserver.v2.SmartFoxServer;
 import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
-
 import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
 import com.smartfoxserver.v2.exceptions.SFSVariableException;
-
 import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import com.smartfoxserver.v2.extensions.SFSExtension;
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import java.util.List;
-
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.gamerule.GameRule;
 import nstuff.juggerfall.extension.gamerule.PVPGameRule;
-import nstuff.juggerfall.extension.handlermanagers.*;
+import nstuff.juggerfall.extension.handlermanagers.OtherHandlerManager;
+import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
+import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
+import nstuff.juggerfall.extension.handlermanagers.WeaponHandlerManager;
 import nstuff.juggerfall.extension.handlers.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.PlayerManager;
