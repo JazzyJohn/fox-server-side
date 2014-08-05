@@ -22,6 +22,9 @@ public class PVEGameRule extends  GameRule {
     public void SetVipId(int vipId){
         this.vipId = vipId;
         ready = true;
+        if(state==GamerRuleState.AFTERLOAD){
+            state= GamerRuleState.READY;
+        }
     }
 
     @Override
@@ -98,5 +101,12 @@ public class PVEGameRule extends  GameRule {
     public void AddMasterInfo(ISFSObject res) {
         super.AddMasterInfo(res);
         res.putIntArray("route",route);
+    }
+
+    public void Arrived() {
+
+        teamScore[0] = 100;
+        teamScore[1]= 0;
+        GameFinish();
     }
 }

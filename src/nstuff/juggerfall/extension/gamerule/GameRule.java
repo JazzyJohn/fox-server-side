@@ -80,11 +80,13 @@ public abstract class GameRule implements TimeUpdateEntity {
         isGameEnded= true;
         state =GamerRuleState.FINISH;
         gameEnd=date.getTime();
+        extension.UpdateGame();
     }
 
     protected void  CheckGameEnd(){
         for(int score: teamScore){
-            if(score>maxScore){
+
+            if(score>=maxScore){
 
                 GameFinish();
 

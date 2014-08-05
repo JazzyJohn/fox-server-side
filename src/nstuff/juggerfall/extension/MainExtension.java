@@ -46,7 +46,9 @@ public class MainExtension extends SFSExtension {
     public static final String RequestName_GameStart = "gameStart";
 
     public static final String RequestName_NewMaster = "newMaster";
-    
+
+    public static final String RequestName_PlayerLeave ="playerLeave";
+
     public PlayerHandlerManager playerHandlerManager;
 
     public PawnHandlerManager pawnHandlerManager;
@@ -119,8 +121,9 @@ public class MainExtension extends SFSExtension {
         
         addEventHandler(SFSEventType.USER_JOIN_ROOM, UserRoomJoinHandler.class);
 
+        addEventHandler(SFSEventType.USER_LEAVE_ROOM, UserRoomLeaveHandler.class);
 
-
+        addEventHandler(SFSEventType.USER_DISCONNECT, UserDisconnectHandler.class);
 
         
         addFilter("logFilter",new CustomLogFilter());

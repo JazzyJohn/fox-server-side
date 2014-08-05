@@ -87,4 +87,29 @@ public class ViewManager {
         }
         return sfsa;
     }
+
+    public  SFSArray RemovePlayerView(int ownerId){
+        SFSArray sfsa = new SFSArray();
+        for(NetView view : allView.values()){
+
+            switch(view.viewType){
+                case  NET_VIEW_TYPE_PAWN:
+                    Pawn pawn =(Pawn)view;
+                    if(pawn.owner!=null&&pawn.owner.getId()==ownerId){
+                        pawn.DeleteLocal();
+                        sfsa.addInt(view.id);
+                    }
+
+                break;
+                case  NET_VIEW_TYPE_WEAPON:
+                    Weapon weapon =(Weapon)view;
+                    if(weapon.owner!=null&&weapon.owner.owner!=null&&weapon.owner.owner.getId()==ownerId){
+                        weapon.DeleteLocal();
+                        sfsa.addInt(view.id);
+                    }
+                    break;
+            }
+        }
+        return sfsa;
+    }
 }

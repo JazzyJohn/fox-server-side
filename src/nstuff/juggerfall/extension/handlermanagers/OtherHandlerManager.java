@@ -21,6 +21,7 @@ public class OtherHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_NextRoute = "nextRoute";
 
+    public static final String RequestName_GameRuleArrived = "gameRuleArrived";
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_InvokeProjectileCall, InvokeProjectileCallHandler.class);
@@ -33,6 +34,9 @@ public class OtherHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_NextRoute, NextRouteHandler.class);
 
+        extension.addClientHandler(RequestName_NextRoom, NextRoomHandler.class);
+
+        extension.addClientHandler(RequestName_GameRuleArrived, GameRuleArrived.class);
     }
 
 

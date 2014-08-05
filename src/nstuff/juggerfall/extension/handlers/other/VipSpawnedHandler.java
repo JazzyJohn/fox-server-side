@@ -18,10 +18,9 @@ public class VipSpawnedHandler extends BaseClientRequestHandler {
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
         Pawn pawn = new Pawn(pawnModel);
         ((MainExtension)getParentExtension()).viewManager.AddView(pawn);
-        if(data.getBool("Scene")){
-            pawn.owner = null;
-            pawn.player = null;
-        }
+        pawn.owner = null;
+        pawn.player = null;
+
         ((PVEGameRule)((MainExtension) getParentExtension()).gameRule).SetVipId(pawn.id);
     }
 }
