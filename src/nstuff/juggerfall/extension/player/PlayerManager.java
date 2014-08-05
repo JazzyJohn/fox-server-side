@@ -26,5 +26,10 @@ public class PlayerManager {
 		return  sfsa;
 	}
 
+    public void ClearScore(){
+        for(Player player :allPlayer){
+            player.ClearScore();
+        }
+    }
 
 }

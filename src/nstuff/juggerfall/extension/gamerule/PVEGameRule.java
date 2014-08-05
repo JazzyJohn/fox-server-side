@@ -2,11 +2,13 @@ package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.PVEGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 public class PVEGameRule extends  GameRule {
 
     public int vipId;
+
+    public List<Integer> route = new ArrayList<Integer>();
 
     public void SetVipId(int vipId){
         this.vipId = vipId;
@@ -50,7 +54,7 @@ public class PVEGameRule extends  GameRule {
         if(dead.id==vipId){
             teamScore[0] = 0;
             teamScore[1]= 100;
-            isGameEnded = true;
+            GameFinish();
         }
     }
 
@@ -68,7 +72,7 @@ public class PVEGameRule extends  GameRule {
     @Override
     public void Reload() {
         super.Reload();
-
+        ready = false;
 
     }
 
@@ -78,11 +82,21 @@ public class PVEGameRule extends  GameRule {
         model.isGameEnded = isGameEnded;
         model.vipID = vipId;
         model.teamScore = new ArrayList<Integer>();
-        for(int i =0; i <teamScore.length;i++){
+        for (int aTeamScore : teamScore) {
 
-            model.teamScore.add(teamScore[i]);
+            model.teamScore.add(aTeamScore);
 
         }
         return model;
+    }
+
+    public  void AddRoute(Integer nextRoute){
+        route.add(nextRoute);
+    }
+
+    @Override
+    public void AddMasterInfo(ISFSObject res) {
+        super.AddMasterInfo(res);
+        res.putIntArray("route",route);
     }
 }

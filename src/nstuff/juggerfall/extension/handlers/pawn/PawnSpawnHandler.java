@@ -19,7 +19,8 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
         Pawn pawn = new Pawn(pawnModel);
-        ((MainExtension)getParentExtension()).viewManager.AddView(pawn);
+        MainExtension extension=(MainExtension)getParentExtension();
+        extension.viewManager.AddView(pawn);
         ISFSObject res = new SFSObject();
         if(data.getBool("Scene")){
             pawn.owner = null;
@@ -28,11 +29,14 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             res.putInt("ownerId",user.getId());
             pawn.owner = user;
             pawn.SetPlayer((Player) user.getProperty("player"));
+            if(!data.getBool("isAI")){
+                extension.gameRule.Spawn(pawn.team);
+            }
 
         }
         res.putBool("isAI", data.getBool("isAI"));
         res.putClass("pawn",pawnModel);
         res.putIntArray("stims",data.getIntArray("stims"));
-        send(PawnHandlerManager.RequestName_PawnSpawn,res,((MainExtension)getParentExtension()).GetOther(user));
+        send(PawnHandlerManager.RequestName_PawnSpawn,res,extension.GetOther(user));
     }
 }

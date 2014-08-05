@@ -2,6 +2,7 @@ package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
+ *
  */
 public abstract class GameRule implements TimeUpdateEntity {
     private static final long afterMathTime = 10000;
@@ -47,6 +49,8 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public transient MainExtension extension;
 
+    public transient GamerRuleState state = GamerRuleState.AFTERLOAD;
+
     public int Winner() {
         int winner =-1;
         int lastScore =0;
@@ -68,13 +72,22 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public  void StartGame()
     {
-        start = true;
+        state =GamerRuleState.GOING;
         extension.StartGameEvent();
     }
+    public void GameFinish(){
+        Date date = new Date();
+        isGameEnded= true;
+        state =GamerRuleState.FINISH;
+        gameEnd=date.getTime();
+    }
+
     protected void  CheckGameEnd(){
         for(int score: teamScore){
             if(score>maxScore){
-                isGameEnded= true;
+
+                GameFinish();
+
                 break;
             }
         }
@@ -86,15 +99,17 @@ public abstract class GameRule implements TimeUpdateEntity {
         if(gameTime!=0){
             Date date = new Date();
             if(date.getTime()>gameStart+gameTime){
-                gameEnd=date.getTime();
-                isGameEnded= true;
+                GameFinish();
                 extension.UpdateGame();
                 return;
             }
         }
-        if(ready&&!start){
+        if(state==GamerRuleState.READY){
             StartGame();
 
+        }
+        if(ready&&state==GamerRuleState.AFTERRELOAD){
+            StartGame();
         }
         if(isGameEnded){
             Date date = new Date();
@@ -110,14 +125,21 @@ public abstract class GameRule implements TimeUpdateEntity {
         Date date = new Date();
         gameStart  = date.getTime();
         isGameEnded= false;
+        state= GamerRuleState.AFTERRELOAD;
         teamScore = new int[teamScore.length];
+        extension.playerManager.ClearScore();
     }
 
     public void PlayerJoin(User user){
-        if(!ready){
-            ready= true;
+        if(state==GamerRuleState.AFTERLOAD){
+            state= GamerRuleState.READY;
         }
     }
 
     public abstract GameRuleModel GetModel();
+
+
+    public void AddMasterInfo(ISFSObject res){
+
+    }
 }

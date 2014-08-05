@@ -44,6 +44,8 @@ public class MainExtension extends SFSExtension {
     public static final String RequestName_DeleteView = "deleteView";
 
     public static final String RequestName_GameStart = "gameStart";
+
+    public static final String RequestName_NewMaster = "newMaster";
     
     public PlayerHandlerManager playerHandlerManager;
 
@@ -77,6 +79,7 @@ public class MainExtension extends SFSExtension {
                 if (user !=exMaster ){
                     masterInfo = user;
                     user.setVariable(new SFSUserVariable("Master",true ));
+                    SendUserMasterNotification();
                     return;
                 }
 
@@ -87,7 +90,9 @@ public class MainExtension extends SFSExtension {
     }
 
 
-	@Override
+
+
+    @Override
 	public void init() {
 
 		
@@ -251,4 +256,11 @@ public class MainExtension extends SFSExtension {
 		
 	      send(RequestName_GameStart, res, masterInfo);
 	}
+
+    private void SendUserMasterNotification() {
+        ISFSObject res = new SFSObject();
+        gameRule.AddMasterInfo(res);
+        send(RequestName_NewMaster, res, masterInfo);
+
+    }
 }

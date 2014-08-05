@@ -39,7 +39,7 @@ public class RunnerGameRule extends GameRule {
 
     @Override
     public void PlayerDeath(int team) {
-        isGameEnded = true;
+        GameFinish();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class RunnerGameRule extends GameRule {
         model.isGameEnded = isGameEnded;
 
         model.teamScore = new ArrayList<Integer>();
-        for(int i =0; i <teamScore.length;i++){
-            model.teamScore.add(teamScore[i]);
+        for (int aTeamScore : teamScore) {
+            model.teamScore.add(aTeamScore);
 
         }
 

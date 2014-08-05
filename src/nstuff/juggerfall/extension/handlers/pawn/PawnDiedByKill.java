@@ -26,6 +26,8 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
         		extension.gameRule.Kill(killer.team);
         		killer.kill++;
         	}
+        }else{
+            extension.gameRule.AIDeath(pawn);
         }
 
         send(PawnHandlerManager.RequestName_PawnDiedByKill,data,((MainExtension)getParentExtension()).GetOther(user));
