@@ -38,6 +38,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     
     public static final String RequestName_PawnDiedByKill = "pawnDiedByKill";
 
+    public static final String RequestName_PawnInPilotChange ="pawnInPilotChange";
+
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -63,6 +65,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
         extension.addClientHandler(RequestName_PawnSetAI, PawnSetAI.class);
         
         extension.addClientHandler(RequestName_PawnDiedByKill, PawnDiedByKill.class);
+
+        extension.addClientHandler(RequestName_PawnInPilotChange, PawnInPilotChangeHandler.class);
     }
 
     public void UpdatePawnInfo(User user, Pawn pawn,boolean UDP) {
