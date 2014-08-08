@@ -108,8 +108,15 @@ public class ViewManager {
                         sfsa.addInt(view.id);
                     }
                     break;
+			default:
+				break;
             }
         }
         return sfsa;
+    }
+
+    public boolean HasView(int id) {
+
+       return  allView.containsKey(id);
     }
 }

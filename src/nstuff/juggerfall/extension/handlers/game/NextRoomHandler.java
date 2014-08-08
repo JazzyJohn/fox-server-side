@@ -1,4 +1,4 @@
-package nstuff.juggerfall.extension.handlers.other;
+package nstuff.juggerfall.extension.handlers.game;
 
 /**
  * Created by Ivan.Ochincenko on 04.08.14.
