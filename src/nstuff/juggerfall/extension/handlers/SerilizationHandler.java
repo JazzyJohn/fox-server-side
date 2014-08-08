@@ -1,12 +1,9 @@
 package nstuff.juggerfall.extension.handlers;
 
-import java.util.List;
-
-import nstuff.juggerfall.extension.MainExtension;
-
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
+import nstuff.juggerfall.extension.MainExtension;
 
 public class SerilizationHandler extends BaseClientRequestHandler {
 

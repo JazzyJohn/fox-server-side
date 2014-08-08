@@ -7,8 +7,6 @@ import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.util.List;
-
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */

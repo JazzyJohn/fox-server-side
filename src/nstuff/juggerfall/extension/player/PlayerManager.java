@@ -1,13 +1,11 @@
 package nstuff.juggerfall.extension.player;
 
 
+import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.SFSArray;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.smartfoxserver.v2.entities.data.SFSArray;
-import nstuff.juggerfall.extension.view.ViewManager;
-
-import com.smartfoxserver.v2.entities.User;
 
 
 public class PlayerManager {
@@ -28,5 +26,10 @@ public class PlayerManager {
 		return  sfsa;
 	}
 
+    public void ClearScore(){
+        for(Player player :allPlayer){
+            player.ClearScore();
+        }
+    }
 
 }

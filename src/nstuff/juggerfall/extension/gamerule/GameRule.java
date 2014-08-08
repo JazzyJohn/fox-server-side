@@ -2,16 +2,19 @@ package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
-import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
+import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
+ *
  */
-public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
+public abstract class GameRule implements TimeUpdateEntity {
     private static final long afterMathTime = 10000;
 
     protected int maxScore;
@@ -42,7 +45,11 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
 
     public abstract void PlayerDeath(int team);
 
+    public abstract void AIDeath(Pawn dead);
+
     public transient MainExtension extension;
+
+    public transient GamerRuleState state = GamerRuleState.AFTERLOAD;
 
     public int Winner() {
         int winner =-1;
@@ -59,17 +66,31 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
     public void Init(Room room){
         maxScore=room.getVariable("maxScore").getIntValue();
         gameTime =room.getVariable("maxTime").getIntValue()*1000;
+        Date date = new Date();
+        gameStart  = date.getTime();
     }
 
     public  void StartGame()
     {
-        start = true;
+        state =GamerRuleState.GOING;
+        extension.StartGameEvent();
     }
+    public void GameFinish(){
+        Date date = new Date();
+        isGameEnded= true;
+        state =GamerRuleState.FINISH;
+        gameEnd=date.getTime();
+        extension.UpdateGame();
+    }
+
     protected void  CheckGameEnd(){
         for(int score: teamScore){
-            if(score>maxScore){
-                isGameEnded= true;
-                return;
+
+            if(score>=maxScore){
+
+                GameFinish();
+
+                break;
             }
         }
         extension.UpdateGame();
@@ -80,28 +101,47 @@ public abstract class GameRule implements SerializableSFSType,TimeUpdateEntity {
         if(gameTime!=0){
             Date date = new Date();
             if(date.getTime()>gameStart+gameTime){
-                gameEnd=date.getTime();
-                isGameEnded= true;
+                GameFinish();
                 extension.UpdateGame();
                 return;
             }
         }
-        if(ready){
+        if(state==GamerRuleState.READY){
             StartGame();
 
+        }
+        if(ready&&state==GamerRuleState.AFTERRELOAD){
+            StartGame();
         }
         if(isGameEnded){
             Date date = new Date();
             if(date.getTime()>gameEnd+afterMathTime){
                 extension.ReloadMap();
+                Reload();
             }
         }
 
     }
 
+    public void Reload(){
+        Date date = new Date();
+        gameStart  = date.getTime();
+        isGameEnded= false;
+        state= GamerRuleState.AFTERRELOAD;
+        teamScore = new int[teamScore.length];
+        extension.playerManager.ClearScore();
+    }
+
     public void PlayerJoin(User user){
-        if(!ready){
-            ready= true;
+        if(state==GamerRuleState.AFTERLOAD){
+            state= GamerRuleState.READY;
         }
+    }
+
+    public abstract GameRuleModel GetModel();
+
+
+    public void AddMasterInfo(ISFSObject res){
+
     }
 }

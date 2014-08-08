@@ -4,12 +4,10 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
-
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlermanagers.WeaponHandlerManager;
 import nstuff.juggerfall.extension.models.WeaponModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
-
 import nstuff.juggerfall.extension.weapon.Weapon;
 
 /**
@@ -30,8 +28,8 @@ public class WeaponSpawnHandler extends BaseClientRequestHandler {
         weapon.owner = owner;
         owner.weapon = weapon;
         ISFSObject res = new SFSObject();
-        res.putClass("weapon",weaponModel);
-        res.putInt("pawnId",user.getId());
+        res.putClass("weapon",weapon.sirWeapon);
+        res.putInt("pawnId",owner.id);
         send(WeaponHandlerManager.RequestName_WeaponSpawn,res,((MainExtension)getParentExtension()).GetOther(user));
     }
 }

@@ -16,6 +16,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_PawnSpawn = "pawnSpawn";
 
+    public static final String RequestName_PawnBattleJuggerSpawn= "pawnBattleJuggerSpawn";
+
     public static final String RequestName_PawnUpdate = "pawnUpdate";
 
     public static final String RequestName_PawnKick = "pawnStartKick";
@@ -27,6 +29,19 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_PawnTaunt = "pawnTaunt";
 
     public static final String RequestName_PawnKnockOut = "pawnKnockOut";
+
+    public static final String RequestName_PawnSkillCastEffect = "pawnSkillCastEffect";
+
+    public static final String RequestName_PawnSkillActivate = "pawnSkillActivate";
+
+    public static final String RequestName_PawnDetonate = "pawnDetonate";
+
+    public static final String RequestName_PawnSetAI = "pawnSetAI";
+    
+    public static final String RequestName_PawnDiedByKill = "pawnDiedByKill";
+
+    public static final String RequestName_PawnInPilotChange ="pawnInPilotChange";
+
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -43,11 +58,26 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_PawnKnockOut, PawnKnockOutHandler.class);
 
+        extension.addClientHandler(RequestName_PawnSkillCastEffect, PawnSkillCastEffectHandler.class);
+
+        extension.addClientHandler(RequestName_PawnSkillActivate, PawnSkillActivateHandler.class);
+
+        extension.addClientHandler(RequestName_PawnDetonate, PawnDetonateHandler.class);
+
+        extension.addClientHandler(RequestName_PawnSetAI, PawnSetAI.class);
+        
+        extension.addClientHandler(RequestName_PawnDiedByKill, PawnDiedByKill.class);
+
+        extension.addClientHandler(RequestName_PawnInPilotChange, PawnInPilotChangeHandler.class);
+
+        extension.addClientHandler(RequestName_PawnBattleJuggerSpawn, BattleJuggerSpawnHandler.class);
+
+
     }
 
     public void UpdatePawnInfo(User user, Pawn pawn,boolean UDP) {
         ISFSObject res = new SFSObject();
-        res.putClass("pawn",pawn);
+        res.putClass("pawn",pawn.sirPawn);
         List<User> targets =extension.getParentRoom().getUserList();
         if(user!=null){
             targets.remove(user);

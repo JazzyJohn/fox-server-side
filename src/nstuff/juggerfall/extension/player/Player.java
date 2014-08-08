@@ -1,16 +1,11 @@
 package nstuff.juggerfall.extension.player;
 
 import com.smartfoxserver.v2.entities.User;
-
 import com.smartfoxserver.v2.protocol.serialization.SerializableSFSType;
-
 import nstuff.juggerfall.extension.models.PlayerModel;
-import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Player implements SerializableSFSType {
@@ -29,19 +24,15 @@ public class Player implements SerializableSFSType {
 	public transient User owner;
 	
 	public int userId;
-	
 
-
-    public int team;
+	public int team;
 	
 	public Player(User owner){
 		this.owner = owner;
         owner.setProperty("player",this);
         userId = owner.getId();
 	}
-    public Player(){
 
-    }
 	public PlayerModel GetModel() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
 		// TODO Auto-generated method stub
 		PlayerModel playerModel =  new PlayerModel();
@@ -61,4 +52,11 @@ public class Player implements SerializableSFSType {
 	
 		return playerModel;
 	}
+
+    public void ClearScore() {
+        kill = 0;
+        death =0;
+        assist =0;
+        robotKill =0;
+    }
 }

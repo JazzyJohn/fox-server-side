@@ -4,10 +4,7 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import nstuff.juggerfall.extension.MainExtension;
-import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
 import nstuff.juggerfall.extension.player.Player;
-
-import java.util.List;
 
 public class PlayerSetTeamHandler extends BaseClientRequestHandler {
 
