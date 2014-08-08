@@ -16,6 +16,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_GameRuleDamageBase = "gameRuleDamageBase";
 
+    public static final String RequestName_UpdateConquestPoint = "updateConquestPoint";
+
 
 
 @Override
@@ -32,6 +34,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
     extension.addClientHandler(RequestName_BaseSpawned, BaseSpawnedHandler.class);
 
     extension.addClientHandler(RequestName_GameRuleDamageBase, GameRuleDamageBase.class);
+
+    extension.addClientHandler(RequestName_UpdateConquestPoint, UpdateConquestPoint.class);
     }
 
 }
