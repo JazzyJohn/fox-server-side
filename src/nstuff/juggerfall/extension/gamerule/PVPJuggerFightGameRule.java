@@ -19,6 +19,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
 
     @Override
     public void Kill(int team) {
+        team =team-1;
         teamScore[team]+=1;
         extension.UpdateGame();
     }
@@ -36,7 +37,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
     @Override
     public void AIDeath(Pawn dead) {
         if(allJuggers.contains(dead)){
-            teamScore[dead.team]+=10;
+            teamScore[dead.team-1]+=10;
             allJuggers.remove(dead);
             extension.UpdateGame();
         }
@@ -53,7 +54,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
             model.teamScore.add(teamScore[i]);
 
         }
-        return null;
+        return model;
     }
 
     public void SetJuggerPawn(Pawn pawn) {
@@ -61,11 +62,13 @@ public class PVPJuggerFightGameRule extends  GameRule {
     }
 
     public void BaseDamaged(int team,int dmg){
+        team =team-1;
         bases[team].health-=dmg;
         if(bases[team].health<=0){
             GameFinish();
+        }else{
+            extension.UpdateGame();
         }
-        extension.UpdateGame();
     }
 
     public void Init(Room room){

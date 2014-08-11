@@ -13,10 +13,7 @@ import com.smartfoxserver.v2.extensions.SFSExtension;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.gamerule.GameRule;
 import nstuff.juggerfall.extension.gamerule.PVPGameRule;
-import nstuff.juggerfall.extension.handlermanagers.OtherHandlerManager;
-import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
-import nstuff.juggerfall.extension.handlermanagers.PlayerHandlerManager;
-import nstuff.juggerfall.extension.handlermanagers.WeaponHandlerManager;
+import nstuff.juggerfall.extension.handlermanagers.*;
 import nstuff.juggerfall.extension.handlers.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.PlayerManager;
@@ -50,6 +47,8 @@ public class MainExtension extends SFSExtension {
     public static final String RequestName_PlayerLeave ="playerLeave";
 
     public PlayerHandlerManager playerHandlerManager;
+
+    public GameHandlerManager gameHandlerManager;
 
     public PawnHandlerManager pawnHandlerManager;
 
@@ -111,7 +110,9 @@ public class MainExtension extends SFSExtension {
 
         otherHandlerManager.Init();
 
-        addRequestHandler(RequestName_GetTime,ServerTimeHandler.class);
+        gameHandlerManager.Init();
+
+        addRequestHandler(RequestName_GetTime, ServerTimeHandler.class);
 
         addRequestHandler(RequestName_TransitRPC,TransitRPCHandler.class);
         
@@ -175,6 +176,10 @@ public class MainExtension extends SFSExtension {
         otherHandlerManager = new OtherHandlerManager();
 
         otherHandlerManager.extension = this;
+
+        gameHandlerManager = new GameHandlerManager();
+
+        gameHandlerManager.extension = this;
 
         SmartFoxServer sfs = SmartFoxServer.getInstance();
 
