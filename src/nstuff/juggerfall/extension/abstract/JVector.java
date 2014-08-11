@@ -1,18 +1,19 @@
 import java.lang.Math;
 
-public class Vector {
+public class JVector {
 	/*
 	Базовый объект Н-мерный вектор.
-	sum -сумма векторов
-	scalar - произведение вектора на скаляр
+	plus -сумма векторов
+	scalarmult - произведение вектора на скаляр
 	length - модуль вектора
-	mult - произведение векторов
+	dotprod - скалярное произведение векторов
+	crossprod - векторное произведение
 	*/
 
 	public	final int N; // размерность
 	public double[] coords; 
 
-	public Vector (int dim){
+	public JVector (int dim){
 		N = dim;
 		coords= new double [N];
 		for (int i=0;i<N ;i++ ) 
@@ -20,20 +21,32 @@ public class Vector {
 
 	}
 
-	public Vector (double[] newcoords){
+	public JVector (double[] newcoords){
 		N=newcoords.length;
 		coords= new double[N];
 		for (int i=0;i<N ;i++ ) 
 			coords[i]=newcoords[i];
 	}
 
-	public int dimensions (Vector b){
+	public JVector (double x, double y, double z){
+		N=3;
+		this.coords=new double [N];
+		this.coords[0]=x;
+		this.coords[1]=y;
+		this.coords[2]=z;
+	}
+
+	public int dimensions (){
+		return this.N;
+	}
+
+	public int dimensions (JVector b){
 		if (this.N!=b.N) throw new RuntimeException ("Vectors dimensions differs");
 		return this.N;
 	
 	}
 
-	public boolean equals ( Vector b){
+	public boolean equals ( JVector b){
 		int dimensions=this.dimensions(b);
 		for (int i=0;i<dimensions;i++) {
 			if (this.coords[i]!=b.coords[i]) return false;
@@ -41,26 +54,26 @@ public class Vector {
 		return true; 
 	}
 
-	public Vector inverted () {
-		Vector inverted = new Vector (this.N);
+	public JVector inverted () {
+		JVector inverted = new JVector (this.N);
 		for (int i=0;i<this.N ;i++ ) {
 		inverted.coords[i]=0-this.coords[i];	
 		}
 		return inverted;
 	}
 
-	public Vector sum ( Vector b) {
+	public JVector plus ( JVector b) {
 		int dimensions = this.dimensions(b);
-		Vector sum = new Vector (dimensions);
+		JVector plus = new JVector (dimensions);
 		for (int i=0; i<dimensions; i++) {
-			sum.coords[i]=this.coords[i]+b.coords[i];	
+			plus.coords[i]=this.coords[i]+b.coords[i];	
 		}
-		return sum; 
+		return plus; 
 	}
 
 
-	public Vector scalarmult (int n){
-		Vector scalar = new Vector (this.N);
+	public JVector scalarmult (double n){
+		JVector scalar = new JVector (this.N);
 		for (int i=0;i<this.N ;i++ ) {
 			scalar.coords[i]=n*this.coords[i];
 			
@@ -68,7 +81,7 @@ public class Vector {
 		return scalar;
 	} 
 
-	public double dotprod (Vector b){
+	public double dotprod (JVector b){
 		int dimensions=this.dimensions(b);
 		double dotprod=0;
 		for (int i=0;i<dimensions ;i++ ) {
@@ -78,9 +91,9 @@ public class Vector {
 	}
 
 
-	public Vector crossprod (Vector b){	
+	public JVector crossprod (JVector b){	
 		if ((this.N!=3)||(b.N!=3)) throw new RuntimeException ("crossproduct method works only for 3d vectors, sorry :(");
-		Vector crossprod= new Vector (this.N);
+		JVector crossprod= new JVector (this.N);
 		crossprod.coords[0]=this.coords[1]*b.coords[2]-(this.coords[2]*b.coords[1]);
 		crossprod.coords[1]=this.coords[2]*b.coords[0]-(this.coords[0]*b.coords[2]);
 		crossprod.coords[2]=this.coords[0]*b.coords[1]-(this.coords[1]*b.coords[0]);
@@ -95,6 +108,8 @@ public class Vector {
 		}
 		return sum;
 	}
+
+
 	
 	public double length (){
 		return Math.sqrt(this.lengthsquared());
@@ -102,4 +117,4 @@ public class Vector {
 
 
 	
-};
+}

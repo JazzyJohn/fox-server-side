@@ -1,71 +1,126 @@
-f
 
-class Quatern {
+
+public class Quatern {
 	// Базовый объект - кватернион
 
-	public double x, y, z, w;	
+	public double[] coords;
+
+	public double getX (){
+		return this.coords[0];
+	}
+
+	public void setX (double x){
+		this.coords[0]=x;
+	}
+
+	public double getY (){
+		return this.coords[1];
+	}
+
+	public void setY (double y){
+		this.coords[1]=y;
+	}
+
+	public double getZ (){
+		return this.coords[2];
+	}
+
+	public void setZ (double z){
+		this.coords[2]=z;
+	}
+
+	public double getW (){
+		return this.coords[3];
+	}
+
+	public void setW (double w){
+		this.coords[3]=w;
+	}
 
 	public Quatern()
 	{
-		
+		this.coords=new double[4];
+		this.setX(0);
+		this.setY(0);
+		this.setZ(0);
+		this.setW(1);		
 	}
 
 	public Quatern ( double x, double y, double z, double w) {
-		this.x=x;
-		this.y=y;
-		this.z=z;
-		this.w=w;
+		this.setX(x);
+		this.setY(y);
+		this.setZ(z);
+		this.setW(w);
 		
 	}
 
 	public Quatern (double [] newcoords){
 		if (newcoords.length!=4) throw new RuntimeException ("Quatern should have four parameters");
-		this.x=newcoords[0];
-		this.y=newcoords[1];
-		this.z=newcoords[2];
-		this.w=newcoords[3];
+		this.setX(newcoords[0]);
+		this.setY(newcoords[1]);
+		this.setZ(newcoords[2]);
+		this.setW(newcoords[3]);
 	}
 
 	
 
-	public Quatern (Vector v, double w){
-		if (Vector.coords.length!=3) throw new RuntimeException ("Quaternion could not be built from non-3d vector");
-		this.x=v.coords[0];
-		this.y=v.coords[1];
-		this.z=v.coords[2];
-		this.w=w;		
+	public Quatern (JVector v, double w){
+
+		if (v.N!=3) throw new RuntimeException ("Quaternion could not be built from non-3d vector");
+		this.setX(v.coords[0]);
+		this.setY(v.coords[1]);
+		this.setZ(v.coords[2]);
+		this.setW(w);		
 	}
 
 
 	public boolean equals(Quatern b) {
-		//чёрт, как написать алиас?!
-		// мне удобно в одном месте инкременировать массив, а в другом - обращаться к его элементам 
-		// по x, y, z, w
-		//for (int i=0; i<4; i++) {
-		//	if (this.coords[i]!=b.coords[i]) return false;
-		//}
+		for (int i=0; i<4; i++) {
+			if (this.coords[i]!=b.coords[i]) return false;
+		}
 		return false;
 	}
 
 
-	public Quatern sum(Quatern b) {
-		double sum=0;
-		for (int i=0; i<4; i++) {
-			
-		}
-		return new Quatern (); //fake
+	private JVector toVector(){
+		return new JVector(this.getX(), this.getY(), this.getZ());	
+	}
+
+	public Quatern plus(Quatern b) {
+		Quatern c= new Quatern (); 
+		c.setX(this.getX()+b.getX());
+		c.setY(this.getY()+b.getY());
+		c.setZ(this.getZ()+b.getZ());
+		c.setW(this.getW()+b.getW());
+		return c;		
 	}
 
 	public Quatern subt(Quatern b) {
-		return new Quatern(); //fake
+		Quatern c= new Quatern (); 
+		c.setX(this.getX()-b.getX());
+		c.setY(this.getY()-b.getY());
+		c.setZ(this.getZ()-b.getZ());
+		c.setW(this.getW()-b.getW());
+		return c;
 	}
 
-	public Quatern mult(Quatern b) {
-		return new Quatern(); //fake 
+	public Quatern multiply(Quatern b) {
+		JVector v1= this.toVector();
+		JVector v2= b.toVector();
+		double w1=this.getW();
+		double w2=b.getW();
+		JVector result = v1.crossprod(v2).plus(v1.scalarmult(w2).plus(v2.scalarmult(w1)));
+		double resultscalar = (w1*w2+(v1.dotprod(v2)));
+		return new Quatern (result, resultscalar);
 	}
 
 	public	double norm() {
-		return 0; //fake
+		double sum=0;
+		for (int i=0;i<4;i++ ) {
+			sum+=this.coords[i]*this.coords[i];
+			
+		}
+		return sum;
 	}
 
 	public double abs() {
@@ -73,27 +128,40 @@ class Quatern {
 	}
 
 	public Quatern conjugate(){
-		return new Quatern(); //fake
+		return new Quatern(-this.getX(),-this.getY(),-this.getZ(),this.getW()); 
 	}
 
 	public Quatern inverse(){
-		return new Quatern(); //fake
+		double divider=0;
+		for (int i=0;i<4 ;i++ ) {
+		divider+=this.coords[i]*this.coords[i];
+		}
+		Quatern result=new Quatern();
+		result.setX(-this.getX()/divider);
+		result.setY(-this.getY()/divider);
+		result.setZ(-this.getZ()/divider);
+		result.setW(this.getW()/divider);
+		return result;
 	}
 
 	public Quatern div(Quatern b){
-		return new Quatern(); //fake
+		return this.inverse().multiply(b); 
 	}
 
-	public double innerproduct(){
-		return 0; //fake
-	}
-/*
-// Надо переразобраться с импортом, потому что он пытается определять его через джавовский вектор
-// а не через мой.
+	public double innerProduct(Quatern b){
+		double sum=0;
+		for (int i=0;i<4 ;i++ ) {
+			sum+=this.coords[i]*b.coords[i];
+		}
+		return sum;
+	} 
 
-	public Vector 3dRotate (Vector v);
-		return new Vector(3); //fake
-*/
+	public JVector rotates (JVector v){
+		Quatern inv = this.inverse();
+		Quatern vect = new Quatern (v, 0);
+		Quatern result=(this.multiply(vect.multiply(inv)));
+		return result.toVector(); 
+	}
 
 
 
