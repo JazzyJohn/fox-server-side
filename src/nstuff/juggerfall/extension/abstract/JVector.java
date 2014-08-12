@@ -13,6 +13,34 @@ public class JVector {
 	public	final int N; // размерность
 	public double[] coords; 
 
+
+
+	public double getX (){
+		return this.coords[0];
+	}
+
+	public void setX (double x){
+		this.coords[0]=x;
+	}
+
+	public double getY (){
+		return this.coords[1];
+	}
+
+	public void setY (double y){
+		this.coords[1]=y;
+	}
+
+	public double getZ (){
+		return this.coords[2];
+	}
+
+	public void setZ (double z){
+		this.coords[2]=z;
+	}
+
+
+
 	public JVector (int dim){
 		N = dim;
 		coords= new double [N];
@@ -71,6 +99,15 @@ public class JVector {
 		return plus; 
 	}
 
+	public JVector minus ( JVector b) {
+		int dimensions = this.dimensions(b);
+		JVector minus = new JVector (dimensions);
+		for (int i=0; i<dimensions; i++) {
+			minus.coords[i]=this.coords[i]-b.coords[i];	
+		}
+		return minus; 
+	}
+
 
 	public JVector scalarmult (double n){
 		JVector scalar = new JVector (this.N);
@@ -100,7 +137,7 @@ public class JVector {
 		return crossprod;
 	}
 
-	public double lengthsquared (){
+	public double lengthSquared (){
 		if (this.N<2) return this.coords[0];
 		double sum=0;
 		for (int i=0;i<N ;i++ ) {
@@ -112,7 +149,7 @@ public class JVector {
 
 	
 	public double length (){
-		return Math.sqrt(this.lengthsquared());
+		return Math.sqrt(this.lengthSquared());
 	}
 
 
