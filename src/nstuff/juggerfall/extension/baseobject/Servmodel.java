@@ -1,30 +1,34 @@
-public class Servmodel{
+package nstuff.juggerfall.extension.baseobject;
+
+
+import nstuff.juggerfall.extension.view.NetView;
+
+public abstract class Servmodel extends NetView {
 
 	//болванка объекта. 
 
 	//три вектора: где, куда движется, куда смотрит
-	public JVector coords, movement, heading;
+	public Vector coords, movement;
 	//куда вращается
 	public Quatern rotation;
 	//каких размеров и как далеко видит
 	public double size, fov;
 
 	private void nullInit(){
-	this.movement=new JVector (0,0,0);
-	this.heading=new JVector (1,0,0);
-	this.rotation=new Quatern (0,0,0,1);
-	size=0;
-	fov=0;
+        this.movement=new Vector(0,0,0);
+        this.rotation=new Quatern (0,0,0,1);
+        size=0;
+        fov=0;
 	}
 
 	public Servmodel()
 	{
-		this.coords=new JVector (3);
+		this.coords=new Vector(3);
 		this.nullInit();
 	}
 
 	public Servmodel (double x, double y, double z){
-		this.coords=new JVector (x,y,z);
+		this.coords=new Vector(x,y,z);
 		this.nullInit();
 	}
 
@@ -38,9 +42,8 @@ public class Servmodel{
 
 	public boolean isCollide (Servmodel b){
 		double n=this.size+b.size;
-		if ((n*n)>this.squaredDistanceTo(b)) return true;
-		return false;
-	}
+        return (n * n) > this.squaredDistanceTo(b);
+    }
 
 
 }

@@ -1,6 +1,8 @@
 package nstuff.juggerfall.extension.pawn;
 
 import com.smartfoxserver.v2.entities.User;
+import nstuff.juggerfall.extension.baseobject.Servmodel;
+import nstuff.juggerfall.extension.baseobject.Vector;
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.PawnModel;
 import nstuff.juggerfall.extension.player.Player;
@@ -11,7 +13,7 @@ import nstuff.juggerfall.extension.weapon.Weapon;
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public class Pawn extends NetView  {
+public class Pawn extends Servmodel {
 
     public String type;
 
@@ -38,7 +40,8 @@ public class Pawn extends NetView  {
     }
 
     public Pawn(PawnModel pawnModel) {
-        sirPawn  =(PawnModel)pawnModel;
+
+             sirPawn  =(PawnModel)pawnModel;
     	 id =pawnModel.id;
     	 type = pawnModel.type;
     	 wallState = pawnModel.wallState;
@@ -46,7 +49,8 @@ public class Pawn extends NetView  {
     	 characterState = pawnModel.characterState;
     	 isDead = pawnModel.isDead;
          viewType= NetViewType.NET_VIEW_TYPE_PAWN;
-	}
+
+    }
 
 	@Override
     public void Update(NetViewModel incPawn) {

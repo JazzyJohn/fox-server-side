@@ -1,3 +1,4 @@
+package nstuff.juggerfall.extension.baseobject;
 
 
 public class Quatern {
@@ -64,7 +65,7 @@ public class Quatern {
 
 	
 
-	public Quatern (JVector v, double w){
+	public Quatern (Vector v, double w){
 
 		if (v.N!=3) throw new RuntimeException ("Quaternion could not be built from non-3d vector");
 		this.setX(v.coords[0]);
@@ -82,8 +83,8 @@ public class Quatern {
 	}
 
 
-	private JVector toVector(){
-		return new JVector(this.getX(), this.getY(), this.getZ());	
+	private Vector toVector(){
+		return new Vector(this.getX(), this.getY(), this.getZ());
 	}
 
 	public Quatern plus(Quatern b) {
@@ -105,11 +106,11 @@ public class Quatern {
 	}
 
 	public Quatern multiply(Quatern b) {
-		JVector v1= this.toVector();
-		JVector v2= b.toVector();
+		Vector v1= this.toVector();
+		Vector v2= b.toVector();
 		double w1=this.getW();
 		double w2=b.getW();
-		JVector result = v1.crossprod(v2).plus(v1.scalarmult(w2).plus(v2.scalarmult(w1)));
+		Vector result = v1.crossprod(v2).plus(v1.scalarmult(w2).plus(v2.scalarmult(w1)));
 		double resultscalar = (w1*w2+(v1.dotprod(v2)));
 		return new Quatern (result, resultscalar);
 	}
@@ -156,7 +157,7 @@ public class Quatern {
 		return sum;
 	} 
 
-	public JVector rotates (JVector v){
+	public Vector rotates (Vector v){
 		Quatern inv = this.inverse();
 		Quatern vect = new Quatern (v, 0);
 		Quatern result=(this.multiply(vect.multiply(inv)));
