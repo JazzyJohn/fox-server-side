@@ -40,6 +40,8 @@ public class MainExtension extends SFSExtension {
 
     public static final String RequestName_DeleteView = "deleteView";
 
+    public static final String RequestName_DeleteSceneView = "deleteSceneView";
+
     public static final String RequestName_GameStart = "gameStart";
 
     public static final String RequestName_NewMaster = "newMaster";
@@ -119,6 +121,8 @@ public class MainExtension extends SFSExtension {
         addRequestHandler(RequestName_Serilization,SerilizationHandler.class);
 
         addRequestHandler(RequestName_DeleteView,DeleteViewHandler.class);
+
+        addRequestHandler(RequestName_DeleteSceneView,DeleteSceneViewHandler.class);
         
         addEventHandler(SFSEventType.USER_JOIN_ROOM, UserRoomJoinHandler.class);
 

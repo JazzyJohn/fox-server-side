@@ -10,12 +10,12 @@ import nstuff.juggerfall.extension.other.SimpleNetView;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ViewManager {
 	private Map<Integer ,NetView> allView = new HashMap<Integer ,NetView>();
+
+    public List<Integer> deleteSceneView = new ArrayList<Integer>();
 
     public MainExtension extension;
 
@@ -46,7 +46,8 @@ public class ViewManager {
         for(NetView view : allView.values()){
             view.ClearRef();
         }
-        allView = new HashMap<Integer ,NetView>();
+        allView.clear();
+        deleteSceneView.clear();
 
     }
 
@@ -118,5 +119,14 @@ public class ViewManager {
     public boolean HasView(int id) {
 
        return  allView.containsKey(id);
+    }
+
+    public void DeleteSceneView(User sender, int id) {
+        DeleteView(sender,id);
+        deleteSceneView.add(id);
+    }
+
+    public List<Integer> GetAllDeleteSceneViewForStart() {
+       return deleteSceneView;
     }
 }

@@ -50,6 +50,7 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 			getParentExtension().trace(e);
 		}
         res.putSFSArray("views", extension.viewManager.GetAllViewForStart());
+        res.putIntArray("deleteSceneView", extension.viewManager.GetAllDeleteSceneViewForStart());
 		send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
         ((MainExtension)getParentExtension()).PlayerJoin(user);
 	}
