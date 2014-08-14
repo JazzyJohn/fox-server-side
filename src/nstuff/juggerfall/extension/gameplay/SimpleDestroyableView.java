@@ -10,20 +10,21 @@ import nstuff.juggerfall.extension.view.NetViewType;
  */
 public class SimpleDestroyableView extends NetView {
     public float health;
+    public SimpleDestroyableModel model;
     public SimpleDestroyableView(){
 
-        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
+        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE_DESTROYABLE;
     }
     public SimpleDestroyableView(SimpleDestroyableModel model) {
 
-        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
+        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE_DESTROYABLE;
         health = model.health;
         id =model.id;
-
+        this.model = model;
     }
     @Override
     public void Update(NetViewModel view) {
-        SimpleDestroyableModel model = (SimpleDestroyableModel)view;
+        model = (SimpleDestroyableModel)view;
         health =model.health;
     }
 

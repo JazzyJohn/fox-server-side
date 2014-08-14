@@ -6,6 +6,7 @@ import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.gameplay.SimpleDestroyableView;
 import nstuff.juggerfall.extension.other.SimpleNetView;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.weapon.Weapon;
@@ -80,7 +81,11 @@ public class ViewManager {
                     SimpleNetView simpelView =(SimpleNetView)view;
                     res.putClass("model",simpelView.model);
                     break;
+                case NET_VIEW_TYPE_SIMPLE_DESTROYABLE:
+                    SimpleDestroyableView simpelDestView =(SimpleDestroyableView)view;
+                    res.putClass("model",simpelDestView.model);
 
+                    break;
             }
 
             sfsa.addSFSObject(res);

@@ -23,9 +23,8 @@ public class SimpleNetView extends NetView {
 
         viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
         type = model.type;
-        this.model = model;
         id =model.id;
-
+        this.model = model;
     }
 
     @Override

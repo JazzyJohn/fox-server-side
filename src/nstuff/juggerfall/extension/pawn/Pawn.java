@@ -13,7 +13,7 @@ import nstuff.juggerfall.extension.weapon.Weapon;
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public class Pawn extends Servmodel {
+public class Pawn extends NetView {
 
     public String type;
 
