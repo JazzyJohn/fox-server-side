@@ -37,7 +37,18 @@ public class PVPJuggerFightGameRule extends  GameRule {
     @Override
     public void AIDeath(Pawn dead) {
         if(allJuggers.contains(dead)){
-            teamScore[dead.team-1]+=10;
+            int scoreTeam = 1-(dead.team-1);
+            teamScore[scoreTeam]+=10;
+            allJuggers.remove(dead);
+            extension.UpdateGame();
+        }
+    }
+
+    @Override
+    public void AIDeath(Pawn dead, int team) {
+        if(allJuggers.contains(dead)){
+            int scoreTeam = 1-(dead.team-1);
+            teamScore[scoreTeam]+=10;
             allJuggers.remove(dead);
             extension.UpdateGame();
         }

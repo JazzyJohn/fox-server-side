@@ -32,7 +32,7 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
     	PlayerManager playermanager =extension.playerManager;
 		playermanager.AddPlayer(user);
 
-        ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
+        extension.UpdatePlayerInfo(user);
 
 		try {
 			res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
@@ -51,8 +51,9 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 		}
         res.putSFSArray("views", extension.viewManager.GetAllViewForStart());
         res.putIntArray("deleteSceneView", extension.viewManager.GetAllDeleteSceneViewForStart());
+        extension.gameRule.AddSpawnInfo(res);
 		send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
-        ((MainExtension)getParentExtension()).PlayerJoin(user);
+        extension.PlayerJoin(user);
 	}
 
 }

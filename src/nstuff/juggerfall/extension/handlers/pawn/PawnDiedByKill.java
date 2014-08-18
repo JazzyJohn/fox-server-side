@@ -27,7 +27,13 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
         		killer.kill++;
         	}
         }else{
-            extension.gameRule.AIDeath(pawn);
+            int player = data.getInt("player");
+            if(player!=-1){
+                Player killer =((Player)extension.getApi().getUserById(player).getProperty("player"));
+                extension.gameRule.AIDeath(pawn,killer.team);
+            }else{
+                extension.gameRule.AIDeath(pawn);
+            }
         }
 
         send(PawnHandlerManager.RequestName_PawnDiedByKill,data,((MainExtension)getParentExtension()).GetOther(user));

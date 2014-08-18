@@ -3,6 +3,7 @@ package nstuff.juggerfall.extension.gamerule;
 import com.smartfoxserver.v2.entities.Room;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.PVPGameRuleModel;
+import nstuff.juggerfall.extension.models.PVPHuntGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
@@ -10,18 +11,15 @@ import java.util.ArrayList;
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public class PVPGameRule extends  GameRule {
+public class HuntGameRule extends  GameRule {
 
-    public int[] teamKill;
+
 
 
 
     @Override
     public void Kill(int team) {
-        team =team-1;
-        teamKill[team]++;
-        teamScore[team]++;
-        CheckGameEnd();
+
     }
 
     @Override
@@ -41,6 +39,9 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void AIDeath(Pawn dead, int team) {
+        team =team-1;
+        teamScore[team]++;
+        CheckGameEnd();
 
     }
 
@@ -49,7 +50,7 @@ public class PVPGameRule extends  GameRule {
     public void Init(Room room) {
         super.Init(room);
         int teamCount = room.getVariable("teamCount").getIntValue();
-        teamKill = new int[teamCount];
+
         teamScore = new int[teamCount];
         canUseRobot = true;
         extension.trace("ROOM START");
@@ -59,22 +60,18 @@ public class PVPGameRule extends  GameRule {
     @Override
     public void Reload() {
         super.Reload();
-        teamKill = new int[teamKill.length];
+
 
     }
 
     @Override
     public GameRuleModel GetModel(){
-        PVPGameRuleModel model = new PVPGameRuleModel();
+        PVPHuntGameRuleModel model = new PVPHuntGameRuleModel();
         model.isGameEnded = isGameEnded;
-        model.teamKill = new ArrayList<Integer>();
         model.teamScore = new ArrayList<Integer>();
-        for(int i =0; i <teamKill.length;i++){
-            model.teamKill.add(teamKill[i]);
-            model.teamScore.add(teamScore[i]);
-
+        for (int aTeamScore : teamScore) {
+            model.teamScore.add(aTeamScore);
         }
-
         return model;
     }
 }

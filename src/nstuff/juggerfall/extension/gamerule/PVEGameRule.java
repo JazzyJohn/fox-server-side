@@ -61,6 +61,15 @@ public class PVEGameRule extends  GameRule {
         }
     }
 
+    @Override
+    public void AIDeath(Pawn dead, int team) {
+        if(dead.id==vipId){
+            teamScore[0] = 0;
+            teamScore[1]= 100;
+            GameFinish();
+        }
+    }
+
 
     @Override
     public void Init(Room room) {

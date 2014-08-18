@@ -48,6 +48,11 @@ public class RunnerGameRule extends GameRule {
     }
 
     @Override
+    public void AIDeath(Pawn dead, int team) {
+
+    }
+
+    @Override
     public RunnerGameRuleModel GetModel() {
         RunnerGameRuleModel model = new RunnerGameRuleModel();
         model.isGameEnded = isGameEnded;

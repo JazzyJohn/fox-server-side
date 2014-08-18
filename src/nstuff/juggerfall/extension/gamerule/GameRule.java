@@ -4,6 +4,7 @@ import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.ai.AIDirector;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
@@ -39,6 +40,8 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public int[] teamScore;
 
+    public AIDirector director = new AIDirector();
+
     public abstract void Kill(int team);
 
     public abstract void Spawn(int team);
@@ -46,6 +49,8 @@ public abstract class GameRule implements TimeUpdateEntity {
     public abstract void PlayerDeath(int team);
 
     public abstract void AIDeath(Pawn dead);
+
+    public abstract void AIDeath(Pawn dead,int team);
 
     public transient MainExtension extension;
 
@@ -143,5 +148,11 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public void AddMasterInfo(ISFSObject res){
 
+    }
+
+    public void AddSpawnInfo(ISFSObject res) {
+        if(director.HasList()){
+            res.putIntArray("swarmIds",director.GetList());
+        }
     }
 }

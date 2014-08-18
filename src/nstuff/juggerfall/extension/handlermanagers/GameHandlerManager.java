@@ -18,6 +18,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_UpdateConquestPoint = "updateConquestPoint";
 
+    public static final String RequestName_SwarmUpdate = "swarmUpdate";
+
 
 
 @Override
@@ -36,6 +38,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
     extension.addClientHandler(RequestName_GameRuleDamageBase, GameRuleDamageBase.class);
 
     extension.addClientHandler(RequestName_UpdateConquestPoint, UpdateConquestPoint.class);
+
+    extension.addClientHandler(RequestName_SwarmUpdate, SwarmUpdateHandler.class);
     }
 
 }
