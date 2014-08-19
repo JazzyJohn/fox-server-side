@@ -42,6 +42,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_PawnInPilotChange ="pawnInPilotChange";
 
+    public static final String RequestName_RemoteDamageOnPawn ="remoteDamageOnPawn";
+
     @Override
     public void Init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -71,6 +73,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
         extension.addClientHandler(RequestName_PawnInPilotChange, PawnInPilotChangeHandler.class);
 
         extension.addClientHandler(RequestName_PawnBattleJuggerSpawn, BattleJuggerSpawnHandler.class);
+
+        extension.addClientHandler(RequestName_RemoteDamageOnPawn, RemoteDamageOnPawnHandler.class);
 
 
     }

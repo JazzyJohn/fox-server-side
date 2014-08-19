@@ -104,4 +104,13 @@ public class Pawn extends NetView {
         }
         return true;
     }
+
+    public User GetOwner() {
+        if(owner==null){
+            return  manager.extension.masterInfo;
+        }else{
+            return owner;
+        }
+
+    }
 }
