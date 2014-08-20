@@ -30,7 +30,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
     }
 
     @Override
-    public void PlayerDeath(int team) {
+    public void PlayerDeath(Pawn dead) {
 
     }
 

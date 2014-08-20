@@ -46,7 +46,7 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public abstract void Spawn(int team);
 
-    public abstract void PlayerDeath(int team);
+    public abstract void PlayerDeath(Pawn dead);
 
     public abstract void AIDeath(Pawn dead);
 

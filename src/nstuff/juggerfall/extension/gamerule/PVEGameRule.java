@@ -43,7 +43,7 @@ public class PVEGameRule extends  GameRule {
     }
 
     @Override
-    public void PlayerDeath(int team) {
+    public void PlayerDeath(Pawn dead) {
 
     }
 

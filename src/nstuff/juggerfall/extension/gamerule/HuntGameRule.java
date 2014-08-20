@@ -32,8 +32,11 @@ public class HuntGameRule extends  GameRule {
     }
 
     @Override
-    public void PlayerDeath(int team) {
-
+    public void PlayerDeath(Pawn dead) {
+        int scoreTeam = 1-(dead.team-1);
+        if(scoreTable.containsKey(dead.type)){
+            teamScore[scoreTeam]+= (Integer)scoreTable.get(dead.type);
+        }
     }
 
     @Override
