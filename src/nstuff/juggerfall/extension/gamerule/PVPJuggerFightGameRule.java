@@ -68,6 +68,11 @@ public class PVPJuggerFightGameRule extends  GameRule {
         return model;
     }
 
+    @Override
+    public void RobotEnter(int team) {
+
+    }
+
     public void SetJuggerPawn(Pawn pawn) {
         allJuggers.add(pawn);
     }

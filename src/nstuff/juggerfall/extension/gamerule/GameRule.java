@@ -155,4 +155,7 @@ public abstract class GameRule implements TimeUpdateEntity {
             res.putIntArray("swarmIds",director.GetList());
         }
     }
+
+
+    public abstract void RobotEnter(int team);
 }

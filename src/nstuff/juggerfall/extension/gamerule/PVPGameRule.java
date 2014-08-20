@@ -77,4 +77,9 @@ public class PVPGameRule extends  GameRule {
 
         return model;
     }
+
+    @Override
+    public void RobotEnter(int team) {
+
+    }
 }

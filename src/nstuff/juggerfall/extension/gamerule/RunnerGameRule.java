@@ -67,5 +67,10 @@ public class RunnerGameRule extends GameRule {
         return null;
     }
 
+    @Override
+    public void RobotEnter(int team) {
+
+    }
+
 
 }

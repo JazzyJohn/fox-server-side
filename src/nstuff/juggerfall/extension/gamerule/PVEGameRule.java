@@ -112,6 +112,11 @@ public class PVEGameRule extends  GameRule {
         res.putIntArray("route",route);
     }
 
+    @Override
+    public void RobotEnter(int team) {
+
+    }
+
     public void Arrived() {
 
         teamScore[0] = 100;
