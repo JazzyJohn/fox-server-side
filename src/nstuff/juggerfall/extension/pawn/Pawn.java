@@ -41,7 +41,7 @@ public class Pawn extends NetView {
 
     public Pawn(PawnModel pawnModel) {
 
-             sirPawn  =(PawnModel)pawnModel;
+         sirPawn  =pawnModel;
     	 id =pawnModel.id;
     	 type = pawnModel.type;
     	 wallState = pawnModel.wallState;
@@ -79,7 +79,7 @@ public class Pawn extends NetView {
 
     private void AfterDeleteLogic(){
         if(team!=0){
-            manager.extension.gameRule.PlayerDeath(team-1);
+            manager.extension.gameRule.PlayerDeath(this);
         }
     }
     @Override

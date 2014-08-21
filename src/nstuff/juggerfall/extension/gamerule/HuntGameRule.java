@@ -8,6 +8,7 @@ import nstuff.juggerfall.extension.models.PVPHuntGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -65,8 +66,11 @@ public class HuntGameRule extends  GameRule {
         teamScore = new int[teamCount];
         canUseRobot = true;
         extension.trace("ROOM START");
-        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+            ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
         scoreTable = (Map<String, Object>) object.getClass("huntTable");
+        if(scoreTable==null){
+            scoreTable = new HashMap<String, Object>();
+        }
     }
 
     @Override
