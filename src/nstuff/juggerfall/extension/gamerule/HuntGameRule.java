@@ -3,6 +3,7 @@ package nstuff.juggerfall.extension.gamerule;
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.GameSettingModel;
 import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.models.PVPHuntGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
@@ -60,14 +61,17 @@ public class HuntGameRule extends  GameRule {
 
     @Override
     public void Init(Room room) {
-        super.Init(room);
-        int teamCount = room.getVariable("teamCount").getIntValue();
 
+        super.Init(room);
+        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
+        int teamCount = settings.teamCount;
         teamScore = new int[teamCount];
         canUseRobot = true;
         extension.trace("ROOM START");
-            ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
-        scoreTable = (Map<String, Object>) object.getClass("huntTable");
+
+
+        scoreTable = settings.huntTable;
         if(scoreTable==null){
             scoreTable = new HashMap<String, Object>();
         }

@@ -1,7 +1,9 @@
 package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.Room;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.GameSettingModel;
 import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
@@ -48,7 +50,9 @@ public class PVPGameRule extends  GameRule {
     @Override
     public void Init(Room room) {
         super.Init(room);
-        int teamCount = room.getVariable("teamCount").getIntValue();
+        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
+        int teamCount = settings.teamCount;
         teamKill = new int[teamCount];
         teamScore = new int[teamCount];
         canUseRobot = true;

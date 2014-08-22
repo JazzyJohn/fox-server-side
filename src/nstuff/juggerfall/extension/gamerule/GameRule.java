@@ -7,6 +7,7 @@ import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.ai.AIDirector;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.GameSettingModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.Date;
@@ -69,8 +70,10 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
     public void Init(Room room){
-        maxScore=room.getVariable("maxScore").getIntValue();
-        gameTime =room.getVariable("maxTime").getIntValue()*1000;
+        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
+        maxScore=settings.maxScore;
+        gameTime =settings.maxTime*1000;
         Date date = new Date();
         gameStart  = date.getTime();
     }
