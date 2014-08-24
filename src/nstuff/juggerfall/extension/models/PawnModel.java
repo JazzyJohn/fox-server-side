@@ -21,6 +21,8 @@ public class PawnModel extends NetViewModel {
     
     public float health;
 
+    public boolean isAiming;
+
     public Vector3Model position;
 
     public Vector3Model aimRotation;

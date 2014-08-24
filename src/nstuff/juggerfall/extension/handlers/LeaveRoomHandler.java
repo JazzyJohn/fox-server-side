@@ -11,7 +11,7 @@ import nstuff.juggerfall.extension.MainExtension;
 /**
  * Created by OldDog on 30.07.2014.
  */
-public class LeaveRoomHandler
+public class    LeaveRoomHandler
     extends BaseServerEventHandler
     {
         @Override

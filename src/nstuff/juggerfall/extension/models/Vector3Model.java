@@ -16,4 +16,10 @@ public class Vector3Model  implements SerializableSFSType {
     public Vector3Model(){
 
     }
+    public Vector3Model(double x, double y, double z){
+        this.x = (float) x;
+        this.y = (float) y;
+        this.z = (float) z;
+
+    }
 }

@@ -6,15 +6,17 @@ import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.gameplay.QueenEgg;
 import nstuff.juggerfall.extension.gameplay.SimpleDestroyableView;
 import nstuff.juggerfall.extension.other.SimpleNetView;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ViewManager {
-	private Map<Integer ,NetView> allView = new HashMap<Integer ,NetView>();
+	private Map<Integer ,NetView> allView = new ConcurrentHashMap<Integer ,NetView>();
 
     public List<Integer> deleteSceneView = new ArrayList<Integer>();
 
@@ -29,6 +31,14 @@ public class ViewManager {
     public void DeleteView(User sender,Integer id) {
         NetView view  = allView.get(id);
         view.Delete();
+        if(view instanceof SimpleNetView){
+            SimpleNetView simple = (SimpleNetView)view;
+            switch (simple.prefType){
+                case EGG:
+                    extension.gameRule.director.RemoveEgg((QueenEgg)simple);
+                    break;
+            }
+        }
         allView.remove(id);
 
         extension.DeleteView(sender, id);
@@ -71,6 +81,11 @@ public class ViewManager {
                     if(pawn.owner!=null){
                         res.putInt("ownerId",pawn.owner.getId());
                     }
+                    res.putBool("isAI", pawn.isAi);
+                    if(pawn.isAi){
+                        res.putInt("group",pawn.aiSwarmId);
+                        res.putInt("home",pawn.aihome);
+                    }
                     break;
                 case  NET_VIEW_TYPE_WEAPON:
                     Weapon weapon =(Weapon)view;
@@ -96,14 +111,18 @@ public class ViewManager {
 
     public  SFSArray RemovePlayerView(int ownerId){
         SFSArray sfsa = new SFSArray();
-        for(NetView view : allView.values()){
+        Iterator<Map.Entry<Integer ,NetView>> iterator = allView.entrySet().iterator();
+        while(iterator.hasNext()){
 
+            Map.Entry<Integer ,NetView> entry = iterator.next();
+            NetView view =entry.getValue();
             switch(view.viewType){
                 case  NET_VIEW_TYPE_PAWN:
                     Pawn pawn =(Pawn)view;
                     if(pawn.owner!=null&&pawn.owner.getId()==ownerId){
                         pawn.DeleteLocal();
                         sfsa.addInt(view.id);
+                        iterator.remove();
                     }
 
                 break;
@@ -112,6 +131,7 @@ public class ViewManager {
                     if(weapon.owner!=null&&weapon.owner.owner!=null&&weapon.owner.owner.getId()==ownerId){
                         weapon.DeleteLocal();
                         sfsa.addInt(view.id);
+                        iterator.remove();
                     }
                     break;
 			default:

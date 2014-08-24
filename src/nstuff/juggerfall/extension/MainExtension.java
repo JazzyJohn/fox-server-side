@@ -64,6 +64,8 @@ public class MainExtension extends SFSExtension {
 
     public GameRule gameRule;
 
+    public Sender sender;
+
     SecondRunner secondRunner;
 
     // Keeps a reference to the task execution
@@ -154,6 +156,7 @@ public class MainExtension extends SFSExtension {
             trace(ExtensionLogLevel.INFO, "Game Rule IllegalAccessException   " + e.getStackTrace().toString());
 
         }
+        sender = new Sender(this);
 
         gameRule.extension =this;
 
@@ -194,6 +197,10 @@ public class MainExtension extends SFSExtension {
         secondRunner.allUpdate.add(gameRule);
 	}
 
+    public void AddToUpdate(TimeUpdateEntity updater){
+        secondRunner.allUpdate.add(updater);
+
+    }
 
     @Override
     public void destroy() {
@@ -245,6 +252,8 @@ public class MainExtension extends SFSExtension {
         send(RequestName_NextMap, res, targets);
     }
 
+
+
     private class SecondRunner implements Runnable
     {
         private long lastTime = 0;
@@ -273,6 +282,15 @@ public class MainExtension extends SFSExtension {
         ISFSObject res = new SFSObject();
         gameRule.AddMasterInfo(res);
         send(RequestName_NewMaster, res, masterInfo);
+
+
+    }
+
+    public void PlayerLeave(User user){
+        ISFSObject res = new SFSObject();
+        res.putSFSArray ("views",viewManager.RemovePlayerView(user.getId()));
+        res.putInt("playerId",user.getId());
+        send(MainExtension.RequestName_PlayerLeave, res, GetOther(user));
 
     }
 }

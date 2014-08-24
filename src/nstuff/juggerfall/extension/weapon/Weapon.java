@@ -16,6 +16,8 @@ public class Weapon  extends NetView {
 
     public WeaponModel sirWeapon;
 
+    public Integer lateId;
+
     public Weapon(){
         viewType= NetViewType.NET_VIEW_TYPE_WEAPON;
     }

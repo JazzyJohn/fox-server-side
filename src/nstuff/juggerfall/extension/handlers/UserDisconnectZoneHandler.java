@@ -12,19 +12,12 @@ import nstuff.juggerfall.extension.MainExtension;
 
 import java.util.List;
 
-public class UserDisconnectHandler extends BaseServerEventHandler {
+public class UserDisconnectZoneHandler extends BaseServerEventHandler {
 
 	@Override
 	public void handleServerEvent(ISFSEvent event) throws SFSException {
 
-        User user = (User)event.getParameter(SFSEventParam.USER);
 
-        List<Room> rooms = (List<Room>) event.getParameter(SFSEventParam.JOINED_ROOMS);
-        for(Room room : rooms){
-            if(room.isGame()){
-                ((MainExtension)  room.getExtension()).PlayerLeave(user);
-            }
-        }
-	}
+    }
 
 }

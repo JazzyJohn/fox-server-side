@@ -41,7 +41,7 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public int[] teamScore;
 
-    public AIDirector director = new AIDirector();
+    public AIDirector director;
 
     public abstract void Kill(int team);
 
@@ -76,6 +76,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         gameTime =settings.maxTime*1000;
         Date date = new Date();
         gameStart  = date.getTime();
+        director  = new AIDirector(extension);
     }
 
     public  void StartGame()
@@ -138,6 +139,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         state= GamerRuleState.AFTERRELOAD;
         teamScore = new int[teamScore.length];
         extension.playerManager.ClearScore();
+        director.Reload();
     }
 
     public void PlayerJoin(User user){
@@ -153,11 +155,6 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     }
 
-    public void AddSpawnInfo(ISFSObject res) {
-        if(director.HasList()){
-            res.putIntArray("swarmIds",director.GetList());
-        }
-    }
 
 
     public abstract void RobotEnter(int team);

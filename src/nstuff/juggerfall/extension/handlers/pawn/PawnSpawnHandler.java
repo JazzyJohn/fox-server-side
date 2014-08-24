@@ -25,6 +25,13 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
         if(data.getBool("Scene")){
             pawn.owner = null;
             pawn.player = null;
+            pawn.isAi = data.getBool("isAI");
+            if(pawn.isAi){
+                pawn.aiSwarmId =data.getInt("group");
+                pawn.aihome = data.getInt("home");
+                extension.gameRule.director.AddPawn(pawn);
+            }
+
         }else{
             res.putInt("ownerId",user.getId());
             pawn.owner = user;
@@ -32,7 +39,7 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             if(!data.getBool("isAI")){
                 extension.gameRule.Spawn(pawn.team);
             }
-
+            pawn.isAi = data.getBool("isAI");
         }
         res.putBool("isAI", data.getBool("isAI"));
         res.putClass("pawn",pawnModel);

@@ -18,18 +18,23 @@ public class WeaponSpawnHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         Pawn owner  =(Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("pawnId"));
-        if(!owner.IsOwner(user)){
-            return;
+        if(owner!=null){
+            if(!owner.IsOwner(user)){
+                return;
+            }
         }
-
         WeaponModel weaponModel  =(WeaponModel)data.getClass("weapon");
         Weapon weapon = new Weapon(weaponModel);
         ((MainExtension)getParentExtension()).viewManager.AddView(weapon);
-        weapon.owner = owner;
-        owner.weapon = weapon;
+        if(owner==null){
+            weapon.lateId =data.getInt("pawnId");
+        }else{
+            weapon.owner = owner;
+            owner.weapon = weapon;
+        }
         ISFSObject res = new SFSObject();
         res.putClass("weapon",weapon.sirWeapon);
-        res.putInt("pawnId",owner.id);
+        res.putInt("pawnId",data.getInt("pawnId"));
         send(WeaponHandlerManager.RequestName_WeaponSpawn,res,((MainExtension)getParentExtension()).GetOther(user));
     }
 }

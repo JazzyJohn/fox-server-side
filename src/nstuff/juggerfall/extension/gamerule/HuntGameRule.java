@@ -101,6 +101,7 @@ public class HuntGameRule extends  GameRule {
 
     @Override
     public void RobotEnter(int team) {
+        team--;
         if(scoreTable.containsKey(ROBOT_ENTER)){
             teamScore[team]+= (Integer)scoreTable.get(ROBOT_ENTER);
         }else{

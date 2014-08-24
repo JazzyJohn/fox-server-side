@@ -34,6 +34,9 @@ public class Pawn extends NetView {
     public transient Weapon weapon;
 
     public PawnModel sirPawn;
+    public boolean isAi;
+    public Integer aiSwarmId;
+    public Integer aihome;
 
     public Pawn(){
         viewType= NetViewType.NET_VIEW_TYPE_PAWN;

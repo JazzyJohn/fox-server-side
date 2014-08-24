@@ -18,11 +18,11 @@ public class GameHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_UpdateConquestPoint = "updateConquestPoint";
 
-    public static final String RequestName_SwarmUpdate = "swarmUpdate";
-
     public static final String RequestName_BossHit = "bossHit";
 
     public static final String RequestName_LastWave = "lastWave";
+
+    public static final String RequestName_MapData = "mapData";
 
 @Override
     public void Init() {
@@ -41,11 +41,11 @@ public class GameHandlerManager extends AbstractHandlerManager {
 
     extension.addClientHandler(RequestName_UpdateConquestPoint, UpdateConquestPoint.class);
 
-    extension.addClientHandler(RequestName_SwarmUpdate, SwarmUpdateHandler.class);
-
-    extension.addClientHandler(RequestName_BossHit, BossHitHandler.class);
+     extension.addClientHandler(RequestName_BossHit, BossHitHandler.class);
 
     extension.addClientHandler(RequestName_LastWave, LastWaveHandler.class);
+
+    extension.addClientHandler(RequestName_MapData, MapDataHandler.class);
     }
 
 }

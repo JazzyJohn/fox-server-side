@@ -5,12 +5,12 @@ import nstuff.juggerfall.extension.models.SimpleNetModel;
 import nstuff.juggerfall.extension.view.NetView;
 import nstuff.juggerfall.extension.view.NetViewType;
 
-/**
- * Created by 804129 on 02.08.14.
- */
+;
 public class SimpleNetView extends NetView {
 
     public String type;
+
+    public PREFABTYPE prefType;
 
     public SimpleNetModel model;
 
@@ -19,12 +19,13 @@ public class SimpleNetView extends NetView {
         viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
     }
 
-    public SimpleNetView(SimpleNetModel model) {
+    public SimpleNetView(SimpleNetModel model,PREFABTYPE prefType) {
 
         viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
-        type = model.type;
+        this.type = model.type;
         id =model.id;
         this.model = model;
+        this.prefType = prefType;
     }
 
     @Override

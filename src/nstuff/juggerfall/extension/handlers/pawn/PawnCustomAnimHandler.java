@@ -8,16 +8,16 @@ import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 /**
- * Created by Ivan.Ochincenko on 01.08.14.
+ * Created by Ivan.Ochincenko on 31.07.14.
  */
-public class PawnSetAI  extends BaseClientRequestHandler {
+public class PawnCustomAnimHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("id"));
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("pawnId"));
         if(!pawn.IsOwner(user)){
             return;
         }
 
-        send(PawnHandlerManager.RequestName_PawnSetAI,data,((MainExtension)getParentExtension()).GetOther(user));
+        send(PawnHandlerManager.RequestName_CustomAnimStart,data,((MainExtension)getParentExtension()).GetOther(user));
     }
 }

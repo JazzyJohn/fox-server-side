@@ -36,13 +36,13 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_PawnDetonate = "pawnDetonate";
 
-    public static final String RequestName_PawnSetAI = "pawnSetAI";
-    
     public static final String RequestName_PawnDiedByKill = "pawnDiedByKill";
 
     public static final String RequestName_PawnInPilotChange ="pawnInPilotChange";
 
     public static final String RequestName_RemoteDamageOnPawn ="remoteDamageOnPawn";
+
+    public static final String RequestName_CustomAnimStart ="customAnimStart";
 
     @Override
     public void Init() {
@@ -66,8 +66,6 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_PawnDetonate, PawnDetonateHandler.class);
 
-        extension.addClientHandler(RequestName_PawnSetAI, PawnSetAI.class);
-        
         extension.addClientHandler(RequestName_PawnDiedByKill, PawnDiedByKill.class);
 
         extension.addClientHandler(RequestName_PawnInPilotChange, PawnInPilotChangeHandler.class);
@@ -75,6 +73,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
         extension.addClientHandler(RequestName_PawnBattleJuggerSpawn, BattleJuggerSpawnHandler.class);
 
         extension.addClientHandler(RequestName_RemoteDamageOnPawn, RemoteDamageOnPawnHandler.class);
+
+        extension.addClientHandler(RequestName_CustomAnimStart, PawnCustomAnimHandler.class);
 
 
     }
