@@ -22,18 +22,19 @@ public class QueenEgg extends SimpleNetView {
     public int spawnId;
 
     public QueenEgg(){
+        super();
         timeSpawned= (new Date()).getTime();
-        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
+
     }
 
     public QueenEgg(SimpleNetModel model, PREFABTYPE type) {
-        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
+        this();
         this.type = model.type;
         id =model.id;
         this.model = model;
         this.prefType = type;
         position =new Vector( model.position.x,model.position.y,model.position.z);
-        timeSpawned= (new Date()).getTime();
+
     }
 
     public boolean IsReady(){

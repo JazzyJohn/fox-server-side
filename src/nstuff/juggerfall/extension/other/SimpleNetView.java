@@ -20,8 +20,7 @@ public class SimpleNetView extends NetView {
     }
 
     public SimpleNetView(SimpleNetModel model,PREFABTYPE prefType) {
-
-        viewType = NetViewType.NET_VIEW_TYPE_SIMPLE;
+        this();
         this.type = model.type;
         id =model.id;
         this.model = model;
