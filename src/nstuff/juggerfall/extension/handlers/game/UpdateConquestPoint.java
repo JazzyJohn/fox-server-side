@@ -16,7 +16,7 @@ public class UpdateConquestPoint extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
 
-        send(GameHandlerManager.RequestName_UpdateConquestPoint,data,((MainExtension)getParentExtension()).GetOther(user));
+        send(GameHandlerManager.RequestName_UpdateConquestPoint,data,((MainExtension)getParentExtension()).getOther(user));
 
     }
 

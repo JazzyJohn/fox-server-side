@@ -4,7 +4,6 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import nstuff.juggerfall.extension.MainExtension;
-import nstuff.juggerfall.extension.gamerule.HuntGameRule;
 import nstuff.juggerfall.extension.handlermanagers.OtherHandlerManager;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.Player;
@@ -20,12 +19,12 @@ public class EnterRobotSuccessHandler extends BaseClientRequestHandler {
             return;
         }
         User robotDriver = extension.getParentRoom().getUserById(data.getInt("userId"));
-        Pawn pawn = (Pawn)extension.viewManager.GetView(data.getInt("robotId"));
+        Pawn pawn = (Pawn)extension.viewManager.getView(data.getInt("robotId"));
         pawn.owner = robotDriver;
 
-        extension.gameRule.RobotEnter(((Player)robotDriver.getProperty("player")).team);
+        extension.gameRule.robotEnter(((Player) robotDriver.getProperty("player")).team);
 
-        send(OtherHandlerManager.RequestName_EnterRobotSuccess, data, extension.GetOther(null));
+        send(OtherHandlerManager.RequestName_EnterRobotSuccess, data, extension.getOther(null));
     }
 
 }

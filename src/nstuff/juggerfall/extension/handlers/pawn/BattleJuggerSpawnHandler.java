@@ -16,8 +16,8 @@ public class BattleJuggerSpawnHandler extends PawnSpawnHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         super.handleClientRequest(user,data);
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(pawnModel.id);
-        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).SetJuggerPawn(pawn);
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(pawnModel.id);
+        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).setJuggerPawn(pawn);
 
     }
 }

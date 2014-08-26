@@ -13,7 +13,7 @@ public class WeaponHandlerManager extends AbstractHandlerManager  {
     public static final String RequestName_WeaponShoot= "weaponShoot";
 
     @Override
-    public void Init() {
+    public void init() {
         extension.addClientHandler(RequestName_WeaponSpawn, WeaponSpawnHandler.class);
 
         extension.addClientHandler(RequestName_WeaponShoot, WeaponShootHandler.class);

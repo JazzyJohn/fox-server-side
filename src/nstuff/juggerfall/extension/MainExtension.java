@@ -74,7 +74,7 @@ public class MainExtension extends SFSExtension {
 
     public User masterInfo;
 
-    public void ChoiceMaster(User exMaster) throws SFSVariableException {
+    public void choiceMaster(User exMaster) throws SFSVariableException {
 
         List<User> list = getParentRoom().getUserList();
         if (list.size()!= 0){
@@ -84,7 +84,7 @@ public class MainExtension extends SFSExtension {
                 if (user !=exMaster ){
                     masterInfo = user;
                     user.setVariable(new SFSUserVariable("Master",true ));
-                    SendUserMasterNotification();
+                    sendUserMasterNotification();
                     return;
                 }
 
@@ -106,15 +106,15 @@ public class MainExtension extends SFSExtension {
 		BaseConfigurator();
 
 
-        playerHandlerManager.Init();
+        playerHandlerManager.init();
 
-        pawnHandlerManager.Init();
+        pawnHandlerManager.init();
 
-        weaponHandlerManager.Init();
+        weaponHandlerManager.init();
 
-        otherHandlerManager.Init();
+        otherHandlerManager.init();
 
-        gameHandlerManager.Init();
+        gameHandlerManager.init();
 
         addRequestHandler(RequestName_GetTime, ServerTimeHandler.class);
 
@@ -160,7 +160,7 @@ public class MainExtension extends SFSExtension {
 
         gameRule.extension =this;
 
-        gameRule.Init(getParentRoom());
+        gameRule.init(getParentRoom());
 
         playerManager = new PlayerManager();
 
@@ -197,7 +197,7 @@ public class MainExtension extends SFSExtension {
         secondRunner.allUpdate.add(gameRule);
 	}
 
-    public void AddToUpdate(TimeUpdateEntity updater){
+    public void addToUpdate(TimeUpdateEntity updater){
         secondRunner.allUpdate.add(updater);
 
     }
@@ -209,32 +209,32 @@ public class MainExtension extends SFSExtension {
 
     }
 
-    public void UpdatePlayerInfo(User user) {
-        playerHandlerManager.UpdatePlayerInfo(user);
+    public void updatePlayerInfo(User user) {
+        playerHandlerManager.updatePlayerInfo(user);
 
     }
-    public void UpdatePawnInfo(User user,Pawn pawn,boolean UDP) {
-        pawnHandlerManager.UpdatePawnInfo(user, pawn, UDP);
+    public void updatePawnInfo(User user, Pawn pawn, boolean UDP) {
+        pawnHandlerManager.updatePawnInfo(user, pawn, UDP);
 
     }
-    public void UpdateGame(){
+    public void updateGame(){
         List<User> targets = getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
-        res.putClass("game", gameRule.GetModel());
+        res.putClass("game", gameRule.getModel());
         send(RequestName_GameUpdate, res, targets);
     }
 
-    public void PlayerJoin(User user) {
-        gameRule.PlayerJoin(user);
+    public void playerJoin(User user) {
+        gameRule.playerJoin(user);
     }
 
-    public List<User> GetOther(User user) {
+    public List<User> getOther(User user) {
         List<User> targets = getParentRoom().getUserList();
         targets.remove(user);
         return targets;
     }
 
-    public void DeleteView(User sender, int id) {
+    public void deleteView(User sender, int id) {
         List<User> targets =getParentRoom().getUserList();
         if(sender!=null){
             targets.remove(sender);
@@ -244,8 +244,8 @@ public class MainExtension extends SFSExtension {
         send(RequestName_DeleteView, res, targets);
     }
 
-    public void ReloadMap() {
-        viewManager.Reload();
+    public void reloadMap() {
+        viewManager.reload();
         List<User> targets =getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         res.putUtfString("map", getParentRoom().getVariable("map").getStringValue());
@@ -263,34 +263,34 @@ public class MainExtension extends SFSExtension {
         {
 
             for(TimeUpdateEntity entity: allUpdate){
-                Date deltaDate = new Date();
-                long delta = deltaDate.getTime()-lastTime;
-                entity.Update(delta);
+
+                long delta = System.currentTimeMillis()-lastTime;
+                entity.update(delta);
             }
-            Date date = new Date();
-            lastTime = date.getTime();
+
+            lastTime = System.currentTimeMillis();
         }
     }
 
-	public void StartGameEvent() {
+	public void startGameEvent() {
 		  ISFSObject res = new SFSObject();
 		
 	      send(RequestName_GameStart, res, masterInfo);
 	}
 
-    private void SendUserMasterNotification() {
+    private void sendUserMasterNotification() {
         ISFSObject res = new SFSObject();
-        gameRule.AddMasterInfo(res);
+        gameRule.addMasterInfo(res);
         send(RequestName_NewMaster, res, masterInfo);
 
 
     }
 
-    public void PlayerLeave(User user){
+    public void playerLeave(User user){
         ISFSObject res = new SFSObject();
-        res.putSFSArray ("views",viewManager.RemovePlayerView(user.getId()));
+        res.putSFSArray ("views",viewManager.removePlayerView(user.getId()));
         res.putInt("playerId",user.getId());
-        send(MainExtension.RequestName_PlayerLeave, res, GetOther(user));
+        send(MainExtension.RequestName_PlayerLeave, res, getOther(user));
 
     }
 }

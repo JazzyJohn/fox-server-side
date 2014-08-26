@@ -33,7 +33,7 @@ public class Player implements SerializableSFSType {
         userId = owner.getId();
 	}
 
-	public PlayerModel GetModel() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
+	public PlayerModel getModel() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
 		// TODO Auto-generated method stub
 		PlayerModel playerModel =  new PlayerModel();
 		
@@ -53,7 +53,7 @@ public class Player implements SerializableSFSType {
 		return playerModel;
 	}
 
-    public void ClearScore() {
+    public void clearScore() {
         kill = 0;
         death =0;
         assist =0;

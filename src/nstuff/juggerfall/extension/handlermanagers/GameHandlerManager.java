@@ -25,7 +25,7 @@ public class GameHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_MapData = "mapData";
 
 @Override
-    public void Init() {
+    public void init() {
 
     extension.addClientHandler(RequestName_VipSpawned, VipSpawnedHandler.class);
 

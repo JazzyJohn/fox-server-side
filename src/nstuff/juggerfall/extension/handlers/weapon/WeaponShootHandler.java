@@ -14,20 +14,20 @@ import nstuff.juggerfall.extension.weapon.Weapon;
 public class WeaponShootHandler  extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        Weapon weapon = (Weapon)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("id"));
+        Weapon weapon = (Weapon)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
 
         if(weapon.owner==null){
-            Pawn owner  =(Pawn)((MainExtension)getParentExtension()).viewManager.GetView(weapon.lateId);
+            Pawn owner  =(Pawn)((MainExtension)getParentExtension()).viewManager.getView(weapon.lateId);
             if(owner!=null){
                 weapon.owner = owner;
                 owner.weapon = weapon;
             }
         }else{
-            if(!weapon.owner.IsOwner(user)){
+            if(!weapon.owner.isOwner(user)){
                 return;
             }
         }
 
-        send(WeaponHandlerManager.RequestName_WeaponShoot,data,((MainExtension)getParentExtension()).GetOther(user));
+        send(WeaponHandlerManager.RequestName_WeaponShoot,data,((MainExtension)getParentExtension()).getOther(user));
     }
 }

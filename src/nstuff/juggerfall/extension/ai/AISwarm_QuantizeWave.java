@@ -1,15 +1,9 @@
 package nstuff.juggerfall.extension.ai;
 
-import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
-import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
-import nstuff.juggerfall.extension.models.Vector3Model;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by 804129 on 24.08.14.
@@ -26,8 +20,8 @@ public class AISwarm_QuantizeWave extends AISwarm {
     private int _alreadyDead=0;
 
     @Override
-    public void LoadFromSFSObject(ISFSObject swarm) {
-        super.LoadFromSFSObject(swarm);
+    public void loadFromSFSObject(ISFSObject swarm) {
+        super.loadFromSFSObject(swarm);
         Collection<Integer> maxSpawn = swarm.getIntArray("maxSpawnCount");
         maxSpawnCount  = new int[maxSpawn.size()];
         int i =0;
@@ -45,12 +39,12 @@ public class AISwarm_QuantizeWave extends AISwarm {
 
     }
     @Override
-    public void Update(long delta) {
+    public void update(long delta) {
         if(isActive&&_alreadySpawn < maxSpawnCount[_curWave]){
             for(int i =0;i< allPoint.size();i++){
                 SpawnPoint point = allPoint.get(i);
-                if(point.IsActive()){
-                    director.extension.sender.SpawnOnPoint(allBots.get(rand.nextInt(allBots.size())),swarmId,i,point.coords);
+                if(point.isActive()){
+                    director.extension.sender.spawnOnPoint(allBots.get(rand.nextInt(allBots.size())), swarmId, i, point.coords);
                     _alreadySpawn++;
                 }
                 if (_alreadySpawn >= maxSpawnCount[_curWave])
@@ -63,39 +57,39 @@ public class AISwarm_QuantizeWave extends AISwarm {
     }
 
     @Override
-    public void AgentKill(Pawn pawn) {
-        super.AgentKill(pawn);
+    public void agentKill(Pawn pawn) {
+        super.agentKill(pawn);
         _alreadyDead++;
         if (_alreadyDead >= maxSpawnCount[_curWave] || _alreadyDead >= needToKill[_curWave]) {
 
-            NextSwarmWave();
+            nextSwarmWave();
         }
     }
 
     @Override
-    public ISFSObject WriteToSFSObject() {
-        ISFSObject data=super.WriteToSFSObject();
+    public ISFSObject writeToSFSObject() {
+        ISFSObject data=super.writeToSFSObject();
         data.putInt("alreadyDead",_alreadyDead);
         data.putInt("curWave",_curWave);
         return data;
     }
 
     @Override
-    public void AgentSpawn(Pawn pawn) {
-        super.AgentSpawn(pawn);
+    public void agentSpawn(Pawn pawn) {
+        super.agentSpawn(pawn);
         ///_alreadySpawn++;
     }
 
-    private void NextSwarmWave() {
+    private void nextSwarmWave() {
         _alreadyDead =0;
         _alreadySpawn = 0;
         _curWave++;
 
 
         if(_curWave>=needToKill.length){
-            Deactivate();
+            deactivate();
         }else{
-            director.extension.sender.SendNextWave(swarmId);
+            director.extension.sender.sendNextWave(swarmId);
         }
     }
 }

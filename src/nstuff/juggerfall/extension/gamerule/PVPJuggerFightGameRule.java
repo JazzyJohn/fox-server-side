@@ -18,44 +18,44 @@ public class PVPJuggerFightGameRule extends  GameRule {
     PVPBase[] bases;
 
     @Override
-    public void Kill(int team) {
+    public void kill(int team) {
         team =team-1;
         teamScore[team]+=1;
-        extension.UpdateGame();
+        extension.updateGame();
     }
 
     @Override
-    public void Spawn(int team) {
-
-    }
-
-    @Override
-    public void PlayerDeath(Pawn dead) {
+    public void spawn(int team) {
 
     }
 
     @Override
-    public void AIDeath(Pawn dead) {
+    public void playerDeath(Pawn dead) {
+
+    }
+
+    @Override
+    public void aIDeath(Pawn dead) {
         if(allJuggers.contains(dead)){
             int scoreTeam = 1-(dead.team-1);
             teamScore[scoreTeam]+=10;
             allJuggers.remove(dead);
-            extension.UpdateGame();
+            extension.updateGame();
         }
     }
 
     @Override
-    public void AIDeath(Pawn dead, int team) {
+    public void aIDeath(Pawn dead, int team) {
         if(allJuggers.contains(dead)){
             int scoreTeam = 1-(dead.team-1);
             teamScore[scoreTeam]+=10;
             allJuggers.remove(dead);
-            extension.UpdateGame();
+            extension.updateGame();
         }
     }
 
     @Override
-    public GameRuleModel GetModel() {
+    public GameRuleModel getModel() {
         PVPJuggerFightGameRuleModel model = new PVPJuggerFightGameRuleModel();
         model.isGameEnded = isGameEnded;
         model.baseHealth = new ArrayList<Integer>();
@@ -69,30 +69,30 @@ public class PVPJuggerFightGameRule extends  GameRule {
     }
 
     @Override
-    public void RobotEnter(int team) {
+    public void robotEnter(int team) {
 
     }
 
-    public void SetJuggerPawn(Pawn pawn) {
+    public void setJuggerPawn(Pawn pawn) {
         allJuggers.add(pawn);
     }
 
-    public void BaseDamaged(int team,int dmg){
+    public void baseDamaged(int team, int dmg){
         team =team-1;
         bases[team].health-=dmg;
         if(bases[team].health<=0){
-            GameFinish();
+            gameFinish();
         }else{
-            extension.UpdateGame();
+            extension.updateGame();
         }
     }
 
-    public void Init(Room room){
+    public void init(Room room){
         teamScore = new int[2];
         bases = new PVPBase[2];
     }
 
-    public void SetBase(PVPBase base) {
+    public void setBase(PVPBase base) {
         bases[base.team-1] = base;
 
     }

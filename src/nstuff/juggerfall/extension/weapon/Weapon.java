@@ -30,25 +30,25 @@ public class Weapon  extends NetView {
 	}
 
 	@Override
-    public void Update(NetViewModel view) {
+    public void update(NetViewModel view) {
         sirWeapon = (WeaponModel)view;
     }
 
     @Override
-    public void Delete() {
+    public void delete() {
         if(owner.weapon==this){
             owner.weapon = null;
         }
     }
     @Override
-    public void DeleteLocal() {
+    public void deleteLocal() {
         if(owner.weapon==this){
             owner.weapon = null;
         }
     }
 
     @Override
-    public void ClearRef() {
+    public void clearRef() {
         owner = null;
     }
 }

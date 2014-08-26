@@ -5,5 +5,5 @@ package nstuff.juggerfall.extension.baseobject;
  */
 public interface TimeUpdateEntity {
 
-     void Update(long delta);
+     void update(long delta);
 }

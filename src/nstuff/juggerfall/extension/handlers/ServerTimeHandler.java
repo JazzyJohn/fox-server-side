@@ -17,8 +17,7 @@ public class ServerTimeHandler extends BaseClientRequestHandler
     public void handleClientRequest(User sender, ISFSObject params)
     {
         ISFSObject res = new SFSObject();
-        Date date = new Date();
-        res.putLong("t", date.getTime());
+        res.putLong("t",System.currentTimeMillis());
         this.send(MainExtension.RequestName_GetTime, res, sender);
     }
 }

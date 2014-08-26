@@ -19,37 +19,37 @@ public class PVPGameRule extends  GameRule {
 
 
     @Override
-    public void Kill(int team) {
+    public void kill(int team) {
         team =team-1;
         teamKill[team]++;
         teamScore[team]++;
-        CheckGameEnd();
+        checkGameEnd();
     }
 
     @Override
-    public void Spawn(int team) {
-
-    }
-
-    @Override
-    public void PlayerDeath(Pawn dead) {
+    public void spawn(int team) {
 
     }
 
     @Override
-    public void AIDeath(Pawn death) {
+    public void playerDeath(Pawn dead) {
 
     }
 
     @Override
-    public void AIDeath(Pawn dead, int team) {
+    public void aIDeath(Pawn death) {
+
+    }
+
+    @Override
+    public void aIDeath(Pawn dead, int team) {
 
     }
 
 
     @Override
-    public void Init(Room room) {
-        super.Init(room);
+    public void init(Room room) {
+        super.init(room);
         ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
         GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
         int teamCount = settings.teamCount;
@@ -61,14 +61,14 @@ public class PVPGameRule extends  GameRule {
     }
 
     @Override
-    public void Reload() {
-        super.Reload();
+    public void reload() {
+        super.reload();
         teamKill = new int[teamKill.length];
 
     }
 
     @Override
-    public GameRuleModel GetModel(){
+    public GameRuleModel getModel(){
         PVPGameRuleModel model = new PVPGameRuleModel();
         model.isGameEnded = isGameEnded;
         model.teamKill = new ArrayList<Integer>();
@@ -83,7 +83,7 @@ public class PVPGameRule extends  GameRule {
     }
 
     @Override
-    public void RobotEnter(int team) {
+    public void robotEnter(int team) {
 
     }
 }

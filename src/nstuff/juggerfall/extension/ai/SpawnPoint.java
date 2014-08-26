@@ -25,11 +25,11 @@ public class SpawnPoint  {
         this.timeDelay =timeDelay;
     }
 
-    public boolean IsActive() {
+    public boolean isActive() {
         if(pawnId!=-1){
             return false;
         }else{
-            if(active&&(deadTime+timeDelay<(new Date()).getTime())){
+            if(active&&(deadTime+timeDelay<System.currentTimeMillis())){
                 active= false;
                 return true;
             }else{
@@ -38,13 +38,13 @@ public class SpawnPoint  {
 
         }
     }
-    public void  SetPawnId(int id){
+    public void setPawnId(int id){
         pawnId = id;
     }
 
-    public void DeadPawn() {
+    public void deadPawn() {
         pawnId = -1;
-        deadTime=(new Date()).getTime();
+        deadTime=System.currentTimeMillis();
         active = true;
     }
 }

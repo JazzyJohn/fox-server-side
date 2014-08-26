@@ -24,13 +24,13 @@ public class ViewManager {
 
 
 
-    public void DeleteView(Integer id) {
-      DeleteView(null,id);
+    public void deleteView(Integer id) {
+      deleteView(null, id);
 
     }
-    public void DeleteView(User sender,Integer id) {
+    public void deleteView(User sender, Integer id) {
         NetView view  = allView.get(id);
-        view.Delete();
+        view.delete();
         if(view instanceof SimpleNetView){
             SimpleNetView simple = (SimpleNetView)view;
             switch (simple.prefType){
@@ -41,35 +41,35 @@ public class ViewManager {
         }
         allView.remove(id);
 
-        extension.DeleteView(sender, id);
+        extension.deleteView(sender, id);
 
     }
 
-    public void AddView(NetView view) {
+    public void addView(NetView view) {
         allView.put(view.id,view);
         view.manager = this;
     }
-    public NetView GetView(int id){
+    public NetView getView(int id){
         return allView.get(id);
     }
 
-    public void Reload(){
+    public void reload(){
         for(NetView view : allView.values()){
-            view.ClearRef();
+            view.clearRef();
         }
         allView.clear();
         deleteSceneView.clear();
 
     }
 
-    public void DeleteViewLocal(int id) {
+    public void deleteViewLocal(int id) {
         NetView view  = allView.get(id);
-        view.DeleteLocal();
+        view.deleteLocal();
         allView.remove(id);
     }
 
 
-    public ISFSArray GetAllViewForStart() {
+    public ISFSArray getAllViewForStart() {
         SFSArray sfsa = new SFSArray();
         for(NetView view : allView.values()){
             ISFSObject res = new SFSObject();
@@ -109,7 +109,7 @@ public class ViewManager {
         return sfsa;
     }
 
-    public  SFSArray RemovePlayerView(int ownerId){
+    public  SFSArray removePlayerView(int ownerId){
         SFSArray sfsa = new SFSArray();
         Iterator<Map.Entry<Integer ,NetView>> iterator = allView.entrySet().iterator();
         while(iterator.hasNext()){
@@ -120,7 +120,7 @@ public class ViewManager {
                 case  NET_VIEW_TYPE_PAWN:
                     Pawn pawn =(Pawn)view;
                     if(pawn.owner!=null&&pawn.owner.getId()==ownerId){
-                        pawn.DeleteLocal();
+                        pawn.deleteLocal();
                         sfsa.addInt(view.id);
                         iterator.remove();
                     }
@@ -129,7 +129,7 @@ public class ViewManager {
                 case  NET_VIEW_TYPE_WEAPON:
                     Weapon weapon =(Weapon)view;
                     if(weapon.owner!=null&&weapon.owner.owner!=null&&weapon.owner.owner.getId()==ownerId){
-                        weapon.DeleteLocal();
+                        weapon.deleteLocal();
                         sfsa.addInt(view.id);
                         iterator.remove();
                     }
@@ -141,17 +141,17 @@ public class ViewManager {
         return sfsa;
     }
 
-    public boolean HasView(int id) {
+    public boolean hasView(int id) {
 
        return  allView.containsKey(id);
     }
 
-    public void DeleteSceneView(User sender, int id) {
-        DeleteView(sender,id);
+    public void deleteSceneView(User sender, int id) {
+        deleteView(sender, id);
         deleteSceneView.add(id);
     }
 
-    public List<Integer> GetAllDeleteSceneViewForStart() {
+    public List<Integer> getAllDeleteSceneViewForStart() {
        return deleteSceneView;
     }
 }

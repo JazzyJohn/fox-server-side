@@ -14,7 +14,7 @@ public class DeleteSceneViewHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User sender, ISFSObject data) {
         // TODO Auto-generated method stub
         int id = data.getInt("id");
-        ((MainExtension) getParentExtension()).viewManager.DeleteSceneView(sender,id);
+        ((MainExtension) getParentExtension()).viewManager.deleteSceneView(sender, id);
 
 
     }

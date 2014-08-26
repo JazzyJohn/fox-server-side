@@ -13,6 +13,6 @@ public class GameRuleDamageBase extends BaseClientRequestHandler {
 
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).BaseDamaged(data.getInt("team"), data.getInt("damage"));
+        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).baseDamaged(data.getInt("team"), data.getInt("damage"));
     }
 }

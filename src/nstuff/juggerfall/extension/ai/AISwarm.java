@@ -4,10 +4,8 @@ import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
-import nstuff.juggerfall.extension.baseobject.Vector;
 import nstuff.juggerfall.extension.models.Vector3Model;
 import nstuff.juggerfall.extension.pawn.Pawn;
-import org.omg.CosNaming._NamingContextExtStub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +26,23 @@ public class AISwarm implements TimeUpdateEntity {
 
     protected boolean  isActive;
 
-    protected  AIDirector director;
+    protected aIDirector director;
 
     public Random rand= new Random();
 
-    public void Init(AIDirector director,int id){
+    public void init(aIDirector director, int id){
         this.director = director;
         swarmId= id;
-        director.extension.AddToUpdate(this);
+        director.extension.addToUpdate(this);
     }
 
     @Override
-    public void Update(long delta) {
+    public void update(long delta) {
         if(isActive){
             for(int i =0;i< allPoint.size();i++){
                 SpawnPoint point = allPoint.get(i);
-                if(point.IsActive()){
-                    director.extension.sender.SpawnOnPoint(allBots.get(rand.nextInt(allBots.size())),swarmId,i,point.coords);
+                if(point.isActive()){
+                    director.extension.sender.spawnOnPoint(allBots.get(rand.nextInt(allBots.size())), swarmId, i, point.coords);
 
                 }
             }
@@ -52,19 +50,19 @@ public class AISwarm implements TimeUpdateEntity {
 
     }
 
-    public void Activate(){
+    public void activate(){
         isActive= true;
-        director.extension.sender.SendSwarmChange(swarmId, isActive);
+        director.extension.sender.sendSwarmChange(swarmId, isActive);
 
     }
 
-    public void Deactivate(){
+    public void deactivate(){
         isActive= false;
-        director.extension.sender.SendSwarmChange(swarmId, isActive);
+        director.extension.sender.sendSwarmChange(swarmId, isActive);
         director.SwarmEnd(swarmId);
     }
 
-    public void LoadFromSFSObject(ISFSObject swarm) {
+    public void loadFromSFSObject(ISFSObject swarm) {
         for(String bot :swarm.getUtfStringArray("bots")){
             allBots.add(bot);
         }
@@ -75,17 +73,17 @@ public class AISwarm implements TimeUpdateEntity {
         }
     }
 
-    public void AgentKill(Pawn pawn){
-        allPoint.get(pawn.aihome).DeadPawn();
+    public void agentKill(Pawn pawn){
+        allPoint.get(pawn.aihome).deadPawn();
         allPawn.remove(pawn);
     }
 
-    public void AgentSpawn(Pawn pawn) {
+    public void agentSpawn(Pawn pawn) {
         allPawn.add(pawn);
-        allPoint.get(pawn.aihome).SetPawnId(pawn.id);
+        allPoint.get(pawn.aihome).setPawnId(pawn.id);
     }
 
-    public ISFSObject WriteToSFSObject() {
+    public ISFSObject writeToSFSObject() {
         ISFSObject data = new SFSObject();
         data.putBool("active",isActive);
         return data;

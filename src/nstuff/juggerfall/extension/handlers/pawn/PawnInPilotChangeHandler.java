@@ -13,10 +13,10 @@ import nstuff.juggerfall.extension.pawn.Pawn;
 public class PawnInPilotChangeHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("id"));
-        if(!pawn.IsOwner(user)){
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
+        if(!pawn.isOwner(user)){
             return;
         }
-       send(PawnHandlerManager.RequestName_PawnInPilotChange,data,((MainExtension)getParentExtension()).GetOther(user));
+       send(PawnHandlerManager.RequestName_PawnInPilotChange,data,((MainExtension)getParentExtension()).getOther(user));
     }
 }

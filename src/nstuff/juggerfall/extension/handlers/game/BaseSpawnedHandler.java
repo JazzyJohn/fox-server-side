@@ -18,6 +18,6 @@ public class BaseSpawnedHandler extends BaseClientRequestHandler {
         BaseModel model  =(BaseModel)data.getClass("model");
         PVPBase base = new PVPBase(model);
 
-        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).SetBase(base);
+        ((PVPJuggerFightGameRule)((MainExtension) getParentExtension()).gameRule).setBase(base);
     }
 }

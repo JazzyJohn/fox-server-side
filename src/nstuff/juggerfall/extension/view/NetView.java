@@ -7,13 +7,13 @@ public abstract class NetView {
 
     public transient  NetViewType viewType;
 
-    public abstract void Update(NetViewModel view);
+    public abstract void update(NetViewModel view);
 
-    public abstract void Delete();
+    public abstract void delete();
 
-    public abstract void DeleteLocal();
+    public abstract void deleteLocal();
 
     public transient  ViewManager manager;
 
-    public abstract void ClearRef();
+    public abstract void clearRef();
 }

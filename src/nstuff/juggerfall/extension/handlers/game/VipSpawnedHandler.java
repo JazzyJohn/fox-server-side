@@ -17,7 +17,7 @@ public class VipSpawnedHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
         Pawn pawn = new Pawn(pawnModel);
-        ((MainExtension)getParentExtension()).viewManager.AddView(pawn);
+        ((MainExtension)getParentExtension()).viewManager.addView(pawn);
         pawn.owner = null;
         pawn.player = null;
 

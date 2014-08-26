@@ -25,7 +25,7 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
 
     public static final String RequestName_UpdatePlayerInfo= "updatePlayerInfo";
     @Override
-    public void Init() {
+    public void init() {
         extension.addClientHandler(RequestName_InitPlayer, PlayerInitHandler.class);
 
         extension.addClientHandler(RequestName_SetNameUID, PlayerSetNameUIDHandler.class);
@@ -33,12 +33,12 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
         extension.addClientHandler(RequestName_SetTeam, PlayerSetTeamHandler.class);
     }
 
-    public void UpdatePlayerInfo(User user) {
+    public void updatePlayerInfo(User user) {
         List<User> targets = extension.getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         Player player =(Player)user.getProperty("player");
         try {
-			res.putClass("player", player.GetModel());
+			res.putClass("player", player.getModel());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			extension.trace(e);

@@ -4,7 +4,6 @@ import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.GameSettingModel;
-import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.models.PVPHuntGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
@@ -24,17 +23,17 @@ public class HuntGameRule extends  GameRule {
     private static final String ROBOT_ENTER = "robot_enter";
 
     @Override
-    public void Kill(int team) {
+    public void kill(int team) {
 
     }
 
     @Override
-    public void Spawn(int team) {
+    public void spawn(int team) {
 
     }
 
     @Override
-    public void PlayerDeath(Pawn dead) {
+    public void playerDeath(Pawn dead) {
         int scoreTeam = 1-(dead.team-1);
         if(scoreTable.containsKey(dead.type)){
             teamScore[scoreTeam]+= (Integer)scoreTable.get(dead.type);
@@ -42,12 +41,12 @@ public class HuntGameRule extends  GameRule {
     }
 
     @Override
-    public void AIDeath(Pawn death) {
+    public void aIDeath(Pawn death) {
 
     }
 
     @Override
-    public void AIDeath(Pawn dead, int team) {
+    public void aIDeath(Pawn dead, int team) {
         team =team-1;
         if(scoreTable.containsKey(dead.type)){
             teamScore[team]+= (Integer)scoreTable.get(dead.type);
@@ -55,14 +54,14 @@ public class HuntGameRule extends  GameRule {
             teamScore[team]++;
         }
 
-        CheckGameEnd();
+        checkGameEnd();
     }
 
 
     @Override
-    public void Init(Room room) {
+    public void init(Room room) {
 
-        super.Init(room);
+        super.init(room);
         ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
         GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
         int teamCount = settings.teamCount;
@@ -78,18 +77,18 @@ public class HuntGameRule extends  GameRule {
     }
 
     @Override
-    public void Reload() {
-        super.Reload();
+    public void reload() {
+        super.reload();
 
 
     }
     @Override
-    protected void  CheckGameEnd(){
+    protected void checkGameEnd(){
 
-        extension.UpdateGame();
+        extension.updateGame();
     }
     @Override
-    public GameRuleModel GetModel(){
+    public GameRuleModel getModel(){
         PVPHuntGameRuleModel model = new PVPHuntGameRuleModel();
         model.isGameEnded = isGameEnded;
         model.teamScore = new ArrayList<Integer>();
@@ -100,27 +99,27 @@ public class HuntGameRule extends  GameRule {
     }
 
     @Override
-    public void RobotEnter(int team) {
+    public void robotEnter(int team) {
         team--;
         if(scoreTable.containsKey(ROBOT_ENTER)){
             teamScore[team]+= (Integer)scoreTable.get(ROBOT_ENTER);
         }else{
             teamScore[team]++;
         }
-        CheckGameEnd();
+        checkGameEnd();
     }
 
-    public void BossDamage(int team) {
+    public void bossDamage(int team) {
         team =team-1;
         if(scoreTable.containsKey(BOSS_DAMAGE)){
             teamScore[team]+= (Integer)scoreTable.get(BOSS_DAMAGE);
         }else{
             teamScore[team]++;
         }
-        CheckGameEnd();
+        checkGameEnd();
     }
 
-    public void LastWave() {
-        GameFinish();
+    public void lastWave() {
+        gameFinish();
     }
 }

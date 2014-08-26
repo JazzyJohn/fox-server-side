@@ -12,6 +12,6 @@ public class PlayerInitHandler extends BaseClientRequestHandler {
 	public void handleClientRequest(User user, ISFSObject data) {
 		// TODO Auto-generated method stub
 		((MainExtension)getParentExtension()).playerManager.AddPlayer(user);		
-		send(PlayerHandlerManager.RequestName_InitPlayer,data,((MainExtension)getParentExtension()).GetOther(user));
+		send(PlayerHandlerManager.RequestName_InitPlayer,data,((MainExtension)getParentExtension()).getOther(user));
 	}
 }

@@ -15,7 +15,7 @@ public class NextRouteHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         PVEGameRule pveGameRule = (PVEGameRule) ((MainExtension) getParentExtension()).gameRule;
-        pveGameRule.AddRoute(data.getInt("nextRoute"));
+        pveGameRule.addRoute(data.getInt("nextRoute"));
     }
 
 }

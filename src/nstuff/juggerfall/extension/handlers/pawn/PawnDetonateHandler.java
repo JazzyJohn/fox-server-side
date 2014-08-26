@@ -16,13 +16,13 @@ public class PawnDetonateHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User sender, ISFSObject data) {
 
         int id = data.getInt("id");
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("id"));
-        if(!pawn.IsOwner(sender)){
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
+        if(!pawn.isOwner(sender)){
             return;
         }
-        ((MainExtension) getParentExtension()).viewManager.DeleteViewLocal(id);
+        ((MainExtension) getParentExtension()).viewManager.deleteViewLocal(id);
 
-        send(PawnHandlerManager.RequestName_PawnDetonate,data,((MainExtension)getParentExtension()).GetOther(sender));
+        send(PawnHandlerManager.RequestName_PawnDetonate,data,((MainExtension)getParentExtension()).getOther(sender));
     }
 
 }

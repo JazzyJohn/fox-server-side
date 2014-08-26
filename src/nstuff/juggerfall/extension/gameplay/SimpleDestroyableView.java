@@ -23,23 +23,23 @@ public class SimpleDestroyableView extends NetView {
         this.model = model;
     }
     @Override
-    public void Update(NetViewModel view) {
+    public void update(NetViewModel view) {
         model = (SimpleDestroyableModel)view;
         health =model.health;
     }
 
     @Override
-    public void Delete() {
+    public void delete() {
 
     }
 
     @Override
-    public void DeleteLocal() {
+    public void deleteLocal() {
 
     }
 
     @Override
-    public void ClearRef() {
+    public void clearRef() {
 
     }
 }

@@ -7,8 +7,6 @@ import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.gameplay.SimpleDestroyableView;
 import nstuff.juggerfall.extension.handlermanagers.OtherHandlerManager;
 import nstuff.juggerfall.extension.models.SimpleDestroyableModel;
-import nstuff.juggerfall.extension.models.SimpleNetModel;
-import nstuff.juggerfall.extension.other.SimpleNetView;
 
 /**
  * Created by 804129 on 07.08.14.
@@ -19,13 +17,13 @@ public class UpdateSimpleDestroyableObject extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         SimpleDestroyableModel model  =(SimpleDestroyableModel)data.getClass("model");
         SimpleDestroyableView view;
-        if(  ((MainExtension)getParentExtension()).viewManager.HasView(model.id)){
-            view = (SimpleDestroyableView) ((MainExtension)getParentExtension()).viewManager.GetView(model.id);
+        if(  ((MainExtension)getParentExtension()).viewManager.hasView(model.id)){
+            view = (SimpleDestroyableView) ((MainExtension)getParentExtension()).viewManager.getView(model.id);
         }else{
             view = new SimpleDestroyableView(model);
-            ((MainExtension)getParentExtension()).viewManager.AddView(view);
+            ((MainExtension)getParentExtension()).viewManager.addView(view);
         }
-        send(OtherHandlerManager.RequestName_UpdateSimpleDestroyableObject, data, ((MainExtension) getParentExtension()).GetOther(user));
+        send(OtherHandlerManager.RequestName_UpdateSimpleDestroyableObject, data, ((MainExtension) getParentExtension()).getOther(user));
 
     }
 }

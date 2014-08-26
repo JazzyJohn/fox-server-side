@@ -18,6 +18,6 @@ public class NextRoomHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
 
-        ((RunnerGameRule)((MainExtension) getParentExtension()).gameRule).NextRoom();
+        ((RunnerGameRule)((MainExtension) getParentExtension()).gameRule).nextRoom();
     }
 }

@@ -28,52 +28,52 @@ public class PVEGameRule extends  GameRule {
     }
 
     @Override
-    protected void CheckGameEnd() {
-        extension.UpdateGame();
+    protected void checkGameEnd() {
+        extension.updateGame();
     }
 
     @Override
-    public void Kill(int team) {
-
-    }
-
-    @Override
-    public void Spawn(int team) {
+    public void kill(int team) {
 
     }
 
     @Override
-    public void PlayerDeath(Pawn dead) {
+    public void spawn(int team) {
 
     }
 
     @Override
-    public void PlayerJoin(User user) {
+    public void playerDeath(Pawn dead) {
 
     }
 
     @Override
-    public void AIDeath(Pawn dead) {
+    public void playerJoin(User user) {
+
+    }
+
+    @Override
+    public void aIDeath(Pawn dead) {
         if(dead.id==vipId){
             teamScore[0] = 0;
             teamScore[1]= 100;
-            GameFinish();
+            gameFinish();
         }
     }
 
     @Override
-    public void AIDeath(Pawn dead, int team) {
+    public void aIDeath(Pawn dead, int team) {
         if(dead.id==vipId){
             teamScore[0] = 0;
             teamScore[1]= 100;
-            GameFinish();
+            gameFinish();
         }
     }
 
 
     @Override
-    public void Init(Room room) {
-        super.Init(room);
+    public void init(Room room) {
+        super.init(room);
         int teamCount = 2;
         teamScore = new int[teamCount];
         canUseRobot = false;
@@ -82,14 +82,14 @@ public class PVEGameRule extends  GameRule {
     }
 
     @Override
-    public void Reload() {
-        super.Reload();
+    public void reload() {
+        super.reload();
         ready = false;
 
     }
 
     @Override
-    public GameRuleModel GetModel(){
+    public GameRuleModel getModel(){
         PVEGameRuleModel model = new PVEGameRuleModel();
         model.isGameEnded = isGameEnded;
         model.vipID = vipId;
@@ -102,25 +102,25 @@ public class PVEGameRule extends  GameRule {
         return model;
     }
 
-    public  void AddRoute(Integer nextRoute){
+    public  void addRoute(Integer nextRoute){
         route.add(nextRoute);
     }
 
     @Override
-    public void AddMasterInfo(ISFSObject res) {
-        super.AddMasterInfo(res);
+    public void addMasterInfo(ISFSObject res) {
+        super.addMasterInfo(res);
         res.putIntArray("route",route);
     }
 
     @Override
-    public void RobotEnter(int team) {
+    public void robotEnter(int team) {
 
     }
 
-    public void Arrived() {
+    public void arrived() {
 
         teamScore[0] = 100;
         teamScore[1]= 0;
-        GameFinish();
+        gameFinish();
     }
 }

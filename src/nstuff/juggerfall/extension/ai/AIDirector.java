@@ -3,23 +3,18 @@ package nstuff.juggerfall.extension.ai;
 import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
-import com.smartfoxserver.v2.entities.data.SFSObject;
-import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.gameplay.QueenEgg;
-import nstuff.juggerfall.extension.gamerule.GameRule;
 import nstuff.juggerfall.extension.gamerule.HuntGameRule;
-import nstuff.juggerfall.extension.gamerule.PVPGameRule;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Ivan.Ochincenko on 18.08.14.
  */
-public class AIDirector {
+public class aIDirector {
 
     private static final String PACK_NAME ="nstuff.juggerfall.extension.ai.";
 
@@ -31,11 +26,11 @@ public class AIDirector {
 
     public  boolean loaded = false;
 
-    public AIDirector(MainExtension extension){
+    public aIDirector(MainExtension extension){
         this.extension =extension;
     }
 
-    public void ReadFromSFSObject(ISFSObject dt){
+    public void readFromSFSObject(ISFSObject dt){
         if(loaded){
             return;
         }
@@ -43,9 +38,9 @@ public class AIDirector {
         ISFSArray swarms = dt.getSFSArray("swarms");
         for(int i=0; i<swarms.size();i++){
             ISFSObject swarm = swarms.getSFSObject(i);
-            AISwarm aiSwarm = GetSwarmByName(swarm.getUtfString("class"));
-            aiSwarm.Init(this,i);
-            aiSwarm.LoadFromSFSObject(swarm);
+            AISwarm aiSwarm = getSwarmByName(swarm.getUtfString("class"));
+            aiSwarm.init(this, i);
+            aiSwarm.loadFromSFSObject(swarm);
             allSwarm.add(aiSwarm);
         }
         for(Integer val :dt.getIntArray("chain")){
@@ -55,12 +50,12 @@ public class AIDirector {
         }
         for(Integer val :dt.getIntArray("active")){
 
-            allSwarm.get(val).Activate();
+            allSwarm.get(val).activate();
 
         }
     }
 
-    private AISwarm GetSwarmByName(String aClass) {
+    private AISwarm getSwarmByName(String aClass) {
         try {
             Class theClass =  Class.forName(PACK_NAME+aClass);
             return (AISwarm)theClass.newInstance();
@@ -83,20 +78,20 @@ public class AIDirector {
        int nextSwarm = swarmChain.get(swarmId);
         if(nextSwarm==-1){
             if((extension).gameRule instanceof HuntGameRule){
-                 ((HuntGameRule)(extension).gameRule).LastWave();
+                 ((HuntGameRule)(extension).gameRule).lastWave();
             }
         }else{
-            allSwarm.get(nextSwarm)  .Activate();
+            allSwarm.get(nextSwarm)  .activate();
         }
 
     }
 
     public void AddPawn(Pawn pawn) {
-        allSwarm.get(pawn.aiSwarmId).AgentSpawn(pawn);
+        allSwarm.get(pawn.aiSwarmId).agentSpawn(pawn);
     }
 
     public void DeadPawn(Pawn pawn) {
-        allSwarm.get(pawn.aiSwarmId).AgentKill(pawn);
+        allSwarm.get(pawn.aiSwarmId).agentKill(pawn);
     }
 
     public void AddInfo(ISFSObject res) {
@@ -105,7 +100,7 @@ public class AIDirector {
         }
         ISFSArray swarms = new SFSArray();
         for(AISwarm swarm : allSwarm){
-            swarms.addSFSObject(swarm.WriteToSFSObject());
+            swarms.addSFSObject(swarm.writeToSFSObject());
         }
         res.putSFSArray("swarms",swarms);
     }
@@ -115,9 +110,9 @@ public class AIDirector {
     }
 
     public void AddEgg(QueenEgg queenEgg) {
-        ((AISwarm_QueenSwarm)allSwarm.get(queenEgg.spawnId)).AddEgg(queenEgg);
+        ((AISwarm_QueenSwarm)allSwarm.get(queenEgg.spawnId)).addEgg(queenEgg);
     }
     public void RemoveEgg(QueenEgg queenEgg) {
-        ((AISwarm_QueenSwarm)allSwarm.get(queenEgg.spawnId)).RemoveEgg(queenEgg);
+        ((AISwarm_QueenSwarm)allSwarm.get(queenEgg.spawnId)).removeEgg(queenEgg);
     }
 }

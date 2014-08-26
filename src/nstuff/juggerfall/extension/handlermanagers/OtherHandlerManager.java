@@ -22,7 +22,7 @@ public class OtherHandlerManager extends AbstractHandlerManager {
 
 
     @Override
-    public void Init() {
+    public void init() {
         extension.addClientHandler(RequestName_InvokeProjectileCall, InvokeProjectileCallHandler.class);
 
         extension.addClientHandler(RequestName_SimplePrefabSpawn, SimplePrefabSpawn.class);

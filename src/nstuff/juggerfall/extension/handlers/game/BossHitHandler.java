@@ -15,9 +15,9 @@ public class BossHitHandler  extends BaseClientRequestHandler {
 
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(data.getInt("pawnId"));
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("pawnId"));
         if(pawn.team!=0){
-            ((HuntGameRule)((MainExtension) getParentExtension()).gameRule).BossDamage(pawn.team);
+            ((HuntGameRule)((MainExtension) getParentExtension()).gameRule).bossDamage(pawn.team);
         }
     }
 }

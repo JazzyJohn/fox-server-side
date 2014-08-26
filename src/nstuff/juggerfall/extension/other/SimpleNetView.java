@@ -28,22 +28,22 @@ public class SimpleNetView extends NetView {
     }
 
     @Override
-    public void Update(NetViewModel view) {
+    public void update(NetViewModel view) {
         model = (SimpleNetModel) view;
     }
 
     @Override
-    public void Delete() {
+    public void delete() {
 
     }
 
     @Override
-    public void DeleteLocal() {
+    public void deleteLocal() {
 
     }
 
     @Override
-    public void ClearRef() {
+    public void clearRef() {
 
     }
 }

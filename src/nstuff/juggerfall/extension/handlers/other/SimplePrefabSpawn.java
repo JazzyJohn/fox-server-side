@@ -34,8 +34,8 @@ public class SimplePrefabSpawn extends BaseClientRequestHandler {
                 break;
         }
 
-        ((MainExtension)getParentExtension()).viewManager.AddView(view);
-        send(OtherHandlerManager.RequestName_SimplePrefabSpawn, data, ((MainExtension) getParentExtension()).GetOther(user));
+        ((MainExtension)getParentExtension()).viewManager.addView(view);
+        send(OtherHandlerManager.RequestName_SimplePrefabSpawn, data, ((MainExtension) getParentExtension()).getOther(user));
 
     }
 }

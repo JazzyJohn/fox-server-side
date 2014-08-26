@@ -32,10 +32,10 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
     	PlayerManager playermanager =extension.playerManager;
 		playermanager.AddPlayer(user);
 
-        extension.UpdatePlayerInfo(user);
+        extension.updatePlayerInfo(user);
 
 		try {
-			res.putSFSArray("owners", playermanager.GetAllPalyerToSend());
+			res.putSFSArray("owners", playermanager.getAllPlayerToSend());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			getParentExtension().trace(e);
@@ -49,11 +49,11 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 			// TODO Auto-generated catch block
 			getParentExtension().trace(e);
 		}
-        res.putSFSArray("views", extension.viewManager.GetAllViewForStart());
-        res.putIntArray("deleteSceneView", extension.viewManager.GetAllDeleteSceneViewForStart());
+        res.putSFSArray("views", extension.viewManager.getAllViewForStart());
+        res.putIntArray("deleteSceneView", extension.viewManager.getAllDeleteSceneViewForStart());
         extension.gameRule.director.AddInfo(res);
        	send(PlayerHandlerManager.RequestName_InitPlayers,res,user);
-        extension.PlayerJoin(user);
+        extension.playerJoin(user);
 	}
 
 }

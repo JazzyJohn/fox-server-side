@@ -13,6 +13,6 @@ public class GameRuleArrived extends BaseClientRequestHandler {
 
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
-        ((PVEGameRule)((MainExtension) getParentExtension()).gameRule).Arrived();
+        ((PVEGameRule)((MainExtension) getParentExtension()).gameRule).arrived();
     }
 }

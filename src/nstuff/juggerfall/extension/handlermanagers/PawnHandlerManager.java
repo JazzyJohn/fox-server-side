@@ -45,7 +45,7 @@ public class PawnHandlerManager extends AbstractHandlerManager {
     public static final String RequestName_CustomAnimStart ="customAnimStart";
 
     @Override
-    public void Init() {
+    public void init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
 
         extension.addClientHandler(RequestName_PawnUpdate, PawnUpdateHandler.class);
@@ -79,7 +79,7 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     }
 
-    public void UpdatePawnInfo(User user, Pawn pawn,boolean UDP) {
+    public void updatePawnInfo(User user, Pawn pawn, boolean UDP) {
         ISFSObject res = new SFSObject();
         res.putClass("pawn",pawn.sirPawn);
         List<User> targets =extension.getParentRoom().getUserList();

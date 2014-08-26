@@ -17,18 +17,18 @@ public class PlayerManager {
 			allPlayer.add(new Player(user));
 	}
 
-	public SFSArray GetAllPalyerToSend() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
+	public SFSArray getAllPlayerToSend() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
         SFSArray sfsa = new SFSArray();
 		for(Player player : allPlayer){
-            sfsa.addClass(player.GetModel());
+            sfsa.addClass(player.getModel());
 
 		}
 		return  sfsa;
 	}
 
-    public void ClearScore(){
+    public void clearScore(){
         for(Player player :allPlayer){
-            player.ClearScore();
+            player.clearScore();
         }
     }
 

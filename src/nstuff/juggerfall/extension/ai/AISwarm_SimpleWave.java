@@ -3,8 +3,6 @@ package nstuff.juggerfall.extension.ai;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.util.Collection;
-
 /**
  * Created by 804129 on 24.08.14.
  */
@@ -18,8 +16,8 @@ public class AISwarm_SimpleWave extends AISwarm {
     private int _alreadyDead=0;
 
     @Override
-    public void LoadFromSFSObject(ISFSObject swarm) {
-        super.LoadFromSFSObject(swarm);
+    public void loadFromSFSObject(ISFSObject swarm) {
+        super.loadFromSFSObject(swarm);
 
         maxSpawnCount  =  swarm.getInt("maxSpawnCount");
 
@@ -28,12 +26,12 @@ public class AISwarm_SimpleWave extends AISwarm {
 
     }
     @Override
-    public void Update(long delta) {
+    public void update(long delta) {
         if(isActive&&_alreadySpawn < maxSpawnCount){
             for(int i =0;i< allPoint.size();i++){
                 SpawnPoint point = allPoint.get(i);
-                if(point.IsActive()){
-                    director.extension.sender.SpawnOnPoint(allBots.get(rand.nextInt(allBots.size())),swarmId,i,point.coords);
+                if(point.isActive()){
+                    director.extension.sender.spawnOnPoint(allBots.get(rand.nextInt(allBots.size())), swarmId, i, point.coords);
                     _alreadySpawn++;
                 }
                 if (_alreadySpawn >= maxSpawnCount)
@@ -46,25 +44,25 @@ public class AISwarm_SimpleWave extends AISwarm {
     }
 
     @Override
-    public void AgentKill(Pawn pawn) {
-        super.AgentKill(pawn);
+    public void agentKill(Pawn pawn) {
+        super.agentKill(pawn);
         _alreadyDead++;
         if (_alreadyDead >=maxSpawnCount || _alreadyDead >= needToKill) {
 
-            Deactivate();
+            deactivate();
         }
     }
 
     @Override
-    public ISFSObject WriteToSFSObject() {
-        ISFSObject data=super.WriteToSFSObject();
+    public ISFSObject writeToSFSObject() {
+        ISFSObject data=super.writeToSFSObject();
         data.putInt("alreadyDead",_alreadyDead);
         return data;
     }
 
     @Override
-    public void AgentSpawn(Pawn pawn) {
-        super.AgentSpawn(pawn);
+    public void agentSpawn(Pawn pawn) {
+        super.agentSpawn(pawn);
         ///_alreadySpawn++;
     }
 

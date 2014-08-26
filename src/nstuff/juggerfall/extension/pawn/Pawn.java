@@ -1,8 +1,6 @@
 package nstuff.juggerfall.extension.pawn;
 
 import com.smartfoxserver.v2.entities.User;
-import nstuff.juggerfall.extension.baseobject.Servmodel;
-import nstuff.juggerfall.extension.baseobject.Vector;
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.PawnModel;
 import nstuff.juggerfall.extension.player.Player;
@@ -56,7 +54,7 @@ public class Pawn extends NetView {
     }
 
 	@Override
-    public void Update(NetViewModel incPawn) {
+    public void update(NetViewModel incPawn) {
         sirPawn  =(PawnModel)incPawn;
         wallState = sirPawn.wallState;
         characterState = sirPawn.characterState;
@@ -65,37 +63,37 @@ public class Pawn extends NetView {
 
 
     @Override
-    public void Delete() {
+    public void delete() {
         if(weapon!=null){
-             manager.DeleteView(weapon.id);
+             manager.deleteView(weapon.id);
         }
         AfterDeleteLogic();
     }
 
     @Override
-    public void DeleteLocal() {
+    public void deleteLocal() {
         if(weapon!=null){
-            manager.DeleteViewLocal(weapon.id);
+            manager.deleteViewLocal(weapon.id);
         }
         AfterDeleteLogic();
     }
 
     private void AfterDeleteLogic(){
         if(team!=0){
-            manager.extension.gameRule.PlayerDeath(this);
+            manager.extension.gameRule.playerDeath(this);
         }
     }
     @Override
-    public void ClearRef() {
+    public void clearRef() {
         weapon = null;
     }
 
-    public void SetPlayer(Player player) {
+    public void setPlayer(Player player) {
        this.player = player;
        team = player.team;
     }
 
-    public boolean IsOwner(User user) {
+    public boolean isOwner(User user) {
         if(owner!=null){
             if(owner!=user){
                 return false;
@@ -108,7 +106,7 @@ public class Pawn extends NetView {
         return true;
     }
 
-    public User GetOwner() {
+    public User getOwner() {
         if(owner==null){
             return  manager.extension.masterInfo;
         }else{

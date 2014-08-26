@@ -13,6 +13,6 @@ public class PlayerSetTeamHandler extends BaseClientRequestHandler {
 
         Player player =(Player)user.getProperty("player");
         player.team = data.getInt("team");
-        ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
+        ((MainExtension)getParentExtension()).updatePlayerInfo(user);
 	}
 }

@@ -12,48 +12,48 @@ import java.util.ArrayList;
 public class RunnerGameRule extends GameRule {
 
     @Override
-    public void Init(Room room) {
-        super.Init(room);
+    public void init(Room room) {
+        super.init(room);
         teamScore= new int[2];
     }
 
     @Override
-    public void Kill(int team) {
+    public void kill(int team) {
 
     }
 
     @Override
-    public void Spawn(int team) {
+    public void spawn(int team) {
 
     }
     @Override
-    protected void CheckGameEnd() {
-        extension.UpdateGame();
+    protected void checkGameEnd() {
+        extension.updateGame();
     }
 
 
-    public void NextRoom() {
+    public void nextRoom() {
         teamScore[0]++;
-        extension.UpdateGame();
+        extension.updateGame();
     }
 
     @Override
-    public void PlayerDeath(Pawn dead) {
-        GameFinish();
+    public void playerDeath(Pawn dead) {
+        gameFinish();
     }
 
     @Override
-    public void AIDeath(Pawn dead) {
+    public void aIDeath(Pawn dead) {
         teamScore[1]++;
     }
 
     @Override
-    public void AIDeath(Pawn dead, int team) {
+    public void aIDeath(Pawn dead, int team) {
 
     }
 
     @Override
-    public RunnerGameRuleModel GetModel() {
+    public RunnerGameRuleModel getModel() {
         RunnerGameRuleModel model = new RunnerGameRuleModel();
         model.isGameEnded = isGameEnded;
 
@@ -68,7 +68,7 @@ public class RunnerGameRule extends GameRule {
     }
 
     @Override
-    public void RobotEnter(int team) {
+    public void robotEnter(int team) {
 
     }
 

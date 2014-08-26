@@ -17,7 +17,7 @@ public class RegisterSceneViewHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         SimpleNetModel model  =(SimpleNetModel)data.getClass("model");
         SimpleNetView view = new SimpleNetView(model, PREFABTYPE.SIMPLE);
-        ((MainExtension)getParentExtension()).viewManager.AddView(view);
+        ((MainExtension)getParentExtension()).viewManager.addView(view);
     }
 
 }

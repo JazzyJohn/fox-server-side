@@ -23,7 +23,7 @@ public class QueenEgg extends SimpleNetView {
 
     public QueenEgg(){
         super();
-        timeSpawned= (new Date()).getTime();
+        timeSpawned= System.currentTimeMillis();
 
     }
 
@@ -37,7 +37,7 @@ public class QueenEgg extends SimpleNetView {
 
     }
 
-    public boolean IsReady(){
-      return  timeSpawned+readyDelay< (new Date()).getTime();
+    public boolean isReady(){
+      return  timeSpawned+readyDelay<System.currentTimeMillis();
     }
 }

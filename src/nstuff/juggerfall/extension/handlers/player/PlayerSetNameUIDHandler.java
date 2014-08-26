@@ -16,7 +16,7 @@ public class PlayerSetNameUIDHandler extends BaseClientRequestHandler {
         Player player =(Player)user.getProperty("player");
         player.name = data.getUtfString("name");
         player.uid = data.getUtfString("uid");
-        ((MainExtension)getParentExtension()).UpdatePlayerInfo(user);
+        ((MainExtension)getParentExtension()).updatePlayerInfo(user);
 
     }
 

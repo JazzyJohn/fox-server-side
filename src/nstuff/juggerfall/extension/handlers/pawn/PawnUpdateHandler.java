@@ -15,13 +15,13 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         PawnModel incPawn  =(PawnModel)data.getClass("pawn");
-        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.GetView(incPawn.id);
-        if(!pawn.IsOwner(user)){
+        Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(incPawn.id);
+        if(!pawn.isOwner(user)){
         	getParentExtension();
             return;
         }
 
-        pawn.Update(incPawn);
-        ((MainExtension)getParentExtension()).UpdatePawnInfo(user,pawn,true);
+        pawn.update(incPawn);
+        ((MainExtension)getParentExtension()).updatePawnInfo(user, pawn, true);
     }
 }

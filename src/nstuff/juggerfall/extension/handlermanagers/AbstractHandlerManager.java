@@ -10,5 +10,5 @@ public abstract class AbstractHandlerManager {
 
     public MainExtension extension;
 
-    public abstract void Init();
+    public abstract void init();
 }

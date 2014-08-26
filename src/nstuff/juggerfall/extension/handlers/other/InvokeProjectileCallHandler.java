@@ -13,6 +13,6 @@ public class InvokeProjectileCallHandler  extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
 
-        send(OtherHandlerManager.RequestName_InvokeProjectileCall,data,((MainExtension)getParentExtension()).GetOther(user));
+        send(OtherHandlerManager.RequestName_InvokeProjectileCall,data,((MainExtension)getParentExtension()).getOther(user));
     }
 }

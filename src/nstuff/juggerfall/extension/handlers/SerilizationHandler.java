@@ -12,7 +12,7 @@ public class SerilizationHandler extends BaseClientRequestHandler {
 		// TODO Auto-generated method stub
 
         data.putBool("read",true);
-        send(MainExtension.RequestName_Serilization,data,((MainExtension)getParentExtension()).GetOther(sender),true);
+        send(MainExtension.RequestName_Serilization,data,((MainExtension)getParentExtension()).getOther(sender),true);
 	}
 
 }

@@ -14,7 +14,7 @@ public class DeleteViewHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User sender, ISFSObject data) {
         // TODO Auto-generated method stub
         int id = data.getInt("id");
-        ((MainExtension) getParentExtension()).viewManager.DeleteView(sender,id);
+        ((MainExtension) getParentExtension()).viewManager.deleteView(sender, id);
 
 
     }

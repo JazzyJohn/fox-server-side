@@ -22,14 +22,14 @@ public class Sender {
         extension =mainExtension;
     }
 
-    public void SendSwarmChange(int swarmId, boolean isActive) {
+    public void sendSwarmChange(int swarmId, boolean isActive) {
         ISFSObject res = new SFSObject();
         res.putInt("swarmId", swarmId);
         res.putBool("isActive", isActive);
         extension.send(RequestName_AISwarmUpdate, res, extension.getParentRoom().getUserList());
     }
 
-    public void SpawnOnPoint(String bot, int swarmId, int id, Vector coords) {
+    public void spawnOnPoint(String bot, int swarmId, int id, Vector coords) {
         ISFSObject res = new SFSObject();
         res.putUtfString("prefabName", bot);
         res.putInt("swarmId",swarmId);
@@ -39,7 +39,7 @@ public class Sender {
 
     }
 
-    public void SendNextWave(int swarmId) {
+    public void sendNextWave(int swarmId) {
         ISFSObject res = new SFSObject();
         res.putInt("swarmId", swarmId);
 

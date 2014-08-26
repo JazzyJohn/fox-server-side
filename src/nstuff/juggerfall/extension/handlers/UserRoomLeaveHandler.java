@@ -18,9 +18,9 @@ public class UserRoomLeaveHandler extends BaseServerEventHandler {
         User user = (User)event.getParameter(SFSEventParam.USER);
         MainExtension extension =(MainExtension) user.getLastJoinedRoom().getExtension();
         ISFSObject res = new SFSObject();
-        res.putSFSArray("views", extension.viewManager.RemovePlayerView(user.getId()));
+        res.putSFSArray("views", extension.viewManager.removePlayerView(user.getId()));
         res.putInt("playerId",user.getId());
-        send(MainExtension.RequestName_PlayerLeave, res, extension.GetOther(user));
+        send(MainExtension.RequestName_PlayerLeave, res, extension.getOther(user));
 	}
 
 }

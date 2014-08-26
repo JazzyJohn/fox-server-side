@@ -4,7 +4,7 @@ import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.MainExtension;
-import nstuff.juggerfall.extension.ai.AIDirector;
+import nstuff.juggerfall.extension.ai.aIDirector;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.GameSettingModel;
@@ -41,23 +41,23 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public int[] teamScore;
 
-    public AIDirector director;
+    public aIDirector director;
 
-    public abstract void Kill(int team);
+    public abstract void kill(int team);
 
-    public abstract void Spawn(int team);
+    public abstract void spawn(int team);
 
-    public abstract void PlayerDeath(Pawn dead);
+    public abstract void playerDeath(Pawn dead);
 
-    public abstract void AIDeath(Pawn dead);
+    public abstract void aIDeath(Pawn dead);
 
-    public abstract void AIDeath(Pawn dead,int team);
+    public abstract void aIDeath(Pawn dead, int team);
 
     public transient MainExtension extension;
 
     public transient GamerRuleState state = GamerRuleState.AFTERLOAD;
 
-    public int Winner() {
+    public int winner() {
         int winner =-1;
         int lastScore =0;
         for(int i=0; i<teamScore.length;i++){
@@ -69,93 +69,91 @@ public abstract class GameRule implements TimeUpdateEntity {
         return winner;
     }
 
-    public void Init(Room room){
+    public void init(Room room){
         ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
         GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
         maxScore=settings.maxScore;
         gameTime =settings.maxTime*1000;
-        Date date = new Date();
-        gameStart  = date.getTime();
-        director  = new AIDirector(extension);
+        gameStart  = System.currentTimeMillis();
+        director  = new aIDirector(extension);
     }
 
-    public  void StartGame()
+    public  void startGame()
     {
         state =GamerRuleState.GOING;
-        extension.StartGameEvent();
+        extension.startGameEvent();
     }
-    public void GameFinish(){
-        Date date = new Date();
+    public void gameFinish(){
+
         isGameEnded= true;
         state =GamerRuleState.FINISH;
-        gameEnd=date.getTime();
-        extension.UpdateGame();
+        gameEnd=System.currentTimeMillis();
+        extension.updateGame();
     }
 
-    protected void  CheckGameEnd(){
+    protected void checkGameEnd(){
         for(int score: teamScore){
 
             if(score>=maxScore){
 
-                GameFinish();
+                gameFinish();
 
                 break;
             }
         }
-        extension.UpdateGame();
+        extension.updateGame();
     }
 
     @Override
-    public void Update(long delta){
+    public void update(long delta){
         if(gameTime!=0){
-            Date date = new Date();
-            if(date.getTime()>gameStart+gameTime){
-                GameFinish();
-                extension.UpdateGame();
+
+            if(System.currentTimeMillis()>gameStart+gameTime){
+                gameFinish();
+                extension.updateGame();
                 return;
             }
         }
         if(state==GamerRuleState.READY){
-            StartGame();
+            startGame();
 
         }
         if(ready&&state==GamerRuleState.AFTERRELOAD){
-            StartGame();
+            startGame();
         }
         if(isGameEnded){
-            Date date = new Date();
-            if(date.getTime()>gameEnd+afterMathTime){
-                extension.ReloadMap();
-                Reload();
+
+            if(System.currentTimeMillis()>gameEnd+afterMathTime){
+                extension.reloadMap();
+                reload();
             }
         }
 
     }
 
-    public void Reload(){
-        Date date = new Date();
-        gameStart  = date.getTime();
+    public void reload(){
+        gameStart  = System.currentTimeMillis();
         isGameEnded= false;
         state= GamerRuleState.AFTERRELOAD;
         teamScore = new int[teamScore.length];
-        extension.playerManager.ClearScore();
+        extension.playerManager.clearScore();
         director.Reload();
     }
 
-    public void PlayerJoin(User user){
+    public void playerJoin(User user){
         if(state==GamerRuleState.AFTERLOAD){
             state= GamerRuleState.READY;
         }
     }
 
-    public abstract GameRuleModel GetModel();
+    public abstract GameRuleModel getModel();
 
 
-    public void AddMasterInfo(ISFSObject res){
+    public void addMasterInfo(ISFSObject res){
 
     }
 
 
 
-    public abstract void RobotEnter(int team);
+    public abstract void robotEnter(int team);
 }
