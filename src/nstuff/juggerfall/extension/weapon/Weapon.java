@@ -51,4 +51,8 @@ public class Weapon  extends NetView {
     public void clearRef() {
         owner = null;
     }
+    @Override
+    public boolean needDelete(int ownerId) {
+        return owner!=null&&owner.owner!=null&&owner.owner.getId()==ownerId;
+    }
 }

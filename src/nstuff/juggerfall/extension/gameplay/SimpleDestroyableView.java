@@ -1,5 +1,6 @@
 package nstuff.juggerfall.extension.gameplay;
 
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.SimpleDestroyableModel;
 import nstuff.juggerfall.extension.view.NetView;
@@ -41,5 +42,9 @@ public class SimpleDestroyableView extends NetView {
     @Override
     public void clearRef() {
 
+    }
+    @Override
+    public boolean needDelete(int ownerId) {
+        return false;
     }
 }

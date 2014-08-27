@@ -4,13 +4,11 @@ import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.MainExtension;
-import nstuff.juggerfall.extension.ai.aIDirector;
+import nstuff.juggerfall.extension.ai.AIDirector;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.GameRuleModel;
 import nstuff.juggerfall.extension.models.GameSettingModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
-
-import java.util.Date;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
@@ -41,7 +39,7 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public int[] teamScore;
 
-    public aIDirector director;
+    public AIDirector director;
 
     public abstract void kill(int team);
 
@@ -75,7 +73,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         maxScore=settings.maxScore;
         gameTime =settings.maxTime*1000;
         gameStart  = System.currentTimeMillis();
-        director  = new aIDirector(extension);
+        director  = new AIDirector(extension);
     }
 
     public  void startGame()

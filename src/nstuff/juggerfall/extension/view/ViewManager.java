@@ -95,6 +95,7 @@ public class ViewManager {
                 case  NET_VIEW_TYPE_SIMPLE:
                     SimpleNetView simpelView =(SimpleNetView)view;
                     res.putClass("model",simpelView.model);
+                    simpelView.addData(res);
                     break;
                 case NET_VIEW_TYPE_SIMPLE_DESTROYABLE:
                     SimpleDestroyableView simpelDestView =(SimpleDestroyableView)view;
@@ -116,27 +117,12 @@ public class ViewManager {
 
             Map.Entry<Integer ,NetView> entry = iterator.next();
             NetView view =entry.getValue();
-            switch(view.viewType){
-                case  NET_VIEW_TYPE_PAWN:
-                    Pawn pawn =(Pawn)view;
-                    if(pawn.owner!=null&&pawn.owner.getId()==ownerId){
-                        pawn.deleteLocal();
-                        sfsa.addInt(view.id);
-                        iterator.remove();
-                    }
-
-                break;
-                case  NET_VIEW_TYPE_WEAPON:
-                    Weapon weapon =(Weapon)view;
-                    if(weapon.owner!=null&&weapon.owner.owner!=null&&weapon.owner.owner.getId()==ownerId){
-                        weapon.deleteLocal();
-                        sfsa.addInt(view.id);
-                        iterator.remove();
-                    }
-                    break;
-			default:
-				break;
+            if(view.needDelete(ownerId)){
+                view.deleteLocal();
+                sfsa.addInt(view.id);
+                iterator.remove();
             }
+
         }
         return sfsa;
     }

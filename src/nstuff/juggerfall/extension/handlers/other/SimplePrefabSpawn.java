@@ -4,6 +4,7 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import nstuff.juggerfall.extension.MainExtension;
+import nstuff.juggerfall.extension.gameplay.Building;
 import nstuff.juggerfall.extension.gameplay.QueenEgg;
 import nstuff.juggerfall.extension.handlermanagers.OtherHandlerManager;
 import nstuff.juggerfall.extension.models.SimpleNetModel;
@@ -31,6 +32,12 @@ public class SimplePrefabSpawn extends BaseClientRequestHandler {
                 break;
             case SIMPLE:
                 view = new SimpleNetView(model,type);
+                break;
+            case BUILDING:
+                Building building = new Building(model,type);
+                building.owner = user;
+                data.putInt("ownerID",user.getId());
+                view = building;
                 break;
         }
 

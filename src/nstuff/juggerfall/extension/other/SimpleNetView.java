@@ -1,11 +1,12 @@
 package nstuff.juggerfall.extension.other;
 
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.SimpleNetModel;
 import nstuff.juggerfall.extension.view.NetView;
 import nstuff.juggerfall.extension.view.NetViewType;
 
-;
+
 public class SimpleNetView extends NetView {
 
     public String type;
@@ -45,5 +46,14 @@ public class SimpleNetView extends NetView {
     @Override
     public void clearRef() {
 
+    }
+
+    @Override
+    public boolean needDelete(int ownerId) {
+        return false;
+    }
+
+    public void addData(ISFSObject res) {
+        res.putInt("preftype",prefType.getValue());
     }
 }

@@ -88,6 +88,11 @@ public class Pawn extends NetView {
         weapon = null;
     }
 
+    @Override
+    public boolean needDelete(int ownerId) {
+        return owner!=null&&owner.getId()==ownerId;
+    }
+
     public void setPlayer(Player player) {
        this.player = player;
        team = player.team;

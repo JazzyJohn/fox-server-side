@@ -26,11 +26,11 @@ public class AISwarm implements TimeUpdateEntity {
 
     protected boolean  isActive;
 
-    protected aIDirector director;
+    protected AIDirector director;
 
     public Random rand= new Random();
 
-    public void init(aIDirector director, int id){
+    public void init(AIDirector director, int id){
         this.director = director;
         swarmId= id;
         director.extension.addToUpdate(this);

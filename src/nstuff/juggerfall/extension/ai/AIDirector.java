@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Ivan.Ochincenko on 18.08.14.
  */
-public class aIDirector {
+public class AIDirector {
 
     private static final String PACK_NAME ="nstuff.juggerfall.extension.ai.";
 
@@ -26,7 +26,7 @@ public class aIDirector {
 
     public  boolean loaded = false;
 
-    public aIDirector(MainExtension extension){
+    public AIDirector(MainExtension extension){
         this.extension =extension;
     }
 

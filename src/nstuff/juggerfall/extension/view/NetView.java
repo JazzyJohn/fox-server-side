@@ -16,4 +16,6 @@ public abstract class NetView {
     public transient  ViewManager manager;
 
     public abstract void clearRef();
+
+    public abstract boolean needDelete(int ownerId);
 }
