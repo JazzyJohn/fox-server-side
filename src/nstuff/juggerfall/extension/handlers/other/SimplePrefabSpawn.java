@@ -36,7 +36,7 @@ public class SimplePrefabSpawn extends BaseClientRequestHandler {
             case BUILDING:
                 Building building = new Building(model,type);
                 building.owner = user;
-                data.putInt("ownerID",user.getId());
+                data.putInt("ownerId",user.getId());
                 view = building;
                 break;
         }

@@ -33,12 +33,14 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             }
 
         }else{
+
             res.putInt("ownerId",user.getId());
             pawn.owner = user;
             pawn.setPlayer((Player) user.getProperty("player"));
             if(!data.getBool("isAI")){
                 extension.gameRule.spawn(pawn.team);
             }
+            pawnModel.team=pawn.team;
             pawn.isAi = data.getBool("isAI");
         }
         res.putBool("isAI", data.getBool("isAI"));

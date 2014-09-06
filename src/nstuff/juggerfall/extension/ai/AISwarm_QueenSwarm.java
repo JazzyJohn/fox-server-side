@@ -32,7 +32,7 @@ public class AISwarm_QueenSwarm extends AISwarm {
     @Override
     public void agentSpawn(Pawn pawn) {
         super.agentSpawn(pawn);
-        if(pawn.type==queenPrefab){
+        if(pawn.type.equals(queenPrefab)){
             queen=pawn;
         }
     }

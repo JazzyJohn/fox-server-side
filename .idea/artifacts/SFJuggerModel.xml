@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SFJuggerModel">
+    <output-path>C:/Program Files/SmartFoxServer_2X/SFS2X/extensions/__lib__</output-path>
+    <root id="archive" name="SFJuggerModel.jar">
+      <element id="module-output" name="Models" />
+    </root>
+  </artifact>
+</component>

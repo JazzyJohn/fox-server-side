@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SFJuggerExtension">
+    <output-path>C:/Program Files/SmartFoxServer_2X/SFS2X/extensions/SFJugger</output-path>
+    <root id="archive" name="SFJuggerExtension.jar">
+      <element id="module-output" name="SFJuggerFall" />
+    </root>
+  </artifact>
+</component>

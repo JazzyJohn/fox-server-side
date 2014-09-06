@@ -82,7 +82,7 @@ public class ViewManager {
                         res.putInt("ownerId",pawn.owner.getId());
                     }
                     res.putBool("isAI", pawn.isAi);
-                    if(pawn.isAi){
+                    if(pawn.isAi&&pawn.owner==null){
                         res.putInt("group",pawn.aiSwarmId);
                         res.putInt("home",pawn.aihome);
                     }
@@ -90,7 +90,11 @@ public class ViewManager {
                 case  NET_VIEW_TYPE_WEAPON:
                     Weapon weapon =(Weapon)view;
                     res.putClass("weapon",weapon.sirWeapon);
-                    res.putInt("pawnId", weapon.owner.id);
+                    if(weapon.owner==null){
+                        res.putInt("pawnId", weapon.lateId);
+                    }else {
+                        res.putInt("pawnId", weapon.owner.id);
+                    }
                     break;
                 case  NET_VIEW_TYPE_SIMPLE:
                     SimpleNetView simpelView =(SimpleNetView)view;
