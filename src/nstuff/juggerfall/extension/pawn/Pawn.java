@@ -8,6 +8,8 @@ import nstuff.juggerfall.extension.view.NetView;
 import nstuff.juggerfall.extension.view.NetViewType;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
+import java.util.Collection;
+
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
@@ -32,9 +34,14 @@ public class Pawn extends NetView {
     public transient Weapon weapon;
 
     public PawnModel sirPawn;
+
     public boolean isAi;
+
     public Integer aiSwarmId;
+
     public Integer aihome;
+
+    public Collection<Integer> stims;
 
     public Pawn(){
         viewType= NetViewType.NET_VIEW_TYPE_PAWN;

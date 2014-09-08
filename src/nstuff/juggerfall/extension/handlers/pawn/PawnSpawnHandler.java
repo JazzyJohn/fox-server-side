@@ -19,6 +19,7 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject data) {
         PawnModel pawnModel  =(PawnModel)data.getClass("pawn");
         Pawn pawn = new Pawn(pawnModel);
+        pawn.stims =  data.getIntArray("stims");
         MainExtension extension=(MainExtension)getParentExtension();
         extension.viewManager.addView(pawn);
         ISFSObject res = new SFSObject();
@@ -44,8 +45,8 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             pawn.isAi = data.getBool("isAI");
         }
         res.putBool("isAI", data.getBool("isAI"));
-        res.putClass("pawn",pawnModel);
-        res.putIntArray("stims",data.getIntArray("stims"));
+        res.putClass("pawn", pawnModel); 
+        res.putIntArray("stims", pawn.stims);
         send(PawnHandlerManager.RequestName_PawnSpawn,res,extension.getOther(user));
     }
 }

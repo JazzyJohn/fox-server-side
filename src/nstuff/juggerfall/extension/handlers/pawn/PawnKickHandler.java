@@ -14,7 +14,7 @@ public class PawnKickHandler  extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
-        if(!pawn.isOwner(user)){
+        if(pawn==null||!pawn.isOwner(user)){
             return;
         }
 

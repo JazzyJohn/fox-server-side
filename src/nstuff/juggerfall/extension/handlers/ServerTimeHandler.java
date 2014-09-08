@@ -18,6 +18,6 @@ public class ServerTimeHandler extends BaseClientRequestHandler
     {
         ISFSObject res = new SFSObject();
         res.putLong("t",System.currentTimeMillis());
-        this.send(MainExtension.RequestName_GetTime, res, sender);
+        this.send(MainExtension.RequestName_GetTime, res, sender,true);
     }
 }

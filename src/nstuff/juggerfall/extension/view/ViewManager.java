@@ -77,7 +77,7 @@ public class ViewManager {
                 case  NET_VIEW_TYPE_PAWN:
                     Pawn pawn =(Pawn)view;
                     res.putClass("pawn",pawn.sirPawn);
-                    res.putIntArray("stims", new ArrayList<Integer>());
+                    res.putIntArray("stims",  pawn.stims );
                     if(pawn.owner!=null){
                         res.putInt("ownerId",pawn.owner.getId());
                     }
