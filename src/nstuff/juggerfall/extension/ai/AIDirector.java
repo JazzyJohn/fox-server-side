@@ -107,6 +107,7 @@ public class AIDirector {
 
     public void Reload() {
        allSwarm.clear();
+       loaded = false;
     }
 
     public void AddEgg(QueenEgg queenEgg) {

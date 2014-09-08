@@ -80,6 +80,7 @@ public abstract class GameRule implements TimeUpdateEntity {
     {
         state =GamerRuleState.GOING;
         extension.startGameEvent();
+        ready = true;
     }
     public void gameFinish(){
 

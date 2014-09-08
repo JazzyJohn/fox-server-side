@@ -22,6 +22,7 @@ import nstuff.juggerfall.extension.view.ViewManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -246,6 +247,8 @@ public class MainExtension extends SFSExtension {
 
     public void reloadMap() {
         viewManager.reload();
+        secondRunner.allUpdate.clear();
+        secondRunner.allUpdate.add(gameRule);
         List<User> targets =getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         res.putUtfString("map", getParentRoom().getVariable("map").getStringValue());
@@ -258,7 +261,9 @@ public class MainExtension extends SFSExtension {
     {
         private long lastTime = 0;
 
-        private List<TimeUpdateEntity> allUpdate = new ArrayList<TimeUpdateEntity>();
+        private boolean markToClear =false;
+
+        private ConcurrentLinkedQueue<TimeUpdateEntity> allUpdate = new ConcurrentLinkedQueue<TimeUpdateEntity>();
         public void run()
         {
 
@@ -269,6 +274,10 @@ public class MainExtension extends SFSExtension {
             }
 
             lastTime = System.currentTimeMillis();
+            if(markToClear){
+                markToClear = false;
+                allUpdate.clear();
+            }
         }
     }
 
@@ -288,6 +297,7 @@ public class MainExtension extends SFSExtension {
 
     public void playerLeave(User user){
         ISFSObject res = new SFSObject();
+        playerManager.DeletePlayer(user);
         res.putSFSArray ("views",viewManager.removePlayerView(user.getId()));
         res.putInt("playerId",user.getId());
         send(MainExtension.RequestName_PlayerLeave, res, getOther(user));

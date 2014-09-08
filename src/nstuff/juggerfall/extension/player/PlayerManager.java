@@ -32,4 +32,7 @@ public class PlayerManager {
         }
     }
 
+    public void DeletePlayer(User user) {
+        allPlayer.remove(user.getProperty("player"));
+    }
 }
