@@ -37,7 +37,7 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
         }
         ISFSObject verifyData = new SFSObject();
         verifyData.putSFSArray("pawns",verifyPawns);
-        extension.send(PawnHandlerManager.RequestName_PawnUpdate, verifyData, extension.getOther(user), true);
+        extension.send(PawnHandlerManager.RequestName_PawnUpdate, verifyData, extension.getOther(user),true);
 
     }
 }

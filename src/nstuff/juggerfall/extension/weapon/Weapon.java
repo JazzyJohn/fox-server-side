@@ -16,7 +16,7 @@ public class Weapon  extends NetView {
 
     public WeaponModel sirWeapon;
 
-    public Integer lateId;
+    public Integer lateId=0;
 
     public Weapon(){
         viewType= NetViewType.NET_VIEW_TYPE_WEAPON;
@@ -36,14 +36,20 @@ public class Weapon  extends NetView {
 
     @Override
     public void delete() {
-        if(owner.weapon==this){
+        if(owner!=null&&owner.weapon==this){
             owner.weapon = null;
+        }
+        if(lateId!=0){
+            manager.extension.clearEarlyWeapon(lateId);
         }
     }
     @Override
     public void deleteLocal() {
-        if(owner.weapon==this){
+        if(owner!=null&&owner.weapon==this){
             owner.weapon = null;
+        }
+        if(lateId!=0){
+            manager.extension.clearEarlyWeapon(lateId);
         }
     }
 

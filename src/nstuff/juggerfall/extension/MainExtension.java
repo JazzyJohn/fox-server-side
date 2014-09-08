@@ -18,10 +18,9 @@ import nstuff.juggerfall.extension.handlers.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.PlayerManager;
 import nstuff.juggerfall.extension.view.ViewManager;
+import nstuff.juggerfall.extension.weapon.Weapon;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -72,6 +71,7 @@ public class MainExtension extends SFSExtension {
     // Keeps a reference to the task execution
     ScheduledFuture<?> taskHandle;
 
+    private Hashtable<Integer,Weapon> earlyWeapons = new Hashtable<Integer, Weapon>();
 
     public User masterInfo;
 
@@ -249,6 +249,7 @@ public class MainExtension extends SFSExtension {
         viewManager.reload();
         secondRunner.allUpdate.clear();
         secondRunner.allUpdate.add(gameRule);
+        earlyWeapons.clear();
         List<User> targets =getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         res.putUtfString("map", getParentRoom().getVariable("map").getStringValue());
@@ -256,6 +257,31 @@ public class MainExtension extends SFSExtension {
     }
 
 
+    public void earlyWeaponAdd(Weapon weapon) {
+        earlyWeapons.put(weapon.lateId,weapon);
+    }
+
+    public void checkOwner(User user, Pawn owner){
+        if(earlyWeapons.contains((owner.id))){
+            Weapon weapon=earlyWeapons.get(owner.id);
+            weapon.lateId = 0;
+            SendWeaponRequest(user,owner,weapon);
+        }
+    }
+
+    public void SendWeaponRequest(User user, Pawn owner, Weapon weapon) {
+
+        weapon.owner = owner;
+        owner.weapon = weapon;
+        ISFSObject res = new SFSObject();
+        res.putClass("weapon",weapon.sirWeapon);
+        res.putInt("pawnId",owner.id);
+        send(WeaponHandlerManager.RequestName_WeaponSpawn, res, getOther(user));
+    }
+
+    public void clearEarlyWeapon(Integer lateId) {
+        earlyWeapons.remove(lateId);
+    }
 
     private class SecondRunner implements Runnable
     {
