@@ -30,17 +30,18 @@ public class ViewManager {
     }
     public void deleteView(User sender, Integer id) {
         NetView view  = allView.get(id);
-        view.delete();
-        if(view instanceof SimpleNetView){
-            SimpleNetView simple = (SimpleNetView)view;
-            switch (simple.prefType){
-                case EGG:
-                    extension.gameRule.director.RemoveEgg((QueenEgg)simple);
-                    break;
+        if(view!=null) {
+            view.delete();
+            if (view instanceof SimpleNetView) {
+                SimpleNetView simple = (SimpleNetView) view;
+                switch (simple.prefType) {
+                    case EGG:
+                        extension.gameRule.director.RemoveEgg((QueenEgg) simple);
+                        break;
+                }
             }
+            allView.remove(id);
         }
-        allView.remove(id);
-
         extension.deleteView(sender, id);
 
     }

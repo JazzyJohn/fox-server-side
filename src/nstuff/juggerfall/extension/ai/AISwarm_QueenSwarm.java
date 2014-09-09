@@ -26,7 +26,10 @@ public class AISwarm_QueenSwarm extends AISwarm {
         super.agentKill(pawn);
         if(pawn==queen){
             deactivate();
+        }else{
+            _alreadySpawn--;
         }
+
     }
 
     @Override

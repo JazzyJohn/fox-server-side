@@ -18,16 +18,19 @@ public class WeaponShootHandler  extends BaseClientRequestHandler {
     public void handleClientRequest(User user, ISFSObject alldata) {
         ISFSArray shoots = alldata.getSFSArray("shoots");
         ISFSArray verifyShoots = new SFSArray();
+        MainExtension extension = (MainExtension)getParentExtension();
         for(Iterator<SFSDataWrapper> iterator =shoots.iterator();iterator.hasNext();){
             ISFSObject data = (ISFSObject) iterator.next().getObject();
 
-            Weapon weapon = (Weapon)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
-
+            Weapon weapon = (Weapon)extension.viewManager.getView(data.getInt("id"));
+            if(weapon==null){
+                return;
+            }
             if(weapon.owner==null){
-                Pawn owner  =(Pawn)((MainExtension)getParentExtension()).viewManager.getView(weapon.lateId);
+                Pawn owner  =(Pawn)extension.viewManager.getView(weapon.lateId);
                 if(owner!=null){
-                    weapon.owner = owner;
-                    owner.weapon = weapon;
+
+                    extension.checkOwner(user,owner);
                 }
             }else{
                 if(!weapon.owner.isOwner(user)){
@@ -39,6 +42,6 @@ public class WeaponShootHandler  extends BaseClientRequestHandler {
         }
         ISFSObject verifyData = new SFSObject();
         verifyData.putSFSArray("shoots",verifyShoots);
-        send(WeaponHandlerManager.RequestName_WeaponShoot,verifyData,((MainExtension)getParentExtension()).getOther(user));
+        send(WeaponHandlerManager.RequestName_WeaponShoot,verifyData,extension.getOther(user));
     }
 }

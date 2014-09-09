@@ -262,7 +262,7 @@ public class MainExtension extends SFSExtension {
     }
 
     public void checkOwner(User user, Pawn owner){
-        if(earlyWeapons.contains((owner.id))){
+        if(earlyWeapons.containsKey((owner.id))){
             Weapon weapon=earlyWeapons.get(owner.id);
             weapon.lateId = 0;
             SendWeaponRequest(user,owner,weapon);

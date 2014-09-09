@@ -91,6 +91,10 @@ public class AIDirector {
     }
 
     public void DeadPawn(Pawn pawn) {
+        //Some strange pawn check it's scene but not ai(maybe robot)
+        if(pawn.aiSwarmId==null){
+            return;
+        }
         allSwarm.get(pawn.aiSwarmId).agentKill(pawn);
     }
 
