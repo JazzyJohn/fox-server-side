@@ -7,6 +7,9 @@ import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlermanagers.PawnHandlerManager;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Ivan.Ochincenko on 19.08.14.
  */
@@ -15,6 +18,9 @@ public class RemoteDamageOnPawnHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("pawnId"));
-        send(PawnHandlerManager.RequestName_RemoteDamageOnPawn, data,   pawn.getOwner());
+        if(pawn!=null){
+            send(PawnHandlerManager.RequestName_RemoteDamageOnPawn, data, pawn.getOwner());
+        }
+
     }
 }

@@ -25,7 +25,7 @@ public class Pawn extends NetView {
 
     public boolean active;
 
-    public boolean isDead;
+
 
     public transient Player player;
 
@@ -55,7 +55,7 @@ public class Pawn extends NetView {
     	 wallState = pawnModel.wallState;
     	 team = pawnModel.team;
     	 characterState = pawnModel.characterState;
-    	 isDead = pawnModel.isDead;
+
          viewType= NetViewType.NET_VIEW_TYPE_PAWN;
 
     }
