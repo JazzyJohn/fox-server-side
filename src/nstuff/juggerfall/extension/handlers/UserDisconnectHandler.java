@@ -22,11 +22,12 @@ public class UserDisconnectHandler extends BaseServerEventHandler {
         for(Room room : rooms){
             if(room.isGame()){
                 MainExtension extension = (MainExtension)  room.getExtension();
-                extension.playerLeave(user);
                 if (extension.masterInfo == user){
                     extension.choiceMaster(user);
                     user.setVariable(new SFSUserVariable("Master",false ));
                 }
+                extension.playerLeave(user);
+
             }
         }
 	}

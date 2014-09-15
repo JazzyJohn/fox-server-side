@@ -5,6 +5,7 @@ import com.smartfoxserver.v2.core.SFSEventParam;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
+import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
 import nstuff.juggerfall.extension.MainExtension;
@@ -16,7 +17,12 @@ public class UserRoomLeaveHandler extends BaseServerEventHandler {
 
 
         User user = (User)event.getParameter(SFSEventParam.USER);
-        ((MainExtension)  getParentExtension()).playerLeave(user);
+        MainExtension extension = (MainExtension)  getParentExtension();
+        if (extension.masterInfo == user){
+            extension.choiceMaster(user);
+            user.setVariable(new SFSUserVariable("Master",false ));
+        }
+        extension.playerLeave(user);
 	}
 
 }
