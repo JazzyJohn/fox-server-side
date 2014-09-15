@@ -306,7 +306,7 @@ public class MainExtension extends SFSExtension {
                     allUpdate.clear();
                 }
             } catch (RuntimeException e){
-                trace(ExtensionLogLevel.ERROR, "Game Rule IllegalAccessException   " + e.getStackTrace().toString());
+                trace(ExtensionLogLevel.ERROR, "Update Exception  " + e.getStackTrace().toString());
             }
 
         }
