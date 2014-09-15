@@ -292,22 +292,37 @@ public class MainExtension extends SFSExtension {
         private ConcurrentLinkedQueue<TimeUpdateEntity> allUpdate = new ConcurrentLinkedQueue<TimeUpdateEntity>();
         public void run()
         {
+            try {
+                for(TimeUpdateEntity entity: allUpdate){
 
-            for(TimeUpdateEntity entity: allUpdate){
-
+                    long delta = System.currentTimeMillis()-lastTime;
+                    entity.update(delta);
+                }
                 long delta = System.currentTimeMillis()-lastTime;
-                entity.update(delta);
+                update(delta);
+                lastTime = System.currentTimeMillis();
+                if(markToClear){
+                    markToClear = false;
+                    allUpdate.clear();
+                }
+            } catch (RuntimeException e){
+                trace(ExtensionLogLevel.ERROR, "Game Rule IllegalAccessException   " + e.getStackTrace().toString());
             }
 
-            lastTime = System.currentTimeMillis();
-            if(markToClear){
-                markToClear = false;
-                allUpdate.clear();
+        }
+    }
+
+    private void update(long delta) {
+        if((masterInfo==null||!masterInfo.isConnected()||!masterInfo.isJoinedInRoom(getParentRoom()))&&!getParentRoom().isEmpty()){
+            try {
+                choiceMaster(null);
+            } catch (SFSVariableException e) {
+                trace(ExtensionLogLevel.ERROR, "Game Rule IllegalAccessException   " + e.getStackTrace().toString());
             }
         }
     }
 
-	public void startGameEvent() {
+    public void startGameEvent() {
 		  ISFSObject res = new SFSObject();
 		
 	      send(RequestName_GameStart, res, masterInfo);
