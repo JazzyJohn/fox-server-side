@@ -18,4 +18,6 @@ public class BaseDamageModel implements SerializableSFSType {
     public Vector3Model hitPosition;
 
     public boolean  isContinius;
+
+    public int weaponId;
 }
