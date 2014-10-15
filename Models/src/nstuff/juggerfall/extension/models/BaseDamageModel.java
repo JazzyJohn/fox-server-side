@@ -20,4 +20,6 @@ public class BaseDamageModel implements SerializableSFSType {
     public boolean  isContinius;
 
     public int weaponId;
+
+    public int damageType;
 }
