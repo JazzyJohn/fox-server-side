@@ -38,7 +38,16 @@ public class Sender {
         extension.send(RequestName_AISpawnBot, res, extension.masterInfo);
 
     }
+    public void spawnOnPoint(String bot, int swarmId, int id, Vector coords,int team) {
+        ISFSObject res = new SFSObject();
+        res.putUtfString("prefabName", bot);
+        res.putInt("swarmId",swarmId);
+        res.putInt("id", id);
+        res.putInt("team", team);
+        res.putClass("position",new Vector3Model(coords.getX(),coords.getY(),coords.getZ()));
+        extension.send(RequestName_AISpawnBot, res, extension.masterInfo);
 
+    }
     public void sendNextWave(int swarmId) {
         ISFSObject res = new SFSObject();
         res.putInt("swarmId", swarmId);
