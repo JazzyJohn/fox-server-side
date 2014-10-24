@@ -25,7 +25,9 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
         		Player killer =((Player)extension.getApi().getUserById(player).getProperty("player"));
         		extension.gameRule.kill(killer.team);
         		killer.kill++;
-        	}
+        	}else{
+                extension.gameRule.deadByAI(pawn.team);
+            }
         }else{
             int player = data.getInt("player");
             if(player!=-1){

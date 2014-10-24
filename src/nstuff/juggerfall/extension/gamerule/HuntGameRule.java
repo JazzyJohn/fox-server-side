@@ -109,6 +109,11 @@ public class HuntGameRule extends  GameRule {
         checkGameEnd();
     }
 
+    @Override
+    public void deadByAI(int team) {
+
+    }
+
     public void bossDamage(int team) {
         team =team-1;
         if(scoreTable.containsKey(BOSS_DAMAGE)){

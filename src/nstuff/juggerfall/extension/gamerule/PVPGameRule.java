@@ -16,7 +16,7 @@ public class PVPGameRule extends  GameRule {
 
     public int[] teamKill;
 
-
+    public boolean firstSpawn = true;
 
     @Override
     public void kill(int team) {
@@ -28,7 +28,10 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void spawn(int team) {
-
+        if(firstSpawn){
+            firstSpawn= false;
+            director.activateAll();
+        }
     }
 
     @Override
@@ -43,7 +46,10 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void aIDeath(Pawn dead, int team) {
-
+        team =team-1;
+        teamKill[team]++;
+        teamScore[team]++;
+        checkGameEnd();
     }
 
 
@@ -64,7 +70,7 @@ public class PVPGameRule extends  GameRule {
     public void reload() {
         super.reload();
         teamKill = new int[teamKill.length];
-
+        firstSpawn = false;
     }
 
     @Override
@@ -85,5 +91,13 @@ public class PVPGameRule extends  GameRule {
     @Override
     public void robotEnter(int team) {
 
+    }
+
+    @Override
+    public void deadByAI(int team) {
+        team = 2-team;
+        teamKill[team]++;
+        teamScore[team]++;
+        checkGameEnd();
     }
 }

@@ -7,9 +7,8 @@ import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
 import nstuff.juggerfall.extension.models.Vector3Model;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by 804129 on 24.08.14.
@@ -28,6 +27,10 @@ public class AISwarm implements TimeUpdateEntity {
 
     protected AIDirector director;
 
+    protected long delay = 0L;
+
+    protected boolean isDelayed;
+
     public Random rand= new Random();
 
     public void init(AIDirector director, int id){
@@ -35,7 +38,7 @@ public class AISwarm implements TimeUpdateEntity {
         swarmId= id;
         director.extension.addToUpdate(this);
     }
-
+    private Timer delayedStart;
     @Override
     public void update(long delta) {
         if(isActive){
@@ -51,9 +54,24 @@ public class AISwarm implements TimeUpdateEntity {
     }
 
     public void activate(){
+        if(delay>0L){
+            delayedStart = new Timer();
+            TimerTask task = new TimerTask() {
+                public void run() {
+
+                    _activate();
+
+                }
+            };
+            delayedStart.schedule(task, TimeUnit.SECONDS.toMillis(delay));
+        }else{
+            _activate();
+        }
+    }
+
+    protected void _activate(){
         isActive= true;
         director.extension.sender.sendSwarmChange(swarmId, isActive);
-
     }
 
     public void deactivate(){
@@ -70,6 +88,9 @@ public class AISwarm implements TimeUpdateEntity {
         for(int i=0; i<points.size();i++){
 
             allPoint.add(new SpawnPoint((Vector3Model)points.getClass(i),swarm.getLong("timeDelay")));
+        }
+        if(swarm.containsKey("delay")){
+            delay = swarm.getInt("delay");
         }
     }
 

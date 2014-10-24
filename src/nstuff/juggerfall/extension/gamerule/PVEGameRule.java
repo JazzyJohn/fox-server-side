@@ -117,6 +117,11 @@ public class PVEGameRule extends  GameRule {
 
     }
 
+    @Override
+    public void deadByAI(int team) {
+
+    }
+
     public void arrived() {
 
         teamScore[0] = 100;

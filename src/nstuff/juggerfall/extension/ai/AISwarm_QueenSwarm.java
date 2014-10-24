@@ -48,8 +48,8 @@ public class AISwarm_QueenSwarm extends AISwarm {
     }
 
     @Override
-    public void activate() {
-        super.activate();
+    public void _activate() {
+        super._activate();
         int pointId = rand.nextInt(allPoint.size());
         director.extension.sender.spawnOnPoint(queenPrefab, swarmId, pointId, allPoint.get(pointId).coords);
 

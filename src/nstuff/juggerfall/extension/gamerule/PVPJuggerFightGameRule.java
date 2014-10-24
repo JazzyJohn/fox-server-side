@@ -73,6 +73,11 @@ public class PVPJuggerFightGameRule extends  GameRule {
 
     }
 
+    @Override
+    public void deadByAI(int team) {
+
+    }
+
     public void setJuggerPawn(Pawn pawn) {
         allJuggers.add(pawn);
     }

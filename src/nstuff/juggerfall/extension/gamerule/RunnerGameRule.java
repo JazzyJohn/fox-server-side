@@ -72,5 +72,10 @@ public class RunnerGameRule extends GameRule {
 
     }
 
+    @Override
+    public void deadByAI(int team) {
+
+    }
+
 
 }

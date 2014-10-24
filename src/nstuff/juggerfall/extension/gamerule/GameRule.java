@@ -51,6 +51,10 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public abstract void aIDeath(Pawn dead, int team);
 
+    public abstract void robotEnter(int team);
+
+    public abstract void deadByAI(int team);
+
     public transient MainExtension extension;
 
     public transient GamerRuleState state = GamerRuleState.AFTERLOAD;
@@ -154,5 +158,4 @@ public abstract class GameRule implements TimeUpdateEntity {
 
 
 
-    public abstract void robotEnter(int team);
 }

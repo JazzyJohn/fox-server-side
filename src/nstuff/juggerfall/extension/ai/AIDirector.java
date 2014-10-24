@@ -120,4 +120,10 @@ public class AIDirector {
     public void RemoveEgg(QueenEgg queenEgg) {
         ((AISwarm_QueenSwarm)allSwarm.get(queenEgg.spawnId)).removeEgg(queenEgg);
     }
+
+    public void activateAll() {
+        for(AISwarm swarm : allSwarm){
+            swarm.activate();
+        }
+    }
 }
