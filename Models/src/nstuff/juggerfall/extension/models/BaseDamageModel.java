@@ -22,4 +22,6 @@ public class BaseDamageModel implements SerializableSFSType {
     public int weaponId;
 
     public int damageType;
+
+    public boolean isHeadShot;
 }
