@@ -331,6 +331,7 @@ public class MainExtension extends SFSExtension {
     private void sendUserMasterNotification() {
         ISFSObject res = new SFSObject();
         gameRule.addMasterInfo(res);
+        trace(ExtensionLogLevel.INFO, "New Master: "+masterInfo);
         send(RequestName_NewMaster, res, masterInfo);
 
 
