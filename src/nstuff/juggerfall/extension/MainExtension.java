@@ -7,6 +7,7 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
+import com.smartfoxserver.v2.entities.variables.UserVariable;
 import com.smartfoxserver.v2.exceptions.SFSVariableException;
 import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import com.smartfoxserver.v2.extensions.SFSExtension;
@@ -84,7 +85,9 @@ public class MainExtension extends SFSExtension {
                 User user = list.get(i);
                 if (user !=exMaster ){
                     masterInfo = user;
-                    user.setVariable(new SFSUserVariable("Master",true ));
+
+                    UserVariable master =new SFSUserVariable("Master",true );
+                    getApi().setUserVariables(user, Arrays.asList(master));
                     sendUserMasterNotification();
                     return;
                 }
@@ -133,7 +136,8 @@ public class MainExtension extends SFSExtension {
 
         addEventHandler(SFSEventType.USER_DISCONNECT, UserDisconnectHandler.class);
 
-        
+
+
         addFilter("logFilter",new CustomLogFilter());
         trace(ExtensionLogLevel.INFO,"MainExtension is Initializing Complete");
 
@@ -206,6 +210,8 @@ public class MainExtension extends SFSExtension {
     @Override
     public void destroy() {
         taskHandle.cancel(true);
+        UserVariable userVariable =new SFSUserVariable("Master",false );
+        getApi().setUserVariables(masterInfo, Arrays.asList(userVariable));
         super.destroy();
 
     }
@@ -331,7 +337,7 @@ public class MainExtension extends SFSExtension {
     private void sendUserMasterNotification() {
         ISFSObject res = new SFSObject();
         gameRule.addMasterInfo(res);
-        trace(ExtensionLogLevel.INFO, "New Master: "+masterInfo);
+        trace(ExtensionLogLevel.INFO, "New Master: " + masterInfo);
         send(RequestName_NewMaster, res, masterInfo);
 
 
