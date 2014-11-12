@@ -20,6 +20,9 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void kill(int team) {
+        if(isPractice){
+            return;
+        }
         team =team-1;
         teamKill[team]++;
         teamScore[team]++;
@@ -46,6 +49,9 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void aIDeath(Pawn dead, int team) {
+        if(isPractice){
+            return;
+        }
         team =team-1;
         teamKill[team]++;
         teamScore[team]++;

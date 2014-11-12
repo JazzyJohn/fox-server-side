@@ -31,6 +31,8 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public int curStage = 0;
 
+    public boolean isPractice;
+
     public boolean start = false;
 
     public float deathY= -50f;
@@ -129,6 +131,18 @@ public abstract class GameRule implements TimeUpdateEntity {
             if(System.currentTimeMillis()>gameEnd+afterMathTime){
                 extension.reloadMap();
                 reload();
+            }
+        }
+        if(extension.getParentRoom().getPlayersList().size()<=1){
+            if(!isPractice){
+                isPractice= true;
+
+            }
+
+        }else{
+            if(isPractice){
+                isPractice= false;
+
             }
         }
 
