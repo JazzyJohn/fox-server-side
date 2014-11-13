@@ -5,10 +5,12 @@ import com.smartfoxserver.v2.core.SFSEventParam;
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.variables.SFSUserVariable;
+import com.smartfoxserver.v2.entities.variables.UserVariable;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
 import nstuff.juggerfall.extension.MainExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class UserDisconnectHandler extends BaseServerEventHandler {
@@ -24,7 +26,8 @@ public class UserDisconnectHandler extends BaseServerEventHandler {
                 MainExtension extension = (MainExtension)  room.getExtension();
                 if (extension.masterInfo == user){
                     extension.choiceMaster(user);
-                    user.setVariable(new SFSUserVariable("Master",false ));
+                    UserVariable userVariable =new SFSUserVariable("Master",false );
+                    getApi().setUserVariables(user, Arrays.asList(userVariable));
                 }
                 extension.playerLeave(user);
 

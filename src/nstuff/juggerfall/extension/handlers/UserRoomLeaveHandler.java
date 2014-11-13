@@ -23,17 +23,14 @@ public class UserRoomLeaveHandler extends BaseServerEventHandler {
 
 
         User user = (User)event.getParameter(SFSEventParam.USER);
-        MainExtension extension = (MainExtension)  getParentExtension();
+        Room room =(Room) event.getParameter(SFSEventParam.ROOM);
+        MainExtension extension = (MainExtension)  room.getExtension();
         trace(ExtensionLogLevel.INFO,"playerLeave");
         if (extension.masterInfo == user){
             extension.choiceMaster(user);
             UserVariable userVariable =new SFSUserVariable("Master",false );
             getApi().setUserVariables(user, Arrays.asList(userVariable));
 
-        }
-        List<Room> rooms = (List<Room>) event.getParameter(SFSEventParam.JOINED_ROOMS);
-        for(Room room : rooms){
-            trace(ExtensionLogLevel.INFO,"playerLeave room"+room.getName());
         }
         extension.playerLeave(user);
 	}
