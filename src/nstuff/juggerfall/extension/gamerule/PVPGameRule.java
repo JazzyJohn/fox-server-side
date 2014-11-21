@@ -101,6 +101,9 @@ public class PVPGameRule extends  GameRule {
 
     @Override
     public void deadByAI(int team) {
+        if(isPractice){
+            return;
+        }
         team = 2-team;
         teamKill[team]++;
         teamScore[team]++;
