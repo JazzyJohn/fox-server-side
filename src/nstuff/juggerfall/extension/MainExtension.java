@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-public class MainExtension extends SFSExtension {
+public class MainExtension extends AbstractExtension {
 
 
     public static final String RequestName_GetTime ="getTime";

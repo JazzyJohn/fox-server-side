@@ -27,6 +27,8 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public boolean isGameEnded = false;
 
+    public boolean isWithPractice = true;
+
     public boolean canUseRobot = false;
 
     public int curStage = 0;
@@ -80,6 +82,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         gameTime =settings.maxTime*1000;
         gameStart  = System.currentTimeMillis();
         director  = new AIDirector(extension);
+        isWithPractice  = settings.isWithPractice;
     }
 
     public  void startGame()
@@ -133,7 +136,7 @@ public abstract class GameRule implements TimeUpdateEntity {
                 reload();
             }
         }
-        if(extension.getParentRoom().getPlayersList().size()<=1){
+        if(isWithPractice&&extension.getParentRoom().getPlayersList().size()<=1){
             if(!isPractice){
                 isPractice= true;
 
@@ -155,6 +158,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         teamScore = new int[teamScore.length];
         extension.playerManager.clearScore();
         director.Reload();
+
     }
 
     public void playerJoin(User user){

@@ -16,5 +16,7 @@ public class GameSettingModel implements SerializableSFSType {
 
     public Map<String, Object> huntTable;
 
+    public boolean isWithPractice;
+
 
 }

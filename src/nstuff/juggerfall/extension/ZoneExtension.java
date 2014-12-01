@@ -8,7 +8,7 @@ import nstuff.juggerfall.extension.handlers.*;
 /**
  * Created by Ivan.Ochincenko on 29.07.14.
  */
-public class ZoneExtension extends SFSExtension {
+public class ZoneExtension extends AbstractExtension {
 
     public static final String CONTER_IDLE_REQUEST ="conterIdle";
 
