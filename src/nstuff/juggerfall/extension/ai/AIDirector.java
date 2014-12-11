@@ -6,6 +6,7 @@ import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.gameplay.QueenEgg;
 import nstuff.juggerfall.extension.gamerule.HuntGameRule;
+import nstuff.juggerfall.extension.gamerule.PVEHoldGameRule;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
@@ -124,6 +125,12 @@ public class AIDirector {
     public void activateAll() {
         for(AISwarm swarm : allSwarm){
             swarm.activate();
+        }
+    }
+
+    public void nextWave() {
+        if((extension).gameRule instanceof PVEHoldGameRule){
+            ((PVEHoldGameRule)(extension).gameRule).nextWave();
         }
     }
 }

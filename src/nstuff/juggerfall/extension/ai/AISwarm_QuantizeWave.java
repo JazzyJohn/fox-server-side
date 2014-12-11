@@ -9,15 +9,17 @@ import java.util.Collection;
  * Created by 804129 on 24.08.14.
  */
 public class AISwarm_QuantizeWave extends AISwarm {
+    public int MAX_BOT_ON_WAVE= 20;
+
     public int[] maxSpawnCount;
 
     public int _curWave=0;
 
     public int[] needToKill;
 
-    private int _alreadySpawn=0;
+    protected int _alreadySpawn=0;
 
-    private int _alreadyDead=0;
+    protected int _alreadyDead=0;
 
     @Override
     public void loadFromSFSObject(ISFSObject swarm) {
@@ -80,7 +82,7 @@ public class AISwarm_QuantizeWave extends AISwarm {
         ///_alreadySpawn++;
     }
 
-    private void nextSwarmWave() {
+    protected void nextSwarmWave() {
         _alreadyDead =0;
         _alreadySpawn = 0;
         _curWave++;
