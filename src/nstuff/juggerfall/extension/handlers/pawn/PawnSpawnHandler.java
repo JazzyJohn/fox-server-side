@@ -44,6 +44,9 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             pawnModel.team=pawn.team;
             pawn.isAi = data.getBool("isAI");
         }
+        if(data.containsKey("bonus")){
+            res.put("bonus",data.get("bonus"));
+        }
 
         res.putBool("isAI", data.getBool("isAI"));
         res.putClass("pawn", pawnModel); 
