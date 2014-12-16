@@ -83,6 +83,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         gameStart  = System.currentTimeMillis();
         director  = new AIDirector(extension);
         isWithPractice  = settings.isWithPractice;
+        extension.trace("ROOM START GameMode:" + this.getClass().toString());
     }
 
     public  void startGame()

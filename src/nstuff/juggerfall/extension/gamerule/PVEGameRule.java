@@ -77,7 +77,7 @@ public class PVEGameRule extends  GameRule {
         int teamCount = 2;
         teamScore = new int[teamCount];
         canUseRobot = false;
-        extension.trace("ROOM START");
+
 
     }
 

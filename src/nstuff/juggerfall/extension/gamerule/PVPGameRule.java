@@ -68,7 +68,7 @@ public class PVPGameRule extends  GameRule {
         teamKill = new int[teamCount];
         teamScore = new int[teamCount];
         canUseRobot = true;
-        extension.trace("ROOM START");
+
 
     }
 

@@ -22,7 +22,11 @@ public class PVEHoldGameRule extends  GameRule {
 
     @Override
     protected void checkGameEnd() {
-        extension.updateGame();
+        if(playerDeath>=maxScore){
+            gameFinish();
+        }else{
+            extension.updateGame();
+        }
     }
 
     @Override
@@ -39,10 +43,7 @@ public class PVEHoldGameRule extends  GameRule {
     public void playerDeath(Pawn dead) {
         playerDeath++;
         teamScore[0]++;
-        if(playerDeath>=maxScore){
-            gameFinish();
-        }
-        extension.updateGame();
+        checkGameEnd();
     }
 
     @Override
@@ -68,7 +69,7 @@ public class PVEHoldGameRule extends  GameRule {
         teamScore = new int[teamCount];
         playerDeath= 0;
         canUseRobot = false;
-        extension.trace("ROOM START");
+
 
     }
 

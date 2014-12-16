@@ -67,7 +67,7 @@ public class HuntGameRule extends  GameRule {
         int teamCount = settings.teamCount;
         teamScore = new int[teamCount];
         canUseRobot = true;
-        extension.trace("ROOM START");
+
 
 
         scoreTable = settings.huntTable;
