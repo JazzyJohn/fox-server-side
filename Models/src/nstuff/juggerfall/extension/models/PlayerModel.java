@@ -11,6 +11,8 @@ public class PlayerModel implements SerializableSFSType {
     public String name;
 	
 	public int kill;
+
+    public int aikill;
 	
 	public int death;
 	

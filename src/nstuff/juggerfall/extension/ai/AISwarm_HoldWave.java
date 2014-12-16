@@ -30,7 +30,8 @@ public class AISwarm_HoldWave extends AISwarm_QuantizeWave {
                 SpawnPoint point = allPoint.get(i);
                 if(point.isActive()){
                     String prefab;
-                    if(_curWave%waveWithBossCount==0&&_spawnedBossCount<bossCount){
+                    if((_curWave+1)%waveWithBossCount==0&&_spawnedBossCount<bossCount){
+                        _spawnedBossCount++;
                         prefab =allBosses.get(rand.nextInt(allBosses.size()));
                     }else{
                         prefab =allBots.get(rand.nextInt(allBots.size()));

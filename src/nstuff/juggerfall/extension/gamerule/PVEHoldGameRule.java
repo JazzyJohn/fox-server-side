@@ -42,6 +42,7 @@ public class PVEHoldGameRule extends  GameRule {
         if(playerDeath>=maxScore){
             gameFinish();
         }
+        extension.updateGame();
     }
 
     @Override
@@ -111,5 +112,6 @@ public class PVEHoldGameRule extends  GameRule {
 
     public void nextWave() {
         teamScore[1]++;
+        extension.updateGame();
     }
 }

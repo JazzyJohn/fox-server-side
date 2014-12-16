@@ -14,6 +14,8 @@ public class Player implements SerializableSFSType {
     public String name;
 	
 	public int kill;
+
+    public int aikill;
 	
 	public int death;
 	

@@ -19,7 +19,7 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
         extension.viewManager.deleteViewLocal(pawn.id);
         if(pawn.owner!=null){
         	pawn.player.death++;
-        	extension.gameRule.playerDeath(pawn);
+
         	int player = data.getInt("player");
         	if(player!=-1){
         		Player killer =((Player)extension.getApi().getUserById(player).getProperty("player"));
@@ -33,6 +33,7 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
             if(player!=-1){
                 Player killer =((Player)extension.getApi().getUserById(player).getProperty("player"));
                 extension.gameRule.aIDeath(pawn, killer.team);
+                killer.aikill++;
             }else{
                 extension.gameRule.aIDeath(pawn);
             }

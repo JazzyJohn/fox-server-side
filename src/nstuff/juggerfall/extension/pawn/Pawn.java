@@ -86,7 +86,7 @@ public class Pawn extends NetView {
     }
 
     private void AfterDeleteLogic(){
-        if(team!=0){
+        if(owner!=null){
             manager.extension.gameRule.playerDeath(this);
         }
     }
