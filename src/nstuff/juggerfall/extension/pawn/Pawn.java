@@ -33,7 +33,7 @@ public class Pawn extends NetView {
 
     public transient User owner;
 
-    public transient List<Weapon> weapons;
+    public transient List<Weapon> weapons= new ArrayList<Weapon>();
 
     public PawnModel sirPawn;
 
@@ -47,7 +47,7 @@ public class Pawn extends NetView {
 
     public Pawn(){
         viewType= NetViewType.NET_VIEW_TYPE_PAWN;
-        weapons= new ArrayList<Weapon>();
+
     }
 
     public Pawn(PawnModel pawnModel) {
