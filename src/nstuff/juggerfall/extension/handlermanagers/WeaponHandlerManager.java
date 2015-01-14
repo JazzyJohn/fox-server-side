@@ -13,7 +13,7 @@ public class WeaponHandlerManager extends AbstractHandlerManager  {
 
     public static final String RequestName_WeaponShootState= "changeWeaponShootState";
 
-
+    public static final String RequestName_WeaponState= "changeWeaponState";
 
 
     @Override
@@ -23,5 +23,7 @@ public class WeaponHandlerManager extends AbstractHandlerManager  {
         extension.addClientHandler(RequestName_WeaponShoot, WeaponShootHandler.class);
 
         extension.addClientHandler(RequestName_WeaponShootState, WeaponShootStateHandler.class);
+
+        extension.addClientHandler(RequestName_WeaponState, WeaponStateHandler.class);
     }
 }

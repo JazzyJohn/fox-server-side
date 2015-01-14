@@ -8,7 +8,9 @@ import nstuff.juggerfall.extension.view.NetView;
 import nstuff.juggerfall.extension.view.NetViewType;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
@@ -31,7 +33,7 @@ public class Pawn extends NetView {
 
     public transient User owner;
 
-    public transient Weapon weapon;
+    public transient List<Weapon> weapons;
 
     public PawnModel sirPawn;
 
@@ -45,6 +47,7 @@ public class Pawn extends NetView {
 
     public Pawn(){
         viewType= NetViewType.NET_VIEW_TYPE_PAWN;
+        weapons= new ArrayList<Weapon>();
     }
 
     public Pawn(PawnModel pawnModel) {
@@ -71,7 +74,7 @@ public class Pawn extends NetView {
 
     @Override
     public void delete() {
-        if(weapon!=null){
+        for(Weapon weapon : weapons){
              manager.deleteView(weapon.id);
         }
         AfterDeleteLogic();
@@ -79,7 +82,7 @@ public class Pawn extends NetView {
 
     @Override
     public void deleteLocal() {
-        if(weapon!=null){
+        for(Weapon weapon : weapons){
             manager.deleteViewLocal(weapon.id);
         }
         AfterDeleteLogic();
@@ -92,7 +95,7 @@ public class Pawn extends NetView {
     }
     @Override
     public void clearRef() {
-        weapon = null;
+        weapons.clear();
     }
 
     @Override
@@ -125,5 +128,9 @@ public class Pawn extends NetView {
             return owner;
         }
 
+    }
+
+    public void addWeapon(Weapon weapon) {
+        weapons.add(weapon);
     }
 }

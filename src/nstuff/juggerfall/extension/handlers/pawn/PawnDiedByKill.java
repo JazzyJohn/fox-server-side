@@ -17,6 +17,7 @@ public class PawnDiedByKill extends BaseClientRequestHandler {
         }
         MainExtension extension = ((MainExtension) getParentExtension());
         extension.viewManager.deleteViewLocal(pawn.id);
+        extension.clearEarlyWeapon(pawn);
         if(pawn.owner!=null){
         	pawn.player.death++;
 

@@ -30,7 +30,7 @@ public class WeaponShootHandler  extends BaseClientRequestHandler {
                 Pawn owner  =(Pawn)extension.viewManager.getView(weapon.lateId);
                 if(owner!=null){
 
-                    extension.checkOwner(user,owner);
+                    extension.SendWeaponRequest(user,owner,weapon);
                 }
             }else{
                 if(!weapon.owner.isOwner(user)){

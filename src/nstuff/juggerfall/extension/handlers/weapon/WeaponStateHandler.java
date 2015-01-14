@@ -1,19 +1,17 @@
 package nstuff.juggerfall.extension.handlers.weapon;
 
 import com.smartfoxserver.v2.entities.User;
-import com.smartfoxserver.v2.entities.data.*;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.handlermanagers.WeaponHandlerManager;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
-import java.util.Iterator;
-
 /**
  * Created by Ivan.Ochincenko on 30.07.14.
  */
-public class WeaponShootStateHandler extends BaseClientRequestHandler {
+public class WeaponStateHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
 
@@ -31,6 +29,6 @@ public class WeaponShootStateHandler extends BaseClientRequestHandler {
             }
         }
 
-        send(WeaponHandlerManager.RequestName_WeaponShootState,data,((MainExtension)getParentExtension()).getOther(user));
+        send(WeaponHandlerManager.RequestName_WeaponState,data,((MainExtension)getParentExtension()).getOther(user));
     }
 }

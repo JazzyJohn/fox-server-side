@@ -72,7 +72,7 @@ public class MainExtension extends AbstractExtension {
     // Keeps a reference to the task execution
     ScheduledFuture<?> taskHandle;
 
-    private Hashtable<Integer,Weapon> earlyWeapons = new Hashtable<Integer, Weapon>();
+    private Hashtable<Integer, List<Weapon>> earlyWeapons = new  Hashtable<Integer, List<Weapon>>();
 
     public User masterInfo;
 
@@ -264,29 +264,42 @@ public class MainExtension extends AbstractExtension {
 
 
     public void earlyWeaponAdd(Weapon weapon) {
-        earlyWeapons.put(weapon.lateId,weapon);
+        if(!earlyWeapons.containsKey(weapon.lateId)){
+            earlyWeapons.put(weapon.lateId,new ArrayList<Weapon>());
+        }
+        earlyWeapons.get(weapon.lateId).add(weapon);
     }
 
     public void checkOwner(User user, Pawn owner){
-        if(earlyWeapons.containsKey((owner.id))){
-            Weapon weapon=earlyWeapons.get(owner.id);
-            weapon.lateId = 0;
-            SendWeaponRequest(user,owner,weapon);
+        if(earlyWeapons.containsKey(owner.id)){
+            for(Weapon weapon: earlyWeapons.get(owner.id)){
+                 SendWeaponRequest(user,owner,weapon);
+            }
+            earlyWeapons.remove(owner.id);
         }
+
     }
 
     public void SendWeaponRequest(User user, Pawn owner, Weapon weapon) {
 
         weapon.owner = owner;
-        owner.weapon = weapon;
+        owner.addWeapon(weapon);
         ISFSObject res = new SFSObject();
         res.putClass("weapon",weapon.sirWeapon);
         res.putInt("pawnId",owner.id);
         send(WeaponHandlerManager.RequestName_WeaponSpawn, res, getOther(user));
     }
 
-    public void clearEarlyWeapon(Integer lateId) {
-        earlyWeapons.remove(lateId);
+    public void clearEarlyWeapon(Weapon weapon) {
+        if(earlyWeapons.containsKey(weapon.lateId)){
+
+            earlyWeapons.get(weapon.lateId).remove(weapon);
+        }
+    }
+    public void clearEarlyWeapon(Pawn pawn) {
+        if(earlyWeapons.containsKey(pawn.id)){
+            earlyWeapons.remove(pawn.id);
+        }
     }
 
     private class SecondRunner implements Runnable

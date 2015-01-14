@@ -36,20 +36,20 @@ public class Weapon  extends NetView {
 
     @Override
     public void delete() {
-        if(owner!=null&&owner.weapon==this){
-            owner.weapon = null;
+        if(owner!=null){
+            owner.weapons.remove(this);
         }
         if(lateId!=0){
-            manager.extension.clearEarlyWeapon(lateId);
+            manager.extension.clearEarlyWeapon(this);
         }
     }
     @Override
     public void deleteLocal() {
-        if(owner!=null&&owner.weapon==this){
-            owner.weapon = null;
+        if(owner!=null){
+            owner.weapons.remove(this);
         }
         if(lateId!=0){
-            manager.extension.clearEarlyWeapon(lateId);
+            manager.extension.clearEarlyWeapon(this);
         }
     }
 
