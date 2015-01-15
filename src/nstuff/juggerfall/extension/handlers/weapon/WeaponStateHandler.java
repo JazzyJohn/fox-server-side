@@ -28,6 +28,7 @@ public class WeaponStateHandler extends BaseClientRequestHandler {
                 return;
             }
         }
+        weapon.setState(data.getBool("state"));
 
         send(WeaponHandlerManager.RequestName_WeaponState,data,((MainExtension)getParentExtension()).getOther(user));
     }

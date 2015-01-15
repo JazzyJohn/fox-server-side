@@ -18,6 +18,8 @@ public class Weapon  extends NetView {
 
     public Integer lateId=0;
 
+    public boolean state;
+
     public Weapon(){
         viewType= NetViewType.NET_VIEW_TYPE_WEAPON;
     }
@@ -60,5 +62,10 @@ public class Weapon  extends NetView {
     @Override
     public boolean needDelete(int ownerId) {
         return owner!=null&&owner.owner!=null&&owner.owner.getId()==ownerId;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+        sirWeapon.state = state;
     }
 }

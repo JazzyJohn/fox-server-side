@@ -9,4 +9,6 @@ public class WeaponModel  extends NetViewModel {
     public String type;
 
     public int id;
+
+    public boolean state;
 }
