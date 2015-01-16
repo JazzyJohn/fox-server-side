@@ -24,6 +24,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_MapData = "mapData";
 
+    public static final String RequestName_GamePointData = "gamePointData";
+
 @Override
     public void init() {
 
@@ -46,6 +48,8 @@ public class GameHandlerManager extends AbstractHandlerManager {
     extension.addClientHandler(RequestName_LastWave, LastWaveHandler.class);
 
     extension.addClientHandler(RequestName_MapData, MapDataHandler.class);
+
+    extension.addClientHandler(RequestName_GamePointData, GamePointData.class);
     }
 
 }

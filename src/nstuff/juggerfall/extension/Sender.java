@@ -1,8 +1,10 @@
 package nstuff.juggerfall.extension;
 
+import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.baseobject.Vector;
+import nstuff.juggerfall.extension.handlermanagers.GameHandlerManager;
 import nstuff.juggerfall.extension.models.Vector3Model;
 
 /**
@@ -54,5 +56,12 @@ public class Sender {
 
         extension.send(RequestName_AINextWave, res, extension.getParentRoom().getUserList());
 
+    }
+
+    public void sendGamePoint(ISFSArray array) {
+        ISFSObject res = new SFSObject();
+        res.putSFSArray("points", array);
+
+        extension.send(GameHandlerManager.RequestName_GamePointData, res, extension.getParentRoom().getUserList());
     }
 }
