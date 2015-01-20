@@ -5,8 +5,11 @@ import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.gameplay.AssaultPoint;
 import nstuff.juggerfall.extension.models.AssaultPointModel;
 import nstuff.juggerfall.extension.models.GameRuleModel;
+import nstuff.juggerfall.extension.models.PVPGameRuleModel;
+import nstuff.juggerfall.extension.models.PointGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -17,7 +20,7 @@ public class PointGameRule  extends  GameRule{
 
     public static final float ADD_PLAYER_SCORE =50.f;
 
-    Hashtable<Integer, AssaultPoint> pointsDictionary = new Hashtable<Integer, AssaultPoint>();
+    protected Hashtable<Integer, AssaultPoint> pointsDictionary = new Hashtable<Integer, AssaultPoint>();
     @Override
     public void kill(int team) {
 
@@ -55,13 +58,24 @@ public class PointGameRule  extends  GameRule{
 
     @Override
     public GameRuleModel getModel() {
-        return null;
+        PointGameRuleModel model = new PointGameRuleModel();
+        model.isGameEnded = isGameEnded;
+
+        model.teamScore = new ArrayList<Integer>();
+        for(int i =0; i <teamScore.length;i++){
+
+            model.teamScore.add(teamScore[i]);
+
+        }
+
+        return model;
     }
 
 
     @Override
     public void update(long delta) {
         super.update(delta);
+        ruleLogic(delta);
         ISFSArray array  = new SFSArray();
         for (AssaultPoint point : pointsDictionary.values()){
 
@@ -79,11 +93,19 @@ public class PointGameRule  extends  GameRule{
 
     }
 
+    protected void ruleLogic(long delta) {
+
+    }
+
     public void readPoint(AssaultPointModel assaultPointModel) {
         if(pointsDictionary.containsKey(assaultPointModel.id)){
             pointsDictionary.get(assaultPointModel.id).readFromModel(assaultPointModel);
         }else{
-            pointsDictionary.put(assaultPointModel.id,new AssaultPoint(assaultPointModel,pointsDictionary));
+            pointsDictionary.put(assaultPointModel.id,new AssaultPoint(assaultPointModel,this));
         }
+    }
+
+    public Hashtable<Integer, AssaultPoint> getPointsDictionary() {
+        return pointsDictionary;
     }
 }

@@ -13,15 +13,15 @@ import static nstuff.juggerfall.extension.gamerule.PointGameRule.ADD_PLAYER_SCOR
 public class AssaultPoint {
 
     AssaultPointModel model;
-    Hashtable<Integer, AssaultPoint> pointsDictionary;
+    PointGameRule gameRule;
 
     float scorePoint=0;
 
     boolean send= false;
 
-    public AssaultPoint(AssaultPointModel model,Hashtable<Integer, AssaultPoint> pointsDictionary){
+    public AssaultPoint(AssaultPointModel model,PointGameRule gameRule){
         this.model = model;
-        this.pointsDictionary = pointsDictionary;
+        this.gameRule = gameRule;
     }
 
     public void readFromModel(AssaultPointModel model){
@@ -52,7 +52,7 @@ public class AssaultPoint {
     private void changeValue(float time) {
         boolean open =true;
         for(int i : model.lockedBy){
-            if(pointsDictionary.containsKey(i)&&pointsDictionary.get(i).model.owner!=model.teamConquering){
+            if(gameRule.getPointsDictionary().containsKey(i)&&gameRule.getPointsDictionary().get(i).model.owner!=model.teamConquering){
                 open= false;
             }
         }
