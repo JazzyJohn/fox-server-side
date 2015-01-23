@@ -1,16 +1,15 @@
 package nstuff.juggerfall.extension.gamerule;
 
 import com.smartfoxserver.v2.entities.data.ISFSArray;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.gameplay.AssaultPoint;
 import nstuff.juggerfall.extension.models.AssaultPointModel;
 import nstuff.juggerfall.extension.models.GameRuleModel;
-import nstuff.juggerfall.extension.models.PVPGameRuleModel;
 import nstuff.juggerfall.extension.models.PointGameRuleModel;
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 /**
@@ -91,6 +90,19 @@ public class PointGameRule  extends  GameRule{
 
 
 
+    }
+
+    @Override
+    public void addInfo(ISFSObject res) {
+        super.addInfo(res);
+        if(pointsDictionary.size()==0){
+            return;
+        }
+        ISFSArray array  = new SFSArray();
+        for (AssaultPoint point : pointsDictionary.values()){
+            array.addClass(point.getModel());
+        }
+        res.putSFSArray("points",array);
     }
 
     protected void ruleLogic(long delta) {

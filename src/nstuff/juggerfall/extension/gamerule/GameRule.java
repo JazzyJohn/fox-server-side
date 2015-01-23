@@ -176,5 +176,7 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
 
+    public void addInfo(ISFSObject res) {
 
+    }
 }

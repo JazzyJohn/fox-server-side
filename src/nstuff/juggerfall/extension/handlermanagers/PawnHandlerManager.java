@@ -44,6 +44,8 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_CustomAnimStart ="customAnimStart";
 
+    public static final String RequestName_PawnMarked ="sendMark";
+
     @Override
     public void init() {
         extension.addClientHandler(RequestName_PawnSpawn, PawnSpawnHandler.class);
@@ -76,7 +78,7 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_CustomAnimStart, PawnCustomAnimHandler.class);
 
-
+        extension.addClientHandler(RequestName_PawnMarked, PawnMarkedHandler.class);
     }
 
     public void updatePawnInfo(User user, Pawn pawn, boolean UDP) {

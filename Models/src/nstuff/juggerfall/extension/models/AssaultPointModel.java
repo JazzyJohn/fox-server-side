@@ -21,6 +21,7 @@ public class AssaultPointModel implements SerializableSFSType {
 
     public int teamConquering;
 
-    public List<Integer> lockedBy;
+    public List<Integer> lockedByOneTeam;
 
+    public List<Integer> lockedBySecondTeam;
 }
