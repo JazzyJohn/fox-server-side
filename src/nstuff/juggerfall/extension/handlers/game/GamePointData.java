@@ -23,7 +23,7 @@ public class GamePointData extends BaseClientRequestHandler {
         ISFSArray points = data.getSFSArray("points");
         PointGameRule gameRule =(PointGameRule)((MainExtension) getParentExtension()).gameRule;
         for(int i=0; i<points.size();i++){
-            gameRule.readPoint((AssaultPointModel) points.getSFSObject(i));
+            gameRule.readPoint((AssaultPointModel) points.getClass(i));
 
         }
 

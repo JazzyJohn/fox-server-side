@@ -1,12 +1,13 @@
 package nstuff.juggerfall.extension.gamerule;
 
+import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.gameplay.AssaultPoint;
-import nstuff.juggerfall.extension.models.AssaultPointModel;
-import nstuff.juggerfall.extension.models.GameRuleModel;
-import nstuff.juggerfall.extension.models.PointGameRuleModel;
+
+import nstuff.juggerfall.extension.models.*;
+
 import nstuff.juggerfall.extension.pawn.Pawn;
 
 import java.util.ArrayList;
@@ -56,6 +57,16 @@ public class PointGameRule  extends  GameRule{
     }
 
     @Override
+    public void init(Room room) {
+        super.init(room);
+        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
+        int teamCount = settings.teamCount;
+        teamScore = new int[teamCount];
+
+    }
+
+    @Override
     public GameRuleModel getModel() {
         PointGameRuleModel model = new PointGameRuleModel();
         model.isGameEnded = isGameEnded;
@@ -81,7 +92,7 @@ public class PointGameRule  extends  GameRule{
 
             point.update(((float)delta)/1000.f);
             if(point.isSend()){
-                array.addClass(point.getModel());
+                array.addClass(point.sendModel());
             }
         }
         if(array.size()>0){

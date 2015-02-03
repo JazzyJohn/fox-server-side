@@ -17,6 +17,9 @@ public class WeaponStateHandler extends BaseClientRequestHandler {
 
         Weapon weapon = (Weapon)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
 
+        if(weapon==null){
+            return;
+        }
         if(weapon.owner==null){
             Pawn owner  =(Pawn)((MainExtension)getParentExtension()).viewManager.getView(weapon.lateId);
             if(owner!=null){

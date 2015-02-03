@@ -19,6 +19,9 @@ public class SequencePointGameRule extends PointGameRule {
                 teamScore[assaultPoint.getModel().owner-1]++;
             }
         }
+        if(pointsDictionary.size()==0){
+            return;
+        }
         boolean isWinner = false;
 
         for(int i=0;i<2;i++){
@@ -30,5 +33,6 @@ public class SequencePointGameRule extends PointGameRule {
             gameFinish();
         }
     }
+
 
 }

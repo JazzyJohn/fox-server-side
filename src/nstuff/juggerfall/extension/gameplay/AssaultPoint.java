@@ -3,6 +3,7 @@ package nstuff.juggerfall.extension.gameplay;
 import nstuff.juggerfall.extension.gamerule.PointGameRule;
 import nstuff.juggerfall.extension.models.AssaultPointModel;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -27,8 +28,25 @@ public class AssaultPoint {
     public AssaultPoint(AssaultPointModel model,PointGameRule gameRule){
         this.model = model;
         this.gameRule = gameRule;
-        lockedByOneTeam = model.lockedByOneTeam;
-        lockedBySecondTeam = model.lockedBySecondTeam;
+
+        if(model.lockedByOneTeam!=null){
+            lockedByOneTeam = new ArrayList<Integer>();
+            for(Object obj : model.lockedByOneTeam){
+                lockedByOneTeam.add((Integer)obj);
+            }
+        }
+        if(model.lockedBySecondTeam!=null){
+            lockedBySecondTeam = new ArrayList<Integer>();
+            for(Object obj : model.lockedBySecondTeam){
+                lockedBySecondTeam.add((Integer)obj);
+            }
+        }
+
+
+        if(model.owner!=0){
+            scorePoint = model.needPoint;
+        }
+
     }
 
     public void readFromModel(AssaultPointModel model){
@@ -46,12 +64,19 @@ public class AssaultPoint {
 
                 }
             }else{
-                if(0<scorePoint){
-                    changeValue(-time);
-                }else {
-                    model.owner=0;
-                    send = true;
+                if(model.teamConquering==model.owner){
+                    if(model.needPoint>scorePoint){
+                        changeValue(time);
+                    }
+                }else{
+                    if(0<scorePoint){
+                        changeValue(-time);
+                    }else {
+                        model.owner=0;
+                        send = true;
+                    }
                 }
+
             }
         }
     }
@@ -64,16 +89,25 @@ public class AssaultPoint {
         }else{
             curLocked = lockedBySecondTeam;
         }
-        for(int i :curLocked){
-            if(gameRule.getPointsDictionary().containsKey(i)&&gameRule.getPointsDictionary().get(i).model.owner!=model.teamConquering){
-                open= false;
+        if(curLocked!=null) {
+            for (int i : curLocked) {
+                if (gameRule.getPointsDictionary().containsKey(i) && gameRule.getPointsDictionary().get(i).model.owner != model.teamConquering) {
+                    open = false;
+                }
             }
         }
         if(open){
             scorePoint += time*getCoef();
+            if(scorePoint>model.needPoint){
+                scorePoint =model.needPoint;
+            }
+            if(scorePoint<0){
+                scorePoint = 0;
+            }
             model.scorePoint = scorePoint;
             send = true;
         }
+
     }
 
     private float getCoef() {
@@ -83,7 +117,14 @@ public class AssaultPoint {
     public boolean isSend(){
         return send;
     }
-    public AssaultPointModel getModel(){
+
+    public AssaultPointModel sendModel(){
+        send= false;
         return model;
+    }
+
+
+    public AssaultPointModel getModel(){
+          return model;
     }
 }

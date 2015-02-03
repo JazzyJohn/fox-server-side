@@ -59,7 +59,7 @@ public class AISwarm_PVPBots extends AISwarm {
                     }
                 }
                 if(maxBots>inTeamPlayer[i]+inTeamPawns[i]){
-                    int home = rand.nextInt(allPoint.size());
+                    int home = getHome(i+1);
                     inTeamPawns[i]++;
                     director.extension.sender.spawnOnPoint(allBots.get(i), swarmId,home, allPoint.get(home).coords,i+1);
                 }
@@ -68,6 +68,10 @@ public class AISwarm_PVPBots extends AISwarm {
 
         }
 
+    }
+
+    protected int getHome(int team) {
+        return rand.nextInt(allPoint.size());
     }
 
     @Override

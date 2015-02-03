@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="sfs2x-core" level="application" />
+    <orderEntry type="library" name="sfs2x" level="project" />
   </component>
 </module>
 
