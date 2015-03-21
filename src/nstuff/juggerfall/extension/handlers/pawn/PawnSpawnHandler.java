@@ -57,6 +57,7 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             Weapon weapon = new Weapon(weaponModel);
             extension.viewManager.addView(weapon);
             weapon.owner = pawn;
+            pawn.addWeapon(weapon);
         }
 
         res.putSFSArray("weapons", weapons);

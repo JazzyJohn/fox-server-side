@@ -87,16 +87,13 @@ public class ViewManager {
                         res.putInt("group",pawn.aiSwarmId);
                         res.putInt("home",pawn.aihome);
                     }
-                    break;
-                case  NET_VIEW_TYPE_WEAPON:
-                    Weapon weapon =(Weapon)view;
-                    res.putClass("weapon",weapon.sirWeapon);
-                    if(weapon.owner==null){
-                        res.putInt("pawnId", weapon.lateId);
-                    }else {
-                        res.putInt("pawnId", weapon.owner.id);
+                    ISFSArray weapons = new SFSArray();
+                    for(Weapon weapon : pawn.weapons){
+                        weapons.addClass(weapon.sirWeapon);
                     }
+                    res.putSFSArray("weapons",weapons);
                     break;
+
                 case  NET_VIEW_TYPE_SIMPLE:
                     SimpleNetView simpelView =(SimpleNetView)view;
                     res.putClass("model",simpelView.model);

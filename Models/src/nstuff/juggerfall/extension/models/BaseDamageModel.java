@@ -11,17 +11,11 @@ public class BaseDamageModel implements SerializableSFSType {
 
     public float pushForce;
 
-    public boolean knockOut;
-
-    public Vector3Model pushDirection;
-
     public Vector3Model hitPosition;
-
-    public boolean  isContinius;
 
     public int weaponId;
 
     public int damageType;
 
-    public boolean isHeadShot;
+    public float vsArmor;
 }

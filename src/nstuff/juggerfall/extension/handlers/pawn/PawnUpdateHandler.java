@@ -30,6 +30,7 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
             }
             if(!pawn.isOwner(user)){
                 //getParentExtension();
+                extension.trace("Not owner");
                 continue;
             }
             verifyPawns.addClass(incPawn);
