@@ -18,4 +18,6 @@ public class BaseDamageModel implements SerializableSFSType {
     public int damageType;
 
     public float vsArmor;
+
+    public int modifiers;
 }
