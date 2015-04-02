@@ -179,4 +179,12 @@ public abstract class GameRule implements TimeUpdateEntity {
     public void addInfo(ISFSObject res) {
 
     }
+
+    public boolean isLoaded() {
+        return director.loaded;
+    }
+
+    public boolean isOnGoing() {
+        return state ==GamerRuleState.GOING&&director.loaded;
+    }
 }

@@ -25,6 +25,7 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
         ISFSObject res = new SFSObject();
         if (extension.masterInfo == null){
             extension.masterInfo = user;
+            extension.setMasterInitialized(true);
             UserVariable var = new SFSUserVariable("Master", true);
             getApi().setUserVariables(user, Arrays.asList(var));
             res.putBool("Master",true);

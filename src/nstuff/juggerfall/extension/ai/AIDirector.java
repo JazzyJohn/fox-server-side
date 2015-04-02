@@ -3,6 +3,7 @@ package nstuff.juggerfall.extension.ai;
 import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
+import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.gameplay.QueenEgg;
 import nstuff.juggerfall.extension.gamerule.HuntGameRule;
@@ -35,6 +36,7 @@ public class AIDirector {
         if(loaded){
             return;
         }
+        extension.trace(ExtensionLogLevel.INFO,"Start AiDirector Init");
         loaded= true;
         ISFSArray swarms = dt.getSFSArray("swarms");
         for(int i=0; i<swarms.size();i++){
@@ -54,6 +56,7 @@ public class AIDirector {
             allSwarm.get(val).activate();
 
         }
+        extension.getMasterWatcher().updateMasterTime();
     }
 
     private AISwarm getSwarmByName(String aClass) {

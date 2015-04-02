@@ -9,7 +9,7 @@ public class BaseDamageModel implements SerializableSFSType {
 
     public float damage;
 
-    public float pushForce;
+    public Vector3Model pushDirection;
 
     public Vector3Model hitPosition;
 

@@ -65,7 +65,9 @@ public class ViewManager {
 
     public void deleteViewLocal(int id) {
         NetView view  = allView.get(id);
-        view.deleteLocal();
+        if(view==null) {
+            view.deleteLocal();
+        }
         allView.remove(id);
     }
 
@@ -118,11 +120,17 @@ public class ViewManager {
         while(iterator.hasNext()){
 
             Map.Entry<Integer ,NetView> entry = iterator.next();
-            NetView view =entry.getValue();
-            if(view.needDelete(ownerId)){
-                view.deleteLocal();
-                sfsa.addInt(view.id);
-                iterator.remove();
+            try {
+                NetView view =entry.getValue();
+                if(view.needDelete(ownerId)){
+
+                    view.deleteLocal();
+                    sfsa.addInt(view.id);
+                    iterator.remove();
+                }
+
+            }catch (Exception e){
+               extension.trace(e);
             }
 
         }
@@ -142,4 +150,6 @@ public class ViewManager {
     public List<Integer> getAllDeleteSceneViewForStart() {
        return deleteSceneView;
     }
+
+
 }

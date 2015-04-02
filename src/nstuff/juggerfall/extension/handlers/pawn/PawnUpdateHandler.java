@@ -21,6 +21,10 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
         ISFSArray pawns = data.getSFSArray("pawns");
         ISFSArray verifyPawns = new SFSArray();
         MainExtension extension=(MainExtension)getParentExtension();
+
+        if(user.getId() ==extension.masterInfo.getId()){
+            extension.getMasterWatcher().updateMasterTime();
+        }
         for(Iterator<SFSDataWrapper> iterator =pawns.iterator();iterator.hasNext();){
             PawnModel incPawn  =(PawnModel)iterator.next().getObject();
 

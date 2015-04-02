@@ -19,6 +19,7 @@ import nstuff.juggerfall.extension.handlers.*;
 import nstuff.juggerfall.extension.pawn.Pawn;
 import nstuff.juggerfall.extension.player.PlayerManager;
 import nstuff.juggerfall.extension.view.ViewManager;
+import nstuff.juggerfall.extension.watchers.MasterWatcher;
 import nstuff.juggerfall.extension.weapon.Weapon;
 
 import java.util.*;
@@ -74,32 +75,48 @@ public class MainExtension extends AbstractExtension {
 
     private Hashtable<Integer, List<Weapon>> earlyWeapons = new  Hashtable<Integer, List<Weapon>>();
 
-    public User masterInfo;
+    private MasterWatcher masterWatcher;
 
-    public void choiceMaster(User exMaster) throws SFSVariableException {
+    public User masterInfo;
+    
+    public boolean masterInitialized =false;
+
+    public boolean choiceMaster(User exMaster) throws SFSVariableException {
 
         List<User> list = getParentRoom().getUserList();
         if (list.size()!= 0){
 
-            for (int i=0; i<list.size(); i++){
-                User user = list.get(i);
-                if (user !=exMaster ){
+            for (User user : list) {
+                if (user != exMaster) {
                     masterInfo = user;
-
-                    UserVariable master =new SFSUserVariable("Master",true );
+                    
+                    UserVariable master = new SFSUserVariable("Master", true);
                     getApi().setUserVariables(user, Arrays.asList(master));
                     sendUserMasterNotification();
-                    return;
+                    return true;
                 }
 
 
             }
 
         }
+        return false;
+    }
+    public void dismissOldMaster(User oldMaster){
+        if(oldMaster!=null){
+            try{
+                UserVariable master =new SFSUserVariable("Master",false );
+                getApi().setUserVariables(oldMaster, Arrays.asList(master));
+            }catch (Exception e){
+                trace(ExtensionLogLevel.ERROR, e);
+            }
+        }
+
     }
 
-
-
+    public MasterWatcher getMasterWatcher() {
+        return masterWatcher;
+    }
 
     @Override
 	public void init() {
@@ -147,6 +164,8 @@ public class MainExtension extends AbstractExtension {
     }
 
 	private void BaseConfigurator() {
+
+        masterWatcher = new MasterWatcher(this);
         try {
             Class theClass =  Class.forName(getParentRoom().getVariable("ruleClass").getStringValue());
             gameRule = (GameRule)theClass.newInstance();
@@ -302,6 +321,18 @@ public class MainExtension extends AbstractExtension {
         }
     }
 
+    public GameRule getGameRule() {
+        return gameRule;
+    }
+
+    public boolean isMasterInitialized() {
+        return masterInitialized;
+    }
+
+    public void setMasterInitialized(boolean masterInitialized) {
+        this.masterInitialized = masterInitialized;
+    }
+
     private class SecondRunner implements Runnable
     {
         private long lastTime = 0;
@@ -312,6 +343,15 @@ public class MainExtension extends AbstractExtension {
         public void run()
         {
             try {
+                if(masterWatcher.badMaster()){
+                    User oldMaster = masterInfo;
+                    trace(ExtensionLogLevel.WARN,"Bad Master trying  to dismiss Him");
+                    if(choiceMaster(masterInfo)){
+                        dismissOldMaster(oldMaster);
+                        trace(ExtensionLogLevel.WARN,"Bad Master Dismissed");
+                    }
+
+                }
                 for(TimeUpdateEntity entity: allUpdate){
 
                     long delta = System.currentTimeMillis()-lastTime;
@@ -325,6 +365,8 @@ public class MainExtension extends AbstractExtension {
                     allUpdate.clear();
                 }
             } catch (RuntimeException e){
+                trace(ExtensionLogLevel.ERROR, "Update Exception  " + e.getStackTrace().toString());
+            } catch (SFSVariableException e) {
                 trace(ExtensionLogLevel.ERROR, "Update Exception  " + e.getStackTrace().toString());
             }
 
