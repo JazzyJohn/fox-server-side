@@ -1,8 +1,12 @@
 package nstuff.juggerfall.extension.gamerule;
 
+import java.util.List;
+
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.smartfoxserver.v2.entities.data.SFSObject;
+
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.ai.AIDirector;
 import nstuff.juggerfall.extension.baseobject.TimeUpdateEntity;
@@ -30,6 +34,8 @@ public abstract class GameRule implements TimeUpdateEntity {
     public boolean isWithPractice = true;
 
     public boolean canUseRobot = false;
+    
+    protected boolean isTournament = false;
 
     public int curStage = 0;
 
@@ -92,7 +98,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         }
         gameStart  = System.currentTimeMillis();
         director  = new AIDirector(extension);
-
+        isTournament = room.containsVariable("isTournament");
         extension.trace("ROOM START GameMode:" + this.getClass().toString());
     }
 
@@ -111,6 +117,7 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
     protected void checkGameEnd(){
+    	if(isTournament) return;
         for(float score: teamScore){
 
             if(score>=maxScore){
@@ -124,7 +131,7 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
     @Override
-    public void update(long delta){
+    public void update(long delta){    	    	
         if(gameTime!=0){
 
             if(System.currentTimeMillis()>gameStart+gameTime){
@@ -140,7 +147,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         if(ready&&state==GamerRuleState.AFTERRELOAD){
             startGame();
         }
-        if(isGameEnded){
+        if(isGameEnded && !isTournament){
 
             if(System.currentTimeMillis()>gameEnd+afterMathTime){
                 extension.reloadMap();
