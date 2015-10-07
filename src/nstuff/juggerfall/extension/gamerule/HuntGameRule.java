@@ -65,7 +65,7 @@ public class HuntGameRule extends  GameRule {
         ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
         GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
         int teamCount = settings.teamCount;
-        teamScore = new int[teamCount];
+        teamScore = new float[teamCount];
         canUseRobot = true;
 
 
@@ -92,8 +92,8 @@ public class HuntGameRule extends  GameRule {
         PVPHuntGameRuleModel model = new PVPHuntGameRuleModel();
         model.isGameEnded = isGameEnded;
         model.teamScore = new ArrayList<Integer>();
-        for (int aTeamScore : teamScore) {
-            model.teamScore.add(aTeamScore);
+        for (float aTeamScore : teamScore) {
+            model.teamScore.add((int)aTeamScore);
         }
         return model;
     }

@@ -5,6 +5,7 @@ import com.smartfoxserver.v2.entities.data.ISFSArray;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSArray;
 import com.smartfoxserver.v2.entities.data.SFSObject;
+import com.smartfoxserver.v2.extensions.ExtensionLogLevel;
 import nstuff.juggerfall.extension.MainExtension;
 import nstuff.juggerfall.extension.gameplay.QueenEgg;
 import nstuff.juggerfall.extension.gameplay.SimpleDestroyableView;
@@ -47,6 +48,7 @@ public class ViewManager {
     }
 
     public void addView(NetView view) {
+        extension.trace(ExtensionLogLevel.INFO,view.getClass()+" "+view.id);
         allView.put(view.id,view);
         view.manager = this;
     }
@@ -94,6 +96,7 @@ public class ViewManager {
                         weapons.addClass(weapon.sirWeapon);
                     }
                     res.putSFSArray("weapons",weapons);
+                    res.putSFSArray("armors",pawn.armors);
                     break;
 
                 case  NET_VIEW_TYPE_SIMPLE:
@@ -130,7 +133,7 @@ public class ViewManager {
                 }
 
             }catch (Exception e){
-               extension.trace(e);
+               extension.trace("removePlayerView Exception",e);
             }
 
         }

@@ -16,7 +16,7 @@ public class SequencePointGameRule extends PointGameRule {
         }
         for(AssaultPoint assaultPoint : pointsDictionary.values()){
             if(assaultPoint.getModel().owner!=0){
-                teamScore[assaultPoint.getModel().owner-1]++;
+                teamScore[assaultPoint.getModel().owner-1]+=1;
             }
         }
         if(pointsDictionary.size()==0){
@@ -33,6 +33,11 @@ public class SequencePointGameRule extends PointGameRule {
             gameFinish();
         }
     }
-
+    public void gameFinish(){
+        super.gameFinish();
+        for(AssaultPoint assaultPoint : pointsDictionary.values()){
+            assaultPoint.getModel().owner=0;
+        }
+    }
 
 }

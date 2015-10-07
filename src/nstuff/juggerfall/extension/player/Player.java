@@ -22,12 +22,16 @@ public class Player implements SerializableSFSType {
 	public int assist;
 	
 	public int robotKill;
+
+    public int rating;
 	
 	public transient User owner;
 	
 	public int userId;
 
 	public int team;
+
+    PlayerModel playerModel =  new PlayerModel();
 	
 	public Player(User owner){
 		this.owner = owner;
@@ -35,24 +39,21 @@ public class Player implements SerializableSFSType {
         userId = owner.getId();
 	}
 
-	public PlayerModel getModel() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
+	public PlayerModel getModel() {
 		// TODO Auto-generated method stub
-		PlayerModel playerModel =  new PlayerModel();
-		
-			
-			Field[] allfiled = this.getClass().getFields();
-			for(Field field :allfiled){
-				int modifier =field.getModifiers();
-				if(!Modifier.isTransient(modifier)&&Modifier.isPublic(modifier)){
-					
-					playerModel.getClass().getField(field.getName()).set(playerModel, field.get(this));
-				
-				}
-				
-			}
-	
-	
-		return playerModel;
+
+
+        playerModel.kill = kill;
+        playerModel.aikill = aikill;
+        playerModel.death = death;
+        playerModel.assist = assist;
+        playerModel.robotKill = robotKill;
+        playerModel.team = team;
+        playerModel.userId = userId;
+        playerModel.uid = uid;
+        playerModel.name = name;
+        playerModel.rating = rating;
+        return playerModel;
 	}
 
     public void clearScore() {
@@ -60,5 +61,16 @@ public class Player implements SerializableSFSType {
         death =0;
         assist =0;
         robotKill =0;
+        rating= 0;
+    }
+
+    public void updateModel(PlayerModel stats) {
+        kill = stats.kill;
+        aikill = stats.aikill;
+        death =  stats.death;
+        assist =  stats.assist;
+        robotKill =  stats.robotKill;
+        rating =  stats.rating;
+
     }
 }

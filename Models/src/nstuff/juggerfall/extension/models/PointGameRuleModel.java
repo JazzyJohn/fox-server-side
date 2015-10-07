@@ -10,5 +10,6 @@ public class PointGameRuleModel extends GameRuleModel {
 
     public List<Integer> teamScore;
 
+    public float time;
 
 }

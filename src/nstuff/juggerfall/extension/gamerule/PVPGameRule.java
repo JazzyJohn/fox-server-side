@@ -62,11 +62,16 @@ public class PVPGameRule extends  GameRule {
     @Override
     public void init(Room room) {
         super.init(room);
-        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
-        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
-        int teamCount = settings.teamCount;
+        int teamCount;
+        if(room.isDynamic()) {
+            ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+            GameSettingModel settings = (GameSettingModel) object.getClass("gameSetting");
+            teamCount= settings.teamCount;
+        }else{
+            teamCount= room.getVariable("teamCount").getIntValue();
+        }
         teamKill = new int[teamCount];
-        teamScore = new int[teamCount];
+        teamScore = new float[teamCount];
         canUseRobot = true;
 
 
@@ -87,10 +92,10 @@ public class PVPGameRule extends  GameRule {
         model.teamScore = new ArrayList<Integer>();
         for(int i =0; i <teamKill.length;i++){
             model.teamKill.add(teamKill[i]);
-            model.teamScore.add(teamScore[i]);
+            model.teamScore.add((int)teamScore[i]);
 
         }
-
+        model.time = (float)((double)(System.currentTimeMillis()-gameStart)/1000.0f);
         return model;
     }
 

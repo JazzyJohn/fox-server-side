@@ -26,7 +26,7 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
     public static final String RequestName_PawnActiveState = "pawnActiveState";
 
-    public static final String RequestName_PawnTaunt = "pawnTaunt";
+    public static final String RequestName_PawnAnim = "pawnAnim";
 
     public static final String RequestName_PawnKnockOut = "pawnKnockOut";
 
@@ -58,7 +58,7 @@ public class PawnHandlerManager extends AbstractHandlerManager {
 
         extension.addClientHandler(RequestName_PawnActiveState, PawnActiveStateHandler.class);
 
-        extension.addClientHandler(RequestName_PawnTaunt, PawnTauntHandler.class);
+        extension.addClientHandler(RequestName_PawnAnim, PawnAnimHandler.class);
 
         extension.addClientHandler(RequestName_PawnKnockOut, PawnKnockOutHandler.class);
 

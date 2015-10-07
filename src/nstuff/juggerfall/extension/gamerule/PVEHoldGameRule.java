@@ -66,7 +66,7 @@ public class PVEHoldGameRule extends  GameRule {
     public void init(Room room) {
         super.init(room);
         int teamCount = 2;
-        teamScore = new int[teamCount];
+        teamScore = new float[teamCount];
         playerDeath= 0;
         canUseRobot = false;
 
@@ -86,9 +86,9 @@ public class PVEHoldGameRule extends  GameRule {
         model.isGameEnded = isGameEnded;
 
         model.teamScore = new ArrayList<Integer>();
-        for (int aTeamScore : teamScore) {
+        for (float aTeamScore : teamScore) {
 
-            model.teamScore.add(aTeamScore);
+            model.teamScore.add((int)aTeamScore);
 
         }
         return model;

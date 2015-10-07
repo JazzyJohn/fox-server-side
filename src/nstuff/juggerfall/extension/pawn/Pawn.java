@@ -1,6 +1,9 @@
 package nstuff.juggerfall.extension.pawn;
 
 import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.ISFSArray;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.smartfoxserver.v2.entities.data.SFSArray;
 import nstuff.juggerfall.extension.models.NetViewModel;
 import nstuff.juggerfall.extension.models.PawnModel;
 import nstuff.juggerfall.extension.player.Player;
@@ -34,6 +37,8 @@ public class Pawn extends NetView {
     public transient User owner;
 
     public transient List<Weapon> weapons= new ArrayList<Weapon>();
+
+    public transient ISFSArray armors;
 
     public PawnModel sirPawn;
 
@@ -132,5 +137,12 @@ public class Pawn extends NetView {
 
     public void addWeapon(Weapon weapon) {
         weapons.add(weapon);
+    }
+
+    public void update(ISFSObject incPawn) {
+        wallState =incPawn.getShort("wallState");
+        team = incPawn.getShort("team");
+        characterState = incPawn.getShort("characterState");
+
     }
 }

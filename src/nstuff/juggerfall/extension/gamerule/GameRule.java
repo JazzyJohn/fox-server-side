@@ -41,7 +41,7 @@ public abstract class GameRule implements TimeUpdateEntity {
 
     public boolean ready = false;
 
-    public int[] teamScore;
+    public float[] teamScore;
 
     public AIDirector director;
 
@@ -68,7 +68,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         int lastScore =0;
         for(int i=0; i<teamScore.length;i++){
            if(lastScore<teamScore[i]){
-               lastScore =teamScore[i];
+               lastScore =(int)teamScore[i];
                winner=i;
            }
         }
@@ -76,13 +76,23 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
     public void init(Room room){
-        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
-        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
-        maxScore=settings.maxScore;
-        gameTime =settings.maxTime*1000;
+        if(room.isDynamic()){
+            ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+
+            GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
+            maxScore=settings.maxScore;
+            gameTime =settings.maxTime*1000;
+
+            isWithPractice  = settings.isWithPractice;
+        }else{
+            maxScore=room.getVariable("maxScore").getIntValue();
+            gameTime =room.getVariable("maxTime").getIntValue()*1000;
+
+            isWithPractice  = false;
+        }
         gameStart  = System.currentTimeMillis();
         director  = new AIDirector(extension);
-        isWithPractice  = settings.isWithPractice;
+
         extension.trace("ROOM START GameMode:" + this.getClass().toString());
     }
 
@@ -101,7 +111,7 @@ public abstract class GameRule implements TimeUpdateEntity {
     }
 
     protected void checkGameEnd(){
-        for(int score: teamScore){
+        for(float score: teamScore){
 
             if(score>=maxScore){
 
@@ -156,7 +166,7 @@ public abstract class GameRule implements TimeUpdateEntity {
         gameStart  = System.currentTimeMillis();
         isGameEnded= false;
         state= GamerRuleState.AFTERRELOAD;
-        teamScore = new int[teamScore.length];
+        teamScore = new float[teamScore.length];
         extension.playerManager.clearScore();
         director.Reload();
 

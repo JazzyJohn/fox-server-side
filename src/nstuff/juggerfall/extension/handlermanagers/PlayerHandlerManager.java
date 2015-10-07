@@ -5,6 +5,7 @@ import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import nstuff.juggerfall.extension.handlers.player.PlayerInitHandler;
 import nstuff.juggerfall.extension.handlers.player.PlayerSetNameUIDHandler;
+import nstuff.juggerfall.extension.handlers.player.PlayerSetStatsHandler;
 import nstuff.juggerfall.extension.handlers.player.PlayerSetTeamHandler;
 import nstuff.juggerfall.extension.player.Player;
 
@@ -23,6 +24,9 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
 
     public static final String RequestName_SetTeam = "setTeam";
 
+    public static final String RequestName_SendStats = "sendStats";
+
+
     public static final String RequestName_UpdatePlayerInfo= "updatePlayerInfo";
     @Override
     public void init() {
@@ -31,27 +35,17 @@ public class PlayerHandlerManager extends AbstractHandlerManager  {
         extension.addClientHandler(RequestName_SetNameUID, PlayerSetNameUIDHandler.class);
 
         extension.addClientHandler(RequestName_SetTeam, PlayerSetTeamHandler.class);
+
+        extension.addClientHandler(RequestName_SendStats, PlayerSetStatsHandler.class);
     }
 
     public void updatePlayerInfo(User user) {
         List<User> targets = extension.getParentRoom().getUserList();
         ISFSObject res = new SFSObject();
         Player player =(Player)user.getProperty("player");
-        try {
+
 			res.putClass("player", player.getModel());
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			extension.trace(e);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			extension.trace(e);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			extension.trace(e);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			extension.trace(e);
-		}
+
         extension.send(PlayerHandlerManager.RequestName_UpdatePlayerInfo,res,targets);
     }
 }

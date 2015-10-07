@@ -51,6 +51,7 @@ public class AssaultPoint {
 
     public void readFromModel(AssaultPointModel model){
         this.model=model;
+        this.model.scorePoint = scorePoint;
     }
     public void update(float time){
 
@@ -60,6 +61,7 @@ public class AssaultPoint {
                    changeValue(time);
                 }else {
                     model.owner=model.teamConquering;
+                    model.scorePoint = model.needPoint;
                     send = true;
 
                 }
@@ -67,6 +69,9 @@ public class AssaultPoint {
                 if(model.teamConquering==model.owner){
                     if(model.needPoint>scorePoint){
                         changeValue(time);
+                    }else{
+                        model.owner=model.teamConquering;
+                        model.scorePoint = model.needPoint;
                     }
                 }else{
                     if(0<scorePoint){

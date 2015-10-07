@@ -59,8 +59,10 @@ public class PawnSpawnHandler extends BaseClientRequestHandler {
             weapon.owner = pawn;
             pawn.addWeapon(weapon);
         }
+        pawn.armors = data.getSFSArray("armors");
 
         res.putSFSArray("weapons", weapons);
+        res.putSFSArray("armors", data.getSFSArray("armors"));
         res.putBool("isAI", data.getBool("isAI"));
         res.putClass("pawn", pawnModel); 
         res.putIntArray("stims", pawn.stims);

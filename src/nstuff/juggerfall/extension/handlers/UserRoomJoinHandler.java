@@ -35,26 +35,15 @@ public class UserRoomJoinHandler extends BaseServerEventHandler {
 
         extension.updatePlayerInfo(user);
 
-		try {
-			res.putSFSArray("owners", playermanager.getAllPlayerToSend());
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			getParentExtension().trace(e);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			getParentExtension().trace(e);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			getParentExtension().trace(e);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			getParentExtension().trace(e);
-		}
+		res.putSFSArray("owners", playermanager.getAllPlayerToSend());
+
         res.putSFSArray("views", extension.viewManager.getAllViewForStart());
         res.putIntArray("deleteSceneView", extension.viewManager.getAllDeleteSceneViewForStart());
         extension.gameRule.director.AddInfo(res);
         extension.gameRule.addInfo(res);
+        res.putClass("gameRule",  extension.gameRule.getModel());
        	send(PlayerHandlerManager.RequestName_InitPlayers, res, user);
+
         extension.playerJoin(user);
 	}
 

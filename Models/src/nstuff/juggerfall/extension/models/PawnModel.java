@@ -15,11 +15,9 @@ public class PawnModel extends NetViewModel {
 
     public int characterState;
 
-    public boolean active;
+    public int modifiers;
 
     public float health;
-
-    public boolean isAiming;
 
     public Vector3Model position;
 

@@ -26,9 +26,9 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
             extension.getMasterWatcher().updateMasterTime();
         }
         for(Iterator<SFSDataWrapper> iterator =pawns.iterator();iterator.hasNext();){
-            PawnModel incPawn  =(PawnModel)iterator.next().getObject();
+            ISFSObject incPawn  =(ISFSObject)iterator.next().getObject();
 
-            Pawn pawn = (Pawn)extension.viewManager.getView(incPawn.id);
+            Pawn pawn = (Pawn)extension.viewManager.getView(incPawn.getInt("id"));
             if(pawn==null){
                 continue;
             }
@@ -37,7 +37,7 @@ public class PawnUpdateHandler extends BaseClientRequestHandler {
                 extension.trace("Not owner");
                 continue;
             }
-            verifyPawns.addClass(incPawn);
+            verifyPawns.addSFSObject(incPawn);
             pawn.update(incPawn);
         }
         ISFSObject verifyData = new SFSObject();

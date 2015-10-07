@@ -62,7 +62,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
         model.teamScore = new ArrayList<Integer>();
         for(int i =0; i <bases.length;i++){
             model.baseHealth.add(bases[i].health);
-            model.teamScore.add(teamScore[i]);
+            model.teamScore.add((int)teamScore[i]);
 
         }
         return model;
@@ -93,7 +93,7 @@ public class PVPJuggerFightGameRule extends  GameRule {
     }
 
     public void init(Room room){
-        teamScore = new int[2];
+        teamScore = new float[2];
         bases = new PVPBase[2];
     }
 

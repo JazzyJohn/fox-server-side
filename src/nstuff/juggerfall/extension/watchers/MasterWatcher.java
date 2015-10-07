@@ -28,7 +28,7 @@ public class MasterWatcher {
         boolean connected = currentMaster==null||!currentMaster.isConnected()|| !currentMaster.isJoinedInRoom(extension.getParentRoom());
 
         boolean logic = (this.extension.getGameRule().isOnGoing()&&(System.currentTimeMillis()- lastMasterUpdateTime)>MAX_LATENCY_IN_MILLIS);
-        return ready&&( connected||logic);
+        return !extension.getParentRoom().isEmpty()&& ready&&( connected||logic);
     }
 
 }

@@ -348,6 +348,7 @@ public class MainExtension extends AbstractExtension {
                     trace(ExtensionLogLevel.WARN,"Bad Master trying  to dismiss Him");
                     if(choiceMaster(masterInfo)){
                         dismissOldMaster(oldMaster);
+                        masterWatcher.updateMasterTime();
                         trace(ExtensionLogLevel.WARN,"Bad Master Dismissed");
                     }
 
@@ -374,13 +375,7 @@ public class MainExtension extends AbstractExtension {
     }
 
     private void update(long delta) {
-        if((masterInfo==null||!masterInfo.isConnected()||!masterInfo.isJoinedInRoom(getParentRoom()))&&!getParentRoom().isEmpty()){
-            try {
-                choiceMaster(null);
-            } catch (SFSVariableException e) {
-                trace(ExtensionLogLevel.ERROR, "Game Rule IllegalAccessException   " + e.getStackTrace().toString());
-            }
-        }
+
     }
 
     public void startGameEvent() {

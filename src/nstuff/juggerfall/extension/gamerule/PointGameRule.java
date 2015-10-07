@@ -21,6 +21,8 @@ public class PointGameRule  extends  GameRule{
     public static final float ADD_PLAYER_SCORE =50.f;
 
     protected Hashtable<Integer, AssaultPoint> pointsDictionary = new Hashtable<Integer, AssaultPoint>();
+
+    protected boolean forcedUpdate;
     @Override
     public void kill(int team) {
 
@@ -59,10 +61,15 @@ public class PointGameRule  extends  GameRule{
     @Override
     public void init(Room room) {
         super.init(room);
-        ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
-        GameSettingModel settings =(GameSettingModel) object.getClass("gameSetting");
-        int teamCount = settings.teamCount;
-        teamScore = new int[teamCount];
+        int teamCount;
+        if(room.isDynamic()) {
+            ISFSObject object = room.getVariable("gameVar").getSFSObjectValue();
+            GameSettingModel settings = (GameSettingModel) object.getClass("gameSetting");
+            teamCount= settings.teamCount;
+        }else{
+            teamCount= room.getVariable("teamCount").getIntValue();
+        }
+        teamScore = new float[teamCount];
 
     }
 
@@ -74,10 +81,10 @@ public class PointGameRule  extends  GameRule{
         model.teamScore = new ArrayList<Integer>();
         for(int i =0; i <teamScore.length;i++){
 
-            model.teamScore.add(teamScore[i]);
+            model.teamScore.add((int)teamScore[i]);
 
         }
-
+        model.time = (float)((double)System.currentTimeMillis()-gameStart/1000);
         return model;
     }
 
@@ -95,11 +102,18 @@ public class PointGameRule  extends  GameRule{
                 array.addClass(point.sendModel());
             }
         }
-        if(array.size()>0){
+        if(array.size()>0||forcedUpdate){
+            forcedUpdate = false;
+            pointsChange();
             extension.sender.sendGamePoint(array);
+            extension.updateGame();
         }
 
 
+
+    }
+
+    protected void pointsChange() {
 
     }
 

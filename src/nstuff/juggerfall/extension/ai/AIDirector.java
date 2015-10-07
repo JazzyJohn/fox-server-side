@@ -37,7 +37,7 @@ public class AIDirector {
             return;
         }
         extension.trace(ExtensionLogLevel.INFO,"Start AiDirector Init");
-        loaded= true;
+
         ISFSArray swarms = dt.getSFSArray("swarms");
         for(int i=0; i<swarms.size();i++){
             ISFSObject swarm = swarms.getSFSObject(i);
@@ -57,6 +57,7 @@ public class AIDirector {
 
         }
         extension.getMasterWatcher().updateMasterTime();
+        loaded= true;
     }
 
     private AISwarm getSwarmByName(String aClass) {
@@ -91,7 +92,9 @@ public class AIDirector {
     }
 
     public void AddPawn(Pawn pawn) {
-        allSwarm.get(pawn.aiSwarmId).agentSpawn(pawn);
+        if(allSwarm.size()>pawn.aiSwarmId) {
+            allSwarm.get(pawn.aiSwarmId).agentSpawn(pawn);
+        }
     }
 
     public void DeadPawn(Pawn pawn) {

@@ -75,7 +75,7 @@ public class PVEGameRule extends  GameRule {
     public void init(Room room) {
         super.init(room);
         int teamCount = 2;
-        teamScore = new int[teamCount];
+        teamScore = new float[teamCount];
         canUseRobot = false;
 
 
@@ -94,9 +94,9 @@ public class PVEGameRule extends  GameRule {
         model.isGameEnded = isGameEnded;
         model.vipID = vipId;
         model.teamScore = new ArrayList<Integer>();
-        for (int aTeamScore : teamScore) {
+        for (float aTeamScore : teamScore) {
 
-            model.teamScore.add(aTeamScore);
+            model.teamScore.add((int)aTeamScore);
 
         }
         return model;

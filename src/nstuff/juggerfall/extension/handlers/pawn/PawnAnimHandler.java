@@ -10,7 +10,7 @@ import nstuff.juggerfall.extension.pawn.Pawn;
 /**
  * Created by Ivan.Ochincenko on 31.07.14.
  */
-public class PawnTauntHandler  extends BaseClientRequestHandler {
+public class PawnAnimHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
@@ -18,6 +18,6 @@ public class PawnTauntHandler  extends BaseClientRequestHandler {
             return;
         }
 
-        send(PawnHandlerManager.RequestName_PawnTaunt,data,((MainExtension)getParentExtension()).getOther(user));
+        send(PawnHandlerManager.RequestName_PawnAnim,data,((MainExtension)getParentExtension()).getOther(user));
     }
 }

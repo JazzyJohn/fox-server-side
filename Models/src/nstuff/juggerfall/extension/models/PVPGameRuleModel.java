@@ -11,4 +11,6 @@ public class PVPGameRuleModel extends GameRuleModel {
     public List<Integer> teamScore;
 
     public List<Integer> teamKill;
+
+    public float time;
 }

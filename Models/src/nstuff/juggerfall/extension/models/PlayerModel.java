@@ -27,6 +27,7 @@ public class PlayerModel implements SerializableSFSType {
 
 
     public int team;
-	
-	
+
+
+    public int rating;
 }

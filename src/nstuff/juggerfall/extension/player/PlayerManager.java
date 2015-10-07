@@ -17,7 +17,7 @@ public class PlayerManager {
 			allPlayer.add(new Player(user));
 	}
 
-	public SFSArray getAllPlayerToSend() throws IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException {
+	public SFSArray getAllPlayerToSend() {
         SFSArray sfsa = new SFSArray();
 		for(Player player : allPlayer){
             sfsa.addClass(player.getModel());

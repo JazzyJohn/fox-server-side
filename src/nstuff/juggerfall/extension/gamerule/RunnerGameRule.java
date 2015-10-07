@@ -14,7 +14,7 @@ public class RunnerGameRule extends GameRule {
     @Override
     public void init(Room room) {
         super.init(room);
-        teamScore= new int[2];
+        teamScore= new float[2];
     }
 
     @Override
@@ -58,8 +58,8 @@ public class RunnerGameRule extends GameRule {
         model.isGameEnded = isGameEnded;
 
         model.teamScore = new ArrayList<Integer>();
-        for (int aTeamScore : teamScore) {
-            model.teamScore.add(aTeamScore);
+        for (float aTeamScore : teamScore) {
+            model.teamScore.add((int)aTeamScore);
 
         }
 

@@ -14,7 +14,7 @@ public class PawnActiveStateHandler extends BaseClientRequestHandler {
     @Override
     public void handleClientRequest(User user, ISFSObject data) {
         Pawn pawn = (Pawn)((MainExtension)getParentExtension()).viewManager.getView(data.getInt("id"));
-        if(pawn==null&&!pawn.isOwner(user)){
+        if(pawn==null||!pawn.isOwner(user)){
             return;
         }
         pawn.active = data.getBool("active");
